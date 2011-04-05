@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<style name="MenuButton">
+		<item name="android:textSize">26sp</item>
+		<item name="android:layout_width">145sp</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_gravity">center_horizontal</item>
+		<item name="android:layout_marginTop">2sp</item>
+		<item name="android:layout_marginBottom">2sp</item>
+		<item name="android:background">@drawable/button</item>
+		<item name="android:textColor">@color/button</item>
+		<item name="android:shadowColor">#000</item>
+		<item name="android:shadowDx">0</item>
+		<item name="android:shadowDy">1</item>
+		<item name="android:shadowRadius">2</item>
+	</style>
+	<style name="EndLevelText">
+		<item name="android:textSize">30sp</item>
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_gravity">center_horizontal</item>
+		<item name="android:textColor">#EEE</item>
+		<item name="android:shadowColor">#000</item>
+		<item name="android:shadowDx">0</item>
+		<item name="android:shadowDy">1</item>
+		<item name="android:shadowRadius">2</item>
+	</style>
+	<style name="EndLevelButton">
+		<item name="android:textSize">26sp</item>
+		<item name="android:layout_width">160sp</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_gravity">center_horizontal</item>
+		<item name="android:background">@drawable/button</item>
+		<item name="android:textColor">@color/button</item>
+		<item name="android:shadowColor">#000</item>
+		<item name="android:shadowDx">0</item>
+		<item name="android:shadowDy">1</item>
+		<item name="android:shadowRadius">2</item>
+	</style>
+	<style name="PreLevelText">
+		<item name="android:textSize">22sp</item>
+		<item name="android:textColor">#EEE</item>
+		<item name="android:shadowColor">#000</item>
+		<item name="android:shadowDx">0</item>
+		<item name="android:shadowDy">1</item>
+		<item name="android:shadowRadius">2</item>
+	</style>
+	<style name="MenuText">
+		<item name="android:textSize">24sp</item>
+		<item name="android:textColor">#EEE</item>
+		<item name="android:shadowColor">#000</item>
+		<item name="android:shadowDx">0</item>
+		<item name="android:shadowDy">1</item>
+		<item name="android:shadowRadius">2</item>
+		<item name="android:layout_width">wrap_content</item>
+	</style>
+	<style name="MenuBuildText">
+		<item name="android:textSize">14sp</item>
+		<item name="android:textColor">#AAA</item>
+		<item name="android:shadowColor">#000</item>
+		<item name="android:shadowDx">0</item>
+		<item name="android:shadowDy">1</item>
+		<item name="android:shadowRadius">2</item>
+	</style>
+</resources>

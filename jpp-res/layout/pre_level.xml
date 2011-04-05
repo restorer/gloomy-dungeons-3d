@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<{PKG_ROOT}.libs.FrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent">
+	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:paddingTop="35sp"
+			android:paddingLeft="50sp"
+			android:paddingRight="45sp"
+			android:paddingBottom="35sp"
+			android:background="@drawable/endl_back">
+		<TextView
+			android:id="@+id/TxtText"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:layout_above="@+id/BtnStartLevel"
+			android:layout_toLeftOf="@+id/ImgImage"
+			style="@style/PreLevelText"
+		/>
+		<ImageView
+			android:id="@+id/ImgImage"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentTop="true"
+			android:layout_alignParentRight="true"
+			android:paddingTop="5sp"
+			android:paddingLeft="10sp"
+		/>
+		<Button
+			android:id="@+id/BtnStartLevel"
+			android:text="@string/btn_continue"
+			android:layout_alignParentBottom="true"
+			android:layout_alignParentRight="true"
+			style="@style/EndLevelButton"
+		/>
+		<Button
+			android:id="@+id/BtnSkipTutorial"
+			android:text="@string/btn_skip_tutorial"
+			android:layout_alignParentBottom="true"
+			android:layout_alignParentLeft="true"
+			style="@style/EndLevelButton"
+		/>
+	</RelativeLayout>
+</{PKG_ROOT}.libs.FrameLayout>

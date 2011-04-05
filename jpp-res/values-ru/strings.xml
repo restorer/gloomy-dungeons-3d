@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Gloomy Dungeons 3D</string>
+	<string name="font_name">Cuprum.ttf</string>
+	<string name="font_lbl_size">30</string>
+	<string name="font_stats_size">24</string>
+	<string name="menu_menu">Меню</string>
+	<string name="menu_options">Настройки</string>
+	<string name="menu_about">Об игре</string>
+	<string name="menu_exit">Выход</string>
+	<string name="menu_code">Код</string>
+	<string name="btn_new_game">Новая игра</string>
+	<string name="btn_continue">Продолжить</string>
+	<string name="btn_skip_tutorial">Пропустить</string>
+	<string name="btn_load">Загрузить</string>
+	<string name="btn_save">Записать</string>
+	<string name="dlg_enable_sound">Включить звук?</string>
+	<string name="dlg_yes">Да</string>
+	<string name="dlg_no">Нет</string>
+	<string name="dlg_new_game">Текущая игра будет потеряна.\nВы уверены?</string>
+	<string name="dlg_ok">Да</string>
+	<string name="dlg_cancel">Отмена</string>
+	<string name="dlg_select_controls">Выберите тип управления</string>
+	<string name="dlg_select_max_rotate">Выберите максимальный угол поворота</string>
+	<string name="dlg_select_slot_load">Выберите слот для загрузки</string>
+	<string name="dlg_select_slot_save">Выберите слот для записи</string>
+	<string name="dlg_enter_code">Введите код</string>
+	<string name="dlg_about_title">Об игре</string>
+	<string name="dlg_about_text"><![CDATA[
+<b>Gloomy Dungeons 3D.</b><br />
+<br />
+<b>Код:</b> restorer<br />
+<b>Графика:</b> <a href="http://www.nongnu.org/freedoom/">www.nongnu.org/freedoom</a>, <a href="http://www.lostgarden.com/">www.lostgarden.com</a>, restorer<br />
+<b>Звук:</b> <a href="http://www.nongnu.org/freedoom/">www.nongnu.org/freedoom</a><br />
+<br />
+<b>Спасибо за тестирование:</b><br />
+<a href="http://forum.samdroid.net/">forum.samdroid.net</a><br />
+<a href="http://4pda.ru/forum/">4pda.ru/forum</a><br />
+oOLokiOo<br />
+<br />
+<b>Напишите мне:</b> <a href="mailto:restorer@zame-dev.org">restorer@zame-dev.org</a>
+	]]></string>
+	<string name="msg_game_saved">Игра сохранена</string>
+	<string name="msg_cant_copy_state">Не могу скопировать состояние</string>
+	<string name="msg_cant_save_state">Не могу сохранить состояние</string>
+	<string name="msg_cant_load_state">Не могу загрузить состояние</string>
+	<string name="val_empty">Пусто</string>
+	<string name="pref_controls">Управление</string>
+	<string name="pref_controls_type">Тип управления</string>
+	<string name="pref_controls_settings">Настройка управления</string>
+	<string name="pref_params">Параметры</string>
+	<string name="pref_max_rotate">Максимальный угол поворота</string>
+	<string name="pref_trackball_acceleration">Ускорение трекбола</string>
+	<string name="pref_invert_rotation">Инвертирование вращения</string>
+	<string name="pref_speed">Скорость ходьбы/поворота</string>
+	<string name="pref_move_speed">Скорость ходьбы</string>
+	<string name="pref_strafe_speed">Скорость стрейфа</string>
+	<string name="pref_rotate_speed">Скорость поворота</string>
+	<string name="pref_key_mappings">Переназначение кнопок</string>
+	<string name="pref_screen">Экран</string>
+	<string name="pref_gamma">Яркость</string>
+	<string name="pref_level_texture_smoothing">Сглаживание текстур уровня</string>
+	<string name="pref_weapons_texture_smoothing">Сглаживание текстуры оружия</string>
+	<string name="pref_sound">Звук</string>
+	<string name="pref_enable_sound">Включить звук</string>
+	<string name="pref_music_volume">Громкость музыки</string>
+	<string name="pref_effects_volume">Громкость эффектов</string>
+	<string name="pref_key_forward">Вперёд</string>
+	<string name="pref_key_backward">Назад</string>
+	<string name="pref_key_strafe_left">Шаг влево</string>
+	<string name="pref_key_strafe_right">Шаг вправо</string>
+	<string name="pref_key_rotate_left">Повернуться влево</string>
+	<string name="pref_key_rotate_right">Повернуться вправо</string>
+	<string name="pref_key_action">Действие</string>
+	<string name="pref_key_next_weapon">Следующее оружие</string>
+	<string name="pref_key_toggle_map">Карта</string>
+	<string name="pref_misc">Разное</string>
+	<string name="pref_map_position">Положение карты</string>
+	<string name="pref_show_crosshair">Показывать прицел</string>
+	<string name="pref_rotate_screen">Повернуть игровой экран</string>
+	<string name="menu_help">Нажмите МЕНЮ для дополнительных опций</string>
+	<string name="endl_kills">Убийств: %d%%</string>
+	<string name="endl_items">Вещей: %d%%</string>
+	<string name="endl_secrets">Секретов: %d%%</string>
+	<string name="lib_press_key">Нажмите на аппаратную кнопку</string>
+	<string name="lib_none">&lt;нет&gt;</string>
+	<string name="lib_clear">Очистить</string>
+	<string name="lbl_fps">КВС:</string>
+	<string name="lbl_cant_open_door">Не могу открыть эту дверь</string>
+	<string name="lbl_need_blue_key">Нужен синий ключ</string>
+	<string name="lbl_need_red_key">Нужен красный ключ</string>
+	<string name="lbl_need_green_key">Нужен зелёный ключ</string>
+	<string name="lbl_secret_found">Найден секрет</string>
+</resources>
