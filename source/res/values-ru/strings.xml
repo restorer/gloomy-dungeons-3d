@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">Gloomy Dungeons 3D</string>
+	<!-- #if TYPE_DEMO -->
+		<string name="app_name">Gloomy Dungeons 3D demo</string>
+	<!-- #end -->
+	<!-- #if !TYPE_DEMO -->
+		<string name="app_name">Gloomy Dungeons 3D</string>
+	<!-- #end -->
 	<string name="font_name">Cuprum.ttf</string>
 	<string name="font_lbl_size">30</string>
 	<string name="font_stats_size">24</string>
@@ -22,16 +27,20 @@
 	<string name="dlg_cancel">Отмена</string>
 	<string name="dlg_select_controls">Выберите тип управления</string>
 	<string name="dlg_select_max_rotate">Выберите максимальный угол поворота</string>
+	<string name="dlg_select_zeemote_mapping">Выберите назначение кнопки</string>
 	<string name="dlg_select_slot_load">Выберите слот для загрузки</string>
 	<string name="dlg_select_slot_save">Выберите слот для записи</string>
 	<string name="dlg_enter_code">Введите код</string>
 	<string name="dlg_about_title">Об игре</string>
 	<string name="dlg_about_text"><![CDATA[
-<b>Gloomy Dungeons 3D.</b><br />
+<b>Gloomy Dungeons 3D</b><br />
+<i>ver. {$BUILD}</i><br />
 <br />
 <b>Код:</b> restorer<br />
-<b>Графика:</b> <a href="http://www.nongnu.org/freedoom/">www.nongnu.org/freedoom</a>, <a href="http://www.lostgarden.com/">www.lostgarden.com</a>, restorer<br />
+<b>Графика:</b> <a href="mailto:smoktunovich@gmail.com">Denis Smoktunovich</a><br />
 <b>Звук:</b> <a href="http://www.nongnu.org/freedoom/">www.nongnu.org/freedoom</a><br />
+<b>Дизайн уровней:</b> <a href="mailto:zin.wtf@gmail.com">zin</a>, restorer<br />
+<b>Тексты:</b> <a href="mailto:zin.wtf@gmail.com">zin</a><br />
 <br />
 <b>Спасибо за тестирование:</b><br />
 <a href="http://forum.samdroid.net/">forum.samdroid.net</a><br />
@@ -44,18 +53,27 @@ oOLokiOo<br />
 	<string name="msg_cant_copy_state">Не могу скопировать состояние</string>
 	<string name="msg_cant_save_state">Не могу сохранить состояние</string>
 	<string name="msg_cant_load_state">Не могу загрузить состояние</string>
+	<string name="msg_old_saves_restored">Старые сохранения восстановлены</string>
 	<string name="val_empty">Пусто</string>
 	<string name="pref_controls">Управление</string>
 	<string name="pref_controls_type">Тип управления</string>
 	<string name="pref_controls_settings">Настройка управления</string>
+	<string name="pref_controls_alpha">Прозрачность иконок</string>
 	<string name="pref_params">Параметры</string>
-	<string name="pref_max_rotate">Максимальный угол поворота</string>
+	<string name="pref_max_rotate">Максимальный угол поворота (для "эксперементального")</string>
+	<string name="pref_invert_rotation">Инвертирование вращения (для "эксперементального" и акселерометра)</string>
+	<string name="pref_accelerometer_enabled">Использовать акселерометр</string>
+	<string name="pref_accelerometer_acceleration">Ускорение акселерометра</string>
 	<string name="pref_trackball_acceleration">Ускорение трекбола</string>
-	<string name="pref_invert_rotation">Инвертирование вращения</string>
 	<string name="pref_speed">Скорость ходьбы/поворота</string>
+	<string name="pref_pad_x_accel">Ускорение по X для джойстика</string>
+	<string name="pref_pad_y_accel">Ускорение по Y для джойстика</string>
 	<string name="pref_move_speed">Скорость ходьбы</string>
 	<string name="pref_strafe_speed">Скорость стрейфа</string>
 	<string name="pref_rotate_speed">Скорость поворота</string>
+	<string name="pref_zeemote">Zeemote</string>
+	<string name="pref_zeemote_x_accel">Ускорение по X</string>
+	<string name="pref_zeemote_y_accel">Ускорение по Y</string>
 	<string name="pref_key_mappings">Переназначение кнопок</string>
 	<string name="pref_screen">Экран</string>
 	<string name="pref_gamma">Яркость</string>
@@ -74,6 +92,7 @@ oOLokiOo<br />
 	<string name="pref_key_action">Действие</string>
 	<string name="pref_key_next_weapon">Следующее оружие</string>
 	<string name="pref_key_toggle_map">Карта</string>
+	<string name="pref_key_strafe_mode">Включить режим шага</string>
 	<string name="pref_misc">Разное</string>
 	<string name="pref_map_position">Положение карты</string>
 	<string name="pref_show_crosshair">Показывать прицел</string>
@@ -91,4 +110,83 @@ oOLokiOo<br />
 	<string name="lbl_need_red_key">Нужен красный ключ</string>
 	<string name="lbl_need_green_key">Нужен зелёный ключ</string>
 	<string name="lbl_secret_found">Найден секрет</string>
+	<string name="game_over">Игра окончена</string>
+	<string name="start_new_game">Начать сначала</string>
+	<string name="load_autosave">Загрузить автосохранение</string>
+	<string name="setup_select">Выбрать</string>
+	<string name="setup_controls">Выберите тип управления</string>
+	<string name="setup_smoothing">Выберите уровень сглаживания</string>
+	<string name="setup_ctl_classic">Классическое</string>
+	<string name="setup_ctl_improved">Улучшенное</string>
+	<string name="setup_ctl_left_pad">Левый джойстик</string>
+	<string name="setup_ctl_right_pad">Правый джойстик</string>
+	<string name="setup_ctl_experimental_a">Экспериментальное 1</string>
+	<string name="setup_ctl_experimental_b">Экспериментальное 2</string>
+	<string name="setup_ctl_zeemote">Zeemote</string>
+	<string name="setup_smooth_hardcore">Для хардкорных 8-битников</string>
+	<string name="setup_smooth_optimal">Оптимальный</string>
+	<string name="setup_smooth_maximum">Максимальный</string>
+
+	<!-- #if TYPE_DEMO | TYPE_IFREE -->
+		<string name="btn_full_version">Полная версия</string>
+		<string name="btn_full_version_menu">Полная версия</string>
+	<!-- #end -->
+	<!-- #if USE_EOD_BLOCKER -->
+		<string name="eod_info">Конец демо-версии. Купите полную версию и получите более 30 новых уровней!</string>
+		<string name="eod_full_version">Полная версия</string>
+		<string name="eod_cancel">Отмена</string>
+	<!-- #end -->
+	<!-- #if TYPE_IFREE -->
+		<string name="ifree_select_payment_method">Выберите метод оплаты.</string>
+		<string name="ifree_paypal">PayPal</string>
+		<string name="ifree_sms">СМС</string>
+		<string name="ifree_ok">Да</string>
+		<string name="ifree_cancel">Отмена</string>
+		<string name="ifree_close">Закрыть</string>
+		<string name="ifree_country_not_available">Недоступно в вашей стране.</string>
+		<string name="ifree_paypal_cancelled">Платёж отменён.</string>
+		<string name="ifree_info">Разблокировать полную версию за СМС (%1$s %2$s)?</string>
+		<string name="ifree_paypal_info">Разблокировать полную версию используя PayPal (%1$s %2$s)?</string>
+		<string name="ifree_please_wait">Пожалуйста, подождите...</string>
+		<string name="ifree_payment_cancelled">Ошибка отправки СМС.</string>
+		<string name="ifree_payment_successfull">Спасибо за покупку.</string>
+		<string name="ifree_unlocked">Полная версия разблокирована.</string>
+		<string name="ifree_no_connection">Ошибка соединения с сервером.</string>
+	<!-- #end -->
+	<!-- #if TYPE_SFC -->
+		<string name="sfc_ok">Отправить</string>
+		<string name="sfc_cancel">Выход</string>
+		<string name="sfc_close">Закрыть</string>
+		<!-- #if USE_TIME_TRIAL -->
+			<string name="sfc_info">Время демо-версии истекло. Для приобретения полной версии необходимо отправить СМС стоимостью ~ 100 руб. с НДС. После отправки игра автоматически разблокируется.</string>
+		<!-- #end -->
+		<!-- #if !USE_TIME_TRIAL -->
+			<string name="sfc_info">Конец демо-версии. Для приобретения полной версии необходимо отправить СМС стоимостью ~ 100 руб. с НДС. После отправки игра автоматически разблокируется.</string>
+		<!-- #end -->
+		<string name="sfc_please_wait">Пожалуйста, подождите...</string>
+		<string name="sfc_payment_cancelled">Ошибка отправки СМС.</string>
+		<string name="sfc_payment_successfull">СМС отправлено. Спасибо за покупку. Теперь вы можете продолжить игру.</string>
+	<!-- #end -->
+	<!-- #if USE_FULL_VERSION_OFFER -->
+		<string name="dlg_full_version_offer"><![CDATA[
+Cпешите, а то всё раскупят!
+Полная версия всего за $0.99
+		]]></string>
+	<!-- #end -->
+	<!-- #if USE_RATE_OFFER -->
+		<string name="dlg_rate_offer"><![CDATA[
+Понравилась игра?
+Поставьте ей оценку или оставьте отзыв в Android Market!
+		]]></string>
+		<string name="dlg_later">Напомнить позже</string>
+	<!-- #end -->
+	<!-- #if USE_LEADBOLT -->
+		<string name="btn_top_apps">Топ приложений</string>
+	<!-- #end -->
+
+	<!-- controller menu -->
+	<string name="menu_connect">Controller: Connect</string>
+	<string name="menu_disconnect">Controller: Disconnect</string>
+	<string name="connecting">Connecting ...</string>
+	<string name="disconnecting">Disconnecting ...</string>
 </resources>

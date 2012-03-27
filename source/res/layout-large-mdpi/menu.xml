@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:paddingTop="35sp"
+		android:paddingLeft="10sp"
+		android:paddingRight="50sp"
+		android:paddingBottom="15sp"
+		android:background="@drawable/menu_back"
+		android:id="@+id/MenuActivityView">
+	<!-- #if USE_HEYZAP -->
+		<com.heyzap.sdk.HeyzapButton
+			android:id="@+id/HeyzapButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentBottom="true"
+		/>
+	<!-- #end -->
+	<!-- #if USE_HOOKEDMEDIA -->
+		<com.hookedmediagroup.wasabi.LogoView
+			android:id="@+id/WasabiButtonLogo"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentBottom="true"
+		/>
+		<com.hookedmediagroup.wasabi.TearRatingView
+			android:id="@+id/WasabiButtonTear"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentBottom="true"
+		/>
+	<!-- #end -->
+	<!-- #if USE_ADMOB -->
+		<com.google.ads.AdView
+			android:id="@+id/AdView"
+			android:layout_width="320px"
+			android:layout_height="50px"
+			ads:adUnitId="{$ADMOB_UNIT_ID}"
+			ads:adSize="BANNER"
+			ads:testDevices="TEST_EMULATOR"
+			ads:loadAdOnCreate="true"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentBottom="true"
+			android:layout_marginLeft="15sp"
+			android:layout_marginBottom="15sp"
+		/>
+		<!-- #if TYPE_DEMO | TYPE_IFREE -->
+			<Button
+				android:id="@+id/BtnFullVersion"
+				android:text="@string/btn_full_version_menu"
+				style="@style/MenuButton"
+				android:layout_above="@+id/AdView"
+				android:layout_marginBottom="5sp"
+				android:layout_marginLeft="15sp"
+			/>
+			<!-- #if USE_LEADBOLT -->
+				<Button
+					android:id="@+id/BtnLeadboltAd"
+					android:text="@string/btn_top_apps"
+					style="@style/MenuButton"
+					android:layout_above="@+id/BtnFullVersion"
+					android:layout_marginBottom="5sp"
+					android:layout_marginLeft="15sp"
+				/>
+			<!-- #end -->
+		<!-- #end -->
+	<!-- #end -->
+	<LinearLayout
+			android:orientation="vertical"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="top|right"
+			android:layout_alignParentTop="true"
+			android:layout_alignParentRight="true">
+		<Button
+			android:id="@+id/BtnNewGame"
+			android:text="@string/btn_new_game"
+			style="@style/MenuButton"
+		/>
+		<Button
+			android:id="@+id/BtnLoad"
+			android:text="@string/btn_load"
+			style="@style/MenuButton"
+		/>
+		<Button
+			android:id="@+id/BtnSave"
+			android:text="@string/btn_save"
+			style="@style/MenuButton"
+		/>
+		<Button
+			android:id="@+id/BtnContinue"
+			android:text="@string/btn_continue"
+			style="@style/MenuButton"
+		/>
+		<!-- #if TYPE_DEMO | TYPE_IFREE -->
+			<!-- #if !USE_ADMOB -->
+				<Button
+					android:id="@+id/BtnFullVersion"
+					android:text="@string/btn_full_version_menu"
+					style="@style/MenuButton"
+				/>
+			<!-- #end -->
+		<!-- #end -->
+	</LinearLayout>
+</RelativeLayout>

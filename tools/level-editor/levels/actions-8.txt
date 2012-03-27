@@ -1,0 +1,2 @@
+: close 1 enable_pistol restore_health
+2 : wall 2 24 next_level

@@ -15,8 +15,27 @@ var Maps = function() {
 			jQuery('.button-save').click(function () {
 				Maps.SaveMap();
 			});
+			
+			jQuery('#wide_screen').click(function () {
+				Maps.SetWide();
+			});
 		},
-
+		
+		SetWide: function () {
+			if ($('#wide_screen').attr('checked'))
+			{
+				$('.level-container').css({'width' : '860px'});
+				$('#items').css({'left' : '880px'});
+				$('.buttons').css({'left' : '880px'});
+			}
+			else
+			{
+				$('.level-container').css({'width' : '660px'});
+				$('#items').css({'left' : '680px'});
+				$('.buttons').css({'left' : '680px'});
+			}
+		},
+		
 		LoadMap: function() {
 			var map_name = jQuery('.maps').val();
 			var data = { mode: 'load_map', name: map_name };

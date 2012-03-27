@@ -1,0 +1,17 @@
+: restore_health ensure_weapon 1 ensure_weapon 2 ensure_weapon 3 ensure_weapon 4
+: req_key 8 1
+: req_key 15 2
+: req_key 18 4
+1 : wall 1 0
+2 : secret 1 unmark 2
+3 : wall 4 0 wall 6 11 unmark 3
+7 : wall 7 21 wall 5 0
+11 : wall 11 21 wall 12 11 wall 9 0
+13 : wall 13 0
+14 : secret 2 unmark 14
+16 : wall 16 21 wall 17 0
+19 : wall 20 0 unmark 19
+21 : wall 21 0
+22 : secret 4 unmark 22
+23 : wall 23 24 next_level
+24 : wall 9 11 wall 10 0 unmark 24

@@ -1,0 +1,52 @@
+#!/bin/bash
+
+if [[ "$1" = "" || "$2" = "" ]] ; then
+	echo "Usage: z-build <preset-name>|all <build-type> [install]"
+	exit
+fi
+
+if [ "$2" = "debug" ] ; then
+	if [ "$1" = "all" ] ; then
+		for NAME in `ls ./tools/builder/presets/` ; do
+			echo "Building $NAME..."
+			./tools/builder/build.sh $NAME debug
+		done
+	else
+		./tools/builder/build.sh $1 debug
+	fi
+elif [ "$2" = "release" ] ; then
+	sed -e '/^\s*key\.store\.password\s*=/d' -i ./source/build.properties
+	sed -e '/^\s*key\.alias\.password\s*=/d' -i ./source/build.properties
+
+	stty -echo
+	read -p 'Keystore (and alias) password: ' -e PASSWD ; echo
+	stty echo
+
+	if [ "$PASSWD" = "" ] ; then
+		echo "No password given"
+		exit
+	fi
+
+	echo "key.store.password = $PASSWD" >> ./source/build.properties
+	echo "key.alias.password = $PASSWD" >> ./source/build.properties
+
+	if [ "$1" = "all" ] ; then
+		for NAME in `ls ./tools/builder/presets/` ; do
+			echo "Building $NAME..."
+			./tools/builder/build.sh $NAME release
+		done
+	else
+		./tools/builder/build.sh $1 release
+	fi
+
+	echo -n "Removing passwords... "
+	sed -e '/^\s*key\.store\.password\s*=/d' -i ./source/build.properties
+	sed -e '/^\s*key\.alias\.password\s*=/d' -i ./source/build.properties
+	sed -e '/^\s*key\.store\.password\s*=/d' -i ./.build/build.properties
+	sed -e '/^\s*key\.alias\.password\s*=/d' -i ./.build/build.properties
+	echo "OK"
+fi
+
+if [[ "$1" != "all" && "$3" = "install" ]] ; then
+	[ -e tools/GloomyDungeons-$1-$2.apk ] && adb install -r tools/GloomyDungeons-$1-$2.apk
+fi

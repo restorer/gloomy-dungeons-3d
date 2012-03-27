@@ -1,0 +1,5 @@
+switch
+You see, it’s easy.
+
+But don’t be happy so much. To open the doors with higher protection level, you need to find a switch to the door.
+To activate a door switch, use action button.

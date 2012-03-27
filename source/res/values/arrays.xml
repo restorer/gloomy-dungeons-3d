@@ -3,11 +3,33 @@
 	<string-array name="entries_controls">
 		<item>Classic</item>
 		<item>Improved</item>
-		<item>Experimental</item>
+		<item>Left Pad</item>
+		<item>Right Pad</item>
+		<item>Experimental A</item>
+		<item>Experimental B</item>
+		<item>Zeemote</item>
 	</string-array>
 	<string-array name="values_controls">
-		<item>TypeA</item>
-		<item>TypeB</item>
-		<item>TypeC</item>
+		<item>Classic</item>
+		<item>Improved</item>
+		<item>PadL</item>
+		<item>PadR</item>
+		<item>ExperimentalA</item>
+		<item>ExperimentalB</item>
+		<item>Zeemote</item>
+	</string-array>
+	<string-array name="entries_zeemote_mapping">
+		<item>None</item>
+		<item>Action</item>
+		<item>Next weapon</item>
+		<item>Strafe</item>
+		<item>Toggle map</item>
+	</string-array>
+	<string-array name="values_zeemote_mapping">
+		<item>None</item>
+		<item>Action</item>
+		<item>NextWeapon</item>
+		<item>Strafe</item>
+		<item>ToggleMap</item>
 	</string-array>
 </resources>

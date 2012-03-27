@@ -1,0 +1,2 @@
+: close 1 close 2 req_key 3 1 disable_pistol
+4 : next_tutor_level

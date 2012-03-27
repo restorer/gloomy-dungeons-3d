@@ -1,0 +1,11 @@
+: restore_health ensure_weapon 1 ensure_weapon 2 ensure_weapon 3
+: close 8
+1 : wall 1 21 wall 2 0
+3 : wall 4 0
+5 : wall 5 0
+6 : secret 2
+7 : wall 7 21 open 8
+9 : secret 4
+10 : wall 10 0
+11 : wall 11 24 next_level
+12 : secret 1

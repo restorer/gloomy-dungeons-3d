@@ -1,0 +1,11 @@
+-d TYPE_DEMO
+-d GA_DEMO
+# -d USE_FULL_VERSION_OFFER
+# -d USE_HEYZAP
+# -d USE_HOOKEDMEDIA
+-d USE_RATE_OFFER
+-d USE_ADMOB
+-d USE_LEADBOLT
+# -i wasabi.jar
+-i GoogleAdMobAdsSdk-4.3.1.jar
+-pr zame.GloomyDungeons.freedemo

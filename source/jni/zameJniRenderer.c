@@ -2,7 +2,7 @@
 #include <GLES/gl.h>
 #include <GLES/glext.h>
 
-JNIEXPORT void JNICALL Java_{PKG_ROOT}_game_ZameJniRenderer_renderTriangles(
+JNIEXPORT void JNICALL Java_{$PKG_ROOT}_game_ZameJniRenderer_renderTriangles(
 	JNIEnv *env,
 	jobject obj,
 	jfloatArray vertexBuffer,
@@ -35,7 +35,7 @@ JNIEXPORT void JNICALL Java_{PKG_ROOT}_game_ZameJniRenderer_renderTriangles(
 	(*env)->ReleaseFloatArrayElements(env, vertexBuffer, nativeVertexBuffer, 0);
 }
 
-JNIEXPORT void JNICALL Java_{PKG_ROOT}_game_ZameJniRenderer_renderLines(
+JNIEXPORT void JNICALL Java_{$PKG_ROOT}_game_ZameJniRenderer_renderLines(
 	JNIEnv *env,
 	jobject obj,
 	jfloatArray vertexBuffer,

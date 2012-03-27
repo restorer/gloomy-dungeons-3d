@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res/{PKG_ROOT}.game">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res/{$PKG_ROOT}.game">
 	<PreferenceCategory android:title="@string/pref_controls">
-		<{PKG_ROOT}.libs.ListPreference
+		<{$PKG_ROOT}.libs.ListPreference
 			android:key="ControlsType"
 			android:title="@string/pref_controls_type"
 			android:entries="@array/entries_controls"
 			android:entryValues="@array/values_controls"
 			android:dialogTitle="@string/dlg_select_controls"
-			android:defaultValue="TypeB"
+			android:defaultValue="Improved"
 		/>
 		<PreferenceScreen android:title="@string/pref_controls_settings">
 			<PreferenceCategory android:title="@string/pref_params">
-				<{PKG_ROOT}.libs.SeekBarPreference
+				<{$PKG_ROOT}.libs.SeekBarPreference
+					android:key="ControlsAlpha"
+					android:title="@string/pref_controls_alpha"
+					app:min="1"
+					android:max="9"
+					android:defaultValue="3"
+				/>
+				<{$PKG_ROOT}.libs.SeekBarPreference
 					android:key="MaxRotateAngle"
 					android:title="@string/pref_max_rotate"
 					app:min="30"
@@ -23,7 +30,19 @@
 					android:title="@string/pref_invert_rotation"
 					android:defaultValue="false"
 				/>
-				<{PKG_ROOT}.libs.SeekBarPreference
+				<CheckBoxPreference
+					android:key="AccelerometerEnabled"
+					android:title="@string/pref_accelerometer_enabled"
+					android:defaultValue="false"
+				/>
+				<{$PKG_ROOT}.libs.SeekBarPreference
+					android:key="AccelerometerAcceleration"
+					android:title="@string/pref_accelerometer_acceleration"
+					app:min="1"
+					android:max="9"
+					android:defaultValue="5"
+				/>
+				<{$PKG_ROOT}.libs.SeekBarPreference
 					android:key="TrackballAcceleration"
 					android:title="@string/pref_trackball_acceleration"
 					app:min="1"
@@ -32,21 +51,35 @@
 				/>
 			</PreferenceCategory>
 			<PreferenceCategory android:title="@string/pref_speed">
-				<{PKG_ROOT}.libs.SeekBarPreference
+				<{$PKG_ROOT}.libs.SeekBarPreference
+					android:key="PadXAccel"
+					android:title="@string/pref_pad_x_accel"
+					app:min="1"
+					android:max="15"
+					android:defaultValue="6"
+				/>
+				<{$PKG_ROOT}.libs.SeekBarPreference
+					android:key="PadYAccel"
+					android:title="@string/pref_pad_y_accel"
+					app:min="1"
+					android:max="15"
+					android:defaultValue="10"
+				/>
+				<{$PKG_ROOT}.libs.SeekBarPreference
 					android:key="MoveSpeed"
 					android:title="@string/pref_move_speed"
 					app:min="1"
 					android:max="15"
 					android:defaultValue="14"
 				/>
-				<{PKG_ROOT}.libs.SeekBarPreference
+				<{$PKG_ROOT}.libs.SeekBarPreference
 					android:key="StrafeSpeed"
 					android:title="@string/pref_strafe_speed"
 					app:min="1"
 					android:max="15"
 					android:defaultValue="7"
 				/>
-				<{PKG_ROOT}.libs.SeekBarPreference
+				<{$PKG_ROOT}.libs.SeekBarPreference
 					android:key="RotateSpeed"
 					android:title="@string/pref_rotate_speed"
 					app:min="1"
@@ -54,55 +87,117 @@
 					android:defaultValue="6"
 				/>
 			</PreferenceCategory>
+			<PreferenceCategory android:title="@string/pref_zeemote">
+				<{$PKG_ROOT}.libs.SeekBarPreference
+					android:key="ZeemoteXAccel"
+					android:title="@string/pref_zeemote_x_accel"
+					app:min="1"
+					android:max="15"
+					android:defaultValue="8"
+				/>
+				<{$PKG_ROOT}.libs.SeekBarPreference
+					android:key="ZeemoteYAccel"
+					android:title="@string/pref_zeemote_y_accel"
+					app:min="1"
+					android:max="15"
+					android:defaultValue="8"
+				/>
+				<{$PKG_ROOT}.libs.ListPreference
+					android:key="ZeemoteMappingFire"
+					android:title="@string/pref_zeemote_mapping_fire"
+					android:entries="@array/entries_zeemote_mapping"
+					android:entryValues="@array/values_zeemote_mapping"
+					android:dialogTitle="@string/dlg_select_zeemote_mapping"
+					android:defaultValue="Action"
+				/>
+				<{$PKG_ROOT}.libs.ListPreference
+					android:key="ZeemoteMappingA"
+					android:title="@string/pref_zeemote_mapping_a"
+					android:entries="@array/entries_zeemote_mapping"
+					android:entryValues="@array/values_zeemote_mapping"
+					android:dialogTitle="@string/dlg_select_zeemote_mapping"
+					android:defaultValue="NextWeapon"
+				/>
+				<{$PKG_ROOT}.libs.ListPreference
+					android:key="ZeemoteMappingB"
+					android:title="@string/pref_zeemote_mapping_b"
+					android:entries="@array/entries_zeemote_mapping"
+					android:entryValues="@array/values_zeemote_mapping"
+					android:dialogTitle="@string/dlg_select_zeemote_mapping"
+					android:defaultValue="Strafe"
+				/>
+				<{$PKG_ROOT}.libs.ListPreference
+					android:key="ZeemoteMappingC"
+					android:title="@string/pref_zeemote_mapping_c"
+					android:entries="@array/entries_zeemote_mapping"
+					android:entryValues="@array/values_zeemote_mapping"
+					android:dialogTitle="@string/dlg_select_zeemote_mapping"
+					android:defaultValue="ToggleMap"
+				/>
+			</PreferenceCategory>
 		</PreferenceScreen>
 		<PreferenceScreen android:title="@string/pref_key_mappings">
-			<{PKG_ROOT}.libs.KeyMapPreference
+			<!-- KEYCODE_DPAD_UP -->
+			<{$PKG_ROOT}.libs.KeyMapPreference
 				android:key="KeyForward"
 				android:title="@string/pref_key_forward"
 				android:defaultValue="19"
 			/>
-			<{PKG_ROOT}.libs.KeyMapPreference
+			<!-- KEYCODE_DPAD_DOWN -->
+			<{$PKG_ROOT}.libs.KeyMapPreference
 				android:key="KeyBackward"
 				android:title="@string/pref_key_backward"
 				android:defaultValue="20"
 			/>
-			<{PKG_ROOT}.libs.KeyMapPreference
+			<!-- KEYCODE_DPAD_LEFT -->
+			<{$PKG_ROOT}.libs.KeyMapPreference
 				android:key="KeyRotateLeft"
 				android:title="@string/pref_key_rotate_left"
 				android:defaultValue="21"
 			/>
-			<{PKG_ROOT}.libs.KeyMapPreference
+			<!-- KEYCODE_DPAD_RIGHT -->
+			<{$PKG_ROOT}.libs.KeyMapPreference
 				android:key="KeyRotateRight"
 				android:title="@string/pref_key_rotate_right"
 				android:defaultValue="22"
 			/>
-			<{PKG_ROOT}.libs.KeyMapPreference
+			<!-- none -->
+			<{$PKG_ROOT}.libs.KeyMapPreference
 				android:key="KeyStrafeLeft"
 				android:title="@string/pref_key_strafe_left"
 			/>
-			<{PKG_ROOT}.libs.KeyMapPreference
+			<!-- none -->
+			<{$PKG_ROOT}.libs.KeyMapPreference
 				android:key="KeyStrafeRight"
 				android:title="@string/pref_key_strafe_right"
 			/>
-			<{PKG_ROOT}.libs.KeyMapPreference
+			<!-- KEYCODE_DPAD_CENTER -->
+			<{$PKG_ROOT}.libs.KeyMapPreference
 				android:key="KeyAction"
 				android:title="@string/pref_key_action"
 				android:defaultValue="23"
 			/>
-			<{PKG_ROOT}.libs.KeyMapPreference
+			<!-- KEYCODE_CAMERA -->
+			<{$PKG_ROOT}.libs.KeyMapPreference
 				android:key="KeyNextWeapon"
 				android:title="@string/pref_key_next_weapon"
 				android:defaultValue="27"
 			/>
-			<{PKG_ROOT}.libs.KeyMapPreference
+			<!-- KEYCODE_SEARCH -->
+			<{$PKG_ROOT}.libs.KeyMapPreference
 				android:key="KeyToggleMap"
 				android:title="@string/pref_key_toggle_map"
 				android:defaultValue="84"
 			/>
+			<!-- none -->
+			<{$PKG_ROOT}.libs.KeyMapPreference
+				android:key="KeyStrafeMode"
+				android:title="@string/pref_key_strafe_mode"
+			/>
 		</PreferenceScreen>
 	</PreferenceCategory>
 	<PreferenceCategory android:title="@string/pref_screen">
-		<{PKG_ROOT}.libs.SeekBarPreference
+		<{$PKG_ROOT}.libs.SeekBarPreference
 			android:key="Gamma"
 			android:title="@string/pref_gamma"
 			android:max="10"
@@ -124,7 +219,7 @@
 			android:title="@string/pref_enable_sound"
 			android:defaultValue="false"
 		/>
-		<{PKG_ROOT}.libs.SeekBarPreference
+		<{$PKG_ROOT}.libs.SeekBarPreference
 			android:key="MusicVolume"
 			android:title="@string/pref_music_volume"
 			android:max="10"
@@ -132,7 +227,7 @@
 			android:layout="?android:attr/preferenceLayoutChild"
 			android:dependency="EnableSound"
 		/>
-		<{PKG_ROOT}.libs.SeekBarPreference
+		<{$PKG_ROOT}.libs.SeekBarPreference
 			android:key="EffectsVolume"
 			android:title="@string/pref_effects_volume"
 			android:max="10"
@@ -142,7 +237,7 @@
 		/>
 	</PreferenceCategory>
 	<PreferenceCategory android:title="@string/pref_misc">
-		<{PKG_ROOT}.libs.SeekBarPreference
+		<{$PKG_ROOT}.libs.SeekBarPreference
 			android:key="MapPosition"
 			android:title="@string/pref_map_position"
 			app:min="1"
