@@ -358,16 +358,9 @@ public class Game extends ZameGame
 
 			State.levelNum++;
 
-			// #if TYPE_FULL | TYPE_SFC
-				if (State.levelNum == Level.MAX_DEMO_LEVEL) {
-					State.levelNum++;
-				}
-			// #end
-			// #if TYPE_IFREE
-				if (Config.charged && (State.levelNum == Level.MAX_DEMO_LEVEL)) {
-					State.levelNum++;
-				}
-			// #end
+			if (State.levelNum == Level.MAX_DEMO_LEVEL) {
+				State.levelNum++;
+			}
 		}
 
 		killedTime = 0;
@@ -731,35 +724,6 @@ public class Game extends ZameGame
 			SoundManager.playSound(SoundManager.SOUND_LEVEL_START);
 			playStartLevelSound = false;
 		}
-
-		// #if TYPE_SFC
-			if (!Config.charged) {
-				// #if USE_TIME_TRIAL
-					if (State.sfcBlockerTimeout <= 0) {
-						GameActivity.self.handler.post(GameActivity.self.showSfcBlockerView);
-					} else {
-						State.sfcBlockerTimeout--;
-					}
-				// #end
-				// #if !USE_TIME_TRIAL
-					if (State.levelNum >= Level.FIRST_REAL_LEVEL + 1) {
-						GameActivity.self.handler.post(GameActivity.self.showSfcBlockerView);
-					}
-				// #end
-			}
-		// #end
-		// #if USE_EOD_BLOCKER
-			// #if TYPE_IFREE
-				if (!Config.charged && (State.levelNum >= Level.FIRST_REAL_LEVEL + 2)) {
-					GameActivity.self.handler.post(GameActivity.self.showEodBlockerView);
-				}
-			// #end
-			// #if TYPE_DEMO
-				if (State.levelNum >= Level.FIRST_REAL_LEVEL + 2) {
-					GameActivity.self.handler.post(GameActivity.self.showEodBlockerView);
-				}
-			// #end
-		// #end
 
 		// Debug.startMethodTracing("GloomyDungeons.update");
 
@@ -1470,18 +1434,10 @@ public class Game extends ZameGame
 			Toast.makeText(GameActivity.appContext, R.string.msg_cant_load_state, Toast.LENGTH_LONG).show();
 		}
 
-		// #if TYPE_FULL | TYPE_SFC
-			if (success && (State.levelNum == Level.MAX_DEMO_LEVEL)) {
-				State.levelNum++;
-				loadLevel(LOAD_LEVEL_RELOAD);
-			}
-		// #end
-		// #if TYPE_IFREE
-			if (Config.charged && success && (State.levelNum == Level.MAX_DEMO_LEVEL)) {
-				State.levelNum++;
-				loadLevel(LOAD_LEVEL_RELOAD);
-			}
-		// #end
+		if (success && (State.levelNum == Level.MAX_DEMO_LEVEL)) {
+			State.levelNum++;
+			loadLevel(LOAD_LEVEL_RELOAD);
+		}
 
 		return success;
 	}

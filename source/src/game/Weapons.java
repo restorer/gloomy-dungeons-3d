@@ -66,66 +66,72 @@ public class Weapons
 		// WEAPON_HAND
 		new WeaponParams(new int[] {
 			0, 1, 1, 1, 2, 2, 2, -3, 3, 3, 2, 2, 2, 1, 1, 0, 0
-		}, -1, 0, 1, 5, TextureLoader.TEXTURE_HAND, 1.0f, 0f, 1.5f, SoundManager.SOUND_SHOOT_HAND, true, SoundManager.SOUND_NOWAY),
+		}, -1, 0, 1, 5, TextureLoader.TEXTURE_HAND, 0.8f, 0.2f, 1.2f, SoundManager.SOUND_SHOOT_HAND, true, SoundManager.SOUND_NOWAY),
 		// WEAPON_PISTOL
 		new WeaponParams(new int[] {
-			0, 1, 1, 1, 1, 2, 2, 2, 2, -3, 3, 3, 3, 4, 4, 4, 4, 0, 0, 0, 0, 0
-		}, AMMO_PISTOL, 1, 2, 5, TextureLoader.TEXTURE_PIST, 1.0f, 0.0f, 1.5f, SoundManager.SOUND_SHOOT_PIST, false, 0),
+			0, 0,
+			-1, 1, 1, 1, 1,
+			2, 2, 2, 2, 2,
+			3, 3, 3, 3, 3,
+			0, 0, 0, 0, 0,
+		}, AMMO_PISTOL, 1, 2, 5, TextureLoader.TEXTURE_PIST, 0.35f, -0.2f, 1.3f, SoundManager.SOUND_SHOOT_PIST, false, 0),
 		// WEAPON_SHOTGUN
 		new WeaponParams(new int[] {
 			0, 0, 0, 0, 0,
-			1, 1, 1, 1, 1,
-			-2, 2, 2, 2, 2,
+			-1, 1, 1, 1, 1,
+			2, 2, 2, 2, 2,
+			2, 2, 2, 2, 2,
 			3, 3, 3, 3, 3,
 			3, 3, 3, 3, 3,
-			4, 4, 4, 4, 4,
-			4, 4, 4, 4, 4,
 			0, 0, 0, 0, 0,
-		}, AMMO_SHOTGUN, 1, 6, 10, TextureLoader.TEXTURE_SHTG, 0.9f, 0.1f, 1.35f, SoundManager.SOUND_SHOOT_SHTG, false, 0),
+			0, 0, 0, 0, 0,
+		}, AMMO_SHOTGUN, 1, 6, 10, TextureLoader.TEXTURE_SHTG, 0.4f, -0.25f, 1.35f, SoundManager.SOUND_SHOOT_SHTG, false, 0),
 		// WEAPON_CHAINGUN
 		new WeaponParams(new int[] {
 			0,
-			1, 1, 1,
+			-1, 1, 1,
 			-2, 2, 2,
-			-3, 3, 3,
-			0, 0
-		}, AMMO_PISTOL, 1, 2, 5, TextureLoader.TEXTURE_CHGN, 0.8f, 0f, 1.2f, SoundManager.SOUND_SHOOT_PIST, false, 0),
+			3, 3, 3,
+			0, 0,
+		}, AMMO_PISTOL, 1, 2, 5, TextureLoader.TEXTURE_CHGN, 0.3f, -0.1f, 1.2f, SoundManager.SOUND_SHOOT_PIST, false, 0),
 		// WEAPON_DBLSHOTGUN
 		new WeaponParams(new int[] {
 			0,
 			1, 1, 1, 1, 1,
 			-2, 2, 2, 2, 2,
-			3, 3, 3, 3, 3, 3, 3,
-			4, 4, 4, 4, 4, 4, 4,
-			0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0,
-		}, AMMO_SHOTGUN, 2, 14, 25, TextureLoader.TEXTURE_DBLSHTG, 0.8f, 0.0f, 1.2f, SoundManager.SOUND_SHOOT_DBLSHTG, false, 0),
+			3, 3, 3, 3, 3,
+			4, 4, 4, 4, 4,
+			5, 5, 5, 5, 5,
+			6, 6, 6, 6, 6, 6, 6, 6,
+			7, 7, 7, 7, 7,
+			8, 8, 8, 8, 8,
+			0, 0, 0, 0, 0,
+		}, AMMO_SHOTGUN, 2, 14, 25, TextureLoader.TEXTURE_DBLSHTG, 0.55f, -0.35f, 1.2f, SoundManager.SOUND_SHOOT_DBLSHTG, false, 0),
 		// WEAPON_DBLCHAINGUN
 		new WeaponParams(new int[] {
 			0,
-			1, 1, 1,
+			-1, 1, 1,
 			-2, 2, 2,
-			-3, 3, 3,
+			3, 3, 3,
 			0, 0
-		}, AMMO_PISTOL, 2, 4, 8, TextureLoader.TEXTURE_DBLCHGN, 1.2f, -0.1f, 1.8f, SoundManager.SOUND_SHOOT_PIST, false, 0),
+		}, AMMO_PISTOL, 2, 4, 8, TextureLoader.TEXTURE_DBLCHGN, 1.0f, -0.1f, 1.5f, SoundManager.SOUND_SHOOT_PIST, false, 0),
 		// WEAPON_CHAINSAW
 		new WeaponParams(new int[] {
 			0, 0, 0, 0, 0,
 			1, 1, 1, 1, 1,
-			-2,    2, 2, 2, -1002, 2, 2, 2, -1002, 2,
-			-1002, 2, 2, 2, -1002, 2, 2, 2, -1002, 2,
-			-1002, 2, 2, 2, -1002, 2, 2, 2, -1002, 2,
-			-1002, 2, 2, 2, -1002, 2, 2, 2, -1002, 2,
-			-1002, 2, 2, 2, -1002, 2, 2, 2, -1002, 2,
-			-1002, 2, 2, 2, -1002, 2, 2, 2, -1002, 2,
-			-1002, 2, 2, 2, -1002, 2, 2, 2, -1002, 2,
-			-1002, 2, 2, 2, -1002, 2, 2, 2, -1002, 2,
-			-1002, 2, 2, 2, -1002, 2, 2, 2, -1002, 2,
-			-1002, 2, 2, 2, -1002, 2, 2, 2, -1002, 2,
-			1, 1, 1, 1, 1,
+			-1,    1, 1, 1, -1001, 2, 2, 2, -1002, 2,
+			-1001, 1, 1, 1, -1001, 2, 2, 2, -1002, 2,
+			-1001, 1, 1, 1, -1001, 2, 2, 2, -1002, 2,
+			-1001, 1, 1, 1, -1001, 2, 2, 2, -1002, 2,
+			-1001, 1, 1, 1, -1001, 2, 2, 2, -1002, 2,
+			-1001, 1, 1, 1, -1001, 2, 2, 2, -1002, 2,
+			-1001, 1, 1, 1, -1001, 2, 2, 2, -1002, 2,
+			-1001, 1, 1, 1, -1001, 2, 2, 2, -1002, 2,
+			-1001, 1, 1, 1, -1001, 2, 2, 2, -1002, 2,
+			-1001, 1, 1, 1, -1001, 2, 2, 2, -1002, 2,
+			2, 2, 2, 2, 2,
 			0, 0, 0, 0, 0
-		}, -1, 0, 1, 4 /* was: 3 */, TextureLoader.TEXTURE_SAW, 0.8f, 0f, 1.2f, SoundManager.SOUND_SHOOT_SAW, true, 0),
+		}, -1, 0, 1, 4 /* was: 3 */, TextureLoader.TEXTURE_SAW, 0.8f, 0.2f, 1.0f, SoundManager.SOUND_SHOOT_SAW, true, 0),
 	};
 
 	public static WeaponParams currentParams;

@@ -16,16 +16,6 @@ import android.util.Log;
 import android.widget.Toast;
 import com.google.android.apps.analytics.easytracking.EasyTracker;
 
-// #if TYPE_DEMO | TYPE_IFREE
-	import android.content.Intent;
-// #end
-// #if TYPE_DEMO
-	import android.net.Uri;
-// #end
-// #if USE_HEYZAP
-	import com.heyzap.sdk.HeyzapLib;
-// #end
-
 public class EndLevelViewHandler implements IViewHandler
 {
 	private Activity callerGameActivity;
@@ -101,10 +91,6 @@ public class EndLevelViewHandler implements IViewHandler
 		((TextView)callerActivity.findViewById(R.id.TxtSecrets)).setTypeface(btnTypeface);
 		((Button)callerActivity.findViewById(R.id.BtnNextLevel)).setTypeface(btnTypeface);
 
-		// #if TYPE_DEMO | TYPE_IFREE
-			((Button)callerActivity.findViewById(R.id.BtnFullVersion)).setTypeface(btnTypeface);
-		// #end
-
 		resources = callerActivity.getResources();
 
 		txtKills = (TextView)callerActivity.findViewById(R.id.TxtKills);
@@ -126,42 +112,6 @@ public class EndLevelViewHandler implements IViewHandler
 		});
 
 		callerGameActivity = callerActivity;
-
-		// #if TYPE_DEMO | TYPE_IFREE
-			((Button)callerActivity.findViewById(R.id.BtnFullVersion)).setOnClickListener(new View.OnClickListener() {
-				public void onClick(View v)
-				{
-					SoundManager.playSound(SoundManager.SOUND_BTN_PRESS);
-
-					// #if TYPE_DEMO
-						try {
-							callerGameActivity.startActivity((
-								new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=zame.GloomyDungeons.full.game"))
-							).addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET));
-
-							EasyTracker.getTracker().trackPageView("/end-level/full-version");
-						} catch (Exception ex) {
-							Log.e(Common.LOG_KEY, "Exception", ex);
-							Toast.makeText(GameActivity.appContext, "Could not launch the market application.", Toast.LENGTH_LONG).show();
-						}
-					// #end
-					// #if TYPE_IFREE
-						GameActivity.instantMusicPause = false;
-						callerGameActivity.startActivity(new Intent(callerGameActivity, IfreePayActivity.class));
-					// #end
-				}
-			});
-		// #end
-
-		// #if USE_HEYZAP
-			((com.heyzap.sdk.HeyzapButton)callerActivity.findViewById(R.id.BtnCheckin)).setOnClickListener(new View.OnClickListener() {
-				public void onClick(View v)
-				{
-					// State.levelNum already points to next level, so State.levelNum - Level.FIRST_REAL_LEVEL = 1 for first level (not 0)
-					HeyzapLib.checkin(callerGameActivity, "I just completed level " + String.valueOf(State.levelNum - Level.FIRST_REAL_LEVEL) + "!");
-				}
-			});
-		// #end
 	}
 
 	public void onResume()
@@ -184,12 +134,6 @@ public class EndLevelViewHandler implements IViewHandler
 		increaseValuesTimer = new Timer();
 		increaseValuesTaskActive = true;
 		increaseValuesTimer.schedule(increaseValuesTask, 100, 100);
-
-		// #if TYPE_IFREE
-			if (Config.charged) {
-				((Button)callerGameActivity.findViewById(R.id.BtnFullVersion)).setVisibility(View.GONE);
-			}
-		// #end
 	}
 
 	public void onWindowFocusChanged(boolean hasFocus)

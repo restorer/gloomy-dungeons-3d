@@ -24,40 +24,12 @@
 				android:id="@+id/TxtSecrets"
 				style="@style/EndLevelText"
 			/>
-			<!-- #if !USE_ADMOB -->
 			<LinearLayout
 					android:orientation="horizontal"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:gravity="center"
 					android:layout_marginTop="32sp">
-			<!-- #end -->
-			<!-- #if USE_ADMOB -->
-			<LinearLayout
-					android:orientation="horizontal"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:gravity="center"
-					android:layout_marginTop="15sp">
-			<!-- #end -->
-				<!-- #if USE_HEYZAP -->
-					<com.heyzap.sdk.HeyzapButton
-						android:id="@+id/BtnCheckin"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_alignParentLeft="true"
-						android:layout_gravity="center_vertical"
-					/>
-				<!-- #end -->
-				<!-- #if TYPE_DEMO | TYPE_IFREE -->
-					<Button
-						android:id="@+id/BtnFullVersion"
-						android:text="@string/btn_full_version"
-						style="@style/FullVersionButton"
-						android:layout_gravity="center_vertical"
-						android:layout_marginRight="10sp"
-					/>
-				<!-- #end -->
 				<Button
 					android:id="@+id/BtnNextLevel"
 					android:text="@string/btn_continue"
@@ -65,18 +37,6 @@
 					android:layout_gravity="center_vertical"
 				/>
 			</LinearLayout>
-			<!-- #if USE_ADMOB -->
-				<com.google.ads.AdView
-					android:id="@+id/AdView"
-					android:layout_width="320px"
-					android:layout_height="50px"
-					ads:adUnitId="{$ADMOB_UNIT_ID}"
-					ads:adSize="BANNER"
-					ads:testDevices="TEST_EMULATOR"
-					ads:loadAdOnCreate="true"
-					android:layout_marginTop="15sp"
-				/>
-			<!-- #end -->
 		</LinearLayout>
 	</RelativeLayout>
 </{$PKG_ROOT}.libs.FrameLayout>

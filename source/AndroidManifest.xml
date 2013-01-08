@@ -4,18 +4,10 @@
 		android:versionCode="{$BUILD_CODE}"
 		android:versionName="{$BUILD}"
 		android:installLocation="auto">
-	<!-- #if TYPE_DEMO -->
-	<application
-			android:label="@string/app_name"
-			android:icon="@drawable/ic_launcher_demo"
-			android:name=".ZameApplication">
-	<!-- #end -->
-	<!-- #if !TYPE_DEMO -->
 	<application
 			android:label="@string/app_name"
 			android:icon="@drawable/ic_launcher"
 			android:name=".ZameApplication">
-	<!-- #end -->
 		<activity
 				android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
 				android:name="MenuActivity"
@@ -52,78 +44,15 @@
 				<action android:name="com.android.vending.INSTALL_REFERRER" />
 			</intent-filter>
 		</receiver>
-
-		<!-- #if TYPE_IFREE -->
-			<service android:name="com.ifree.sdk.monetization.DonateDataService" />
-			<service android:name="com.ifree.sdk.monetization.BillingService" />
-			<receiver android:name="com.ifree.sdk.monetization.googleinapp.BillingReceiver">
-				<intent-filter>
-					<action android:name="com.android.vending.billing.IN_APP_NOTIFY" />
-					<action android:name="com.android.vending.billing.RESPONSE_CODE" />
-					<action android:name="com.android.vending.billing.PURCHASE_STATE_CHANGED" />
-				</intent-filter>
-			</receiver>
-			<activity
-				android:name="com.paypal.android.MEP.PayPalActivity"
-				android:theme="@android:style/Theme.Translucent.NoTitleBar"
-				android:configChanges="keyboardHidden|orientation"
-			/>
-			<receiver android:name="com.ifree.sdk.monetization.sms.SmsReceiveBroadcaster">
-				<intent-filter android:priority="10">
-					<action android:name="android.intent.action.DATA_SMS_RECEIVED" />
-					<data android:scheme="sms" />
-					<data android:port="1235" />
-				</intent-filter>
-			</receiver>
-			<receiver android:name="com.ifree.sdk.monetization.sms.SmsReceiveStandardBroadcaster">
-				<intent-filter android:priority="10">
-					<action android:name="android.provider.Telephony.SMS_RECEIVED" />
-				</intent-filter>
-			</receiver>
-			<activity
-				android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-				android:name="IfreePayActivity"
-				android:label="@string/app_name"
-				android:screenOrientation="landscape"
-				android:launchMode="singleTop"
-				android:configChanges="keyboard|keyboardHidden|orientation"
-			/>
-			<!-- #if USE_PAYPAL_SANDBOX -->
-				<meta-data android:name="com.ifree.sdk.monetization.PAYPAL_LIVE_ID" android:value="APP-XXXXXXXX" />
-				<meta-data android:name="com.ifree.sdk.monetization.PAYPAL_SANDBOX_ENABLED" android:value="true" />
-			<!-- #end -->
-			<!-- #if !USE_PAYPAL_SANDBOX -->
-				<meta-data android:name="com.ifree.sdk.monetization.PAYPAL_LIVE_ID" android:value="APP-YYYYYYYY" />
-			<!-- #end -->
-			<meta-data android:name="com.ifree.sdk.monetization.PROMOTION_ID" android:value="XXXXXXXX" />
-		<!-- #end -->
-
-		<!-- #if USE_ADMOB -->
-			<activity
-				android:name="com.google.ads.AdActivity"
-				android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-			/>
-		<!-- #end -->
 	</application>
 
 	<uses-sdk android:minSdkVersion="7" />
 	<uses-sdk android:targetSdkVersion="8" />
-	<support-screens android:anyDensity="true" />
+	<support-screens android:anyDensity="true" android:compatibleWidthLimitDp="320" />
 
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-	<uses-permission android:name="android.permission.INTERNET" /><!-- for Google Analytics and AdMob -->
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /><!-- for Google Analytics and AdMob -->
+	<uses-permission android:name="android.permission.INTERNET" /><!-- for Google Analytics -->
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /><!-- for Google Analytics -->
 	<uses-permission android:name="android.permission.BLUETOOTH" /><!-- for Zeemote -->
 	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" /><!-- for Zeemote -->
-
-	<!-- #if TYPE_IFREE | TYPE_SFC -->
-		<uses-permission android:name="android.permission.SEND_SMS" />
-		<uses-permission android:name="android.permission.RECEIVE_SMS" />
-	<!-- #end -->
-
-	<!-- #if TYPE_IFREE -->
-		<uses-permission android:name="com.android.vending.BILLING" />
-		<uses-permission android:name="android.permission.READ_PHONE_STATE" />
-		<uses-permission android:name="android.permission.GET_ACCOUNTS" />
-	<!-- #end -->
 </manifest>

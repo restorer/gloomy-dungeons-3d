@@ -57,8 +57,6 @@ public class State
 	public static long tempLastTime;
 	public static boolean godMode;
 
-	public static int sfcBlockerTimeout;
-
 	public static void setHeroA(float angle)
 	{
 		heroA = angle;
@@ -107,7 +105,6 @@ public class State
 
 		showAutoMap = false;
 		godMode = false;
-		sfcBlockerTimeout = 40 * 60 * 3;	// 40 updates per second, 40*60*3 = 3 minutes, used only in TYPE_SFC
 	}
 
 	public static void setStartValues()
@@ -180,7 +177,7 @@ public class State
 		os.writeLong(tempElapsedTime);
 		os.writeLong(tempLastTime);
 		os.writeBoolean(godMode);
-		os.writeInt(sfcBlockerTimeout);
+		os.writeInt(0); // dummy value
 	}
 
 	public static void readFrom(ObjectInputStream is) throws IOException, ClassNotFoundException
@@ -279,7 +276,7 @@ public class State
 		}
 
 		if (saveFileVersion >= 5) {
-			sfcBlockerTimeout = is.readInt();
+			is.readInt(); // dummy value
 		}
 
 		// post-load updates

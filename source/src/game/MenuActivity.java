@@ -35,16 +35,6 @@ import android.net.Uri;
 import com.google.android.apps.analytics.easytracking.TrackedActivity;
 import com.google.android.apps.analytics.easytracking.EasyTracker;
 
-// #if USE_HEYZAP
-	import com.heyzap.sdk.HeyzapLib;
-// #end
-// #if USE_HOOKEDMEDIA
-	import com.hookedmediagroup.wasabi.WasabiApi;
-// #end
-// #if TYPE_IFREE
-	import com.ifree.sdk.monetization.Monetization;
-// #end
-
 public class MenuActivity extends TrackedActivity
 {
 	public static class InitialSetupEntryItemSetting
@@ -95,13 +85,6 @@ public class MenuActivity extends TrackedActivity
 	private static final int DIALOG_CHECK_SOUND = 5;
 	private static final int DIALOG_ABOUT = 6;
 
-	// #if USE_FULL_VERSION_OFFER
-		private static final int DIALOG_FULL_VERSION_OFFER = 7;
-	// #end
-	// #if USE_RATE_OFFER
-		private static final int DIALOG_RATE_OFFER = 8;
-	// #end
-
 	// actuallty 4 slots is enough, but this is required to fix issued with bad-named saves folder
 	private static final int MAX_SLOTS = 8;
 
@@ -128,15 +111,7 @@ public class MenuActivity extends TrackedActivity
 	private int currentInitialSetupIdx;
 	private int currentInitialSetupItemIdx;
 
-	// #if USE_HOOKEDMEDIA
-		private Handler wasabiHandler;
-	// #end
-
 	public static MenuActivity self;
-
-	// #if TYPE_IFREE
-		Monetization monetization = null;
-	// #end
 
 	@Override
 	protected void onCreate(Bundle state)
@@ -172,32 +147,6 @@ public class MenuActivity extends TrackedActivity
 		if (firstRun) {
 			showDialog(DIALOG_CHECK_SOUND);
 		}
-
-		// #if USE_FULL_VERSION_OFFER
-			if (!firstRun) {
-				int showFullVersionOfferCnt = sp.getInt("FullVersionOfferCnt", 3-1);	// -1 -> for first run
-
-				if (showFullVersionOfferCnt > 0) {
-					showFullVersionOfferCnt--;
-					SharedPreferences.Editor spEditor = sp.edit();
-					spEditor.putInt("FullVersionOfferCnt", showFullVersionOfferCnt);
-					spEditor.commit();
-
-					if (showFullVersionOfferCnt <= 0) {
-						EasyTracker.getTracker().trackPageView("/menu/dlg-full-version");
-						showDialog(DIALOG_FULL_VERSION_OFFER);
-					}
-				}
-			}
-		// #end
-
-		// #if USE_HEYZAP
-			HeyzapLib.load(this, false);
-		// #end
-
-		// #if USE_MAILRU
-			MailRuApi.initialize(appContext);
-		// #end
 	}
 
 	protected void ensureInitialSetupEntries()
@@ -404,35 +353,6 @@ public class MenuActivity extends TrackedActivity
 		((Button)findViewById(R.id.BtnLoad)).setTypeface(btnTypeface);
 		((Button)findViewById(R.id.BtnSave)).setTypeface(btnTypeface);
 
-		// #if TYPE_DEMO | TYPE_IFREE
-			((Button)findViewById(R.id.BtnFullVersion)).setTypeface(btnTypeface);
-		// #end
-		// #if USE_LEADBOLT
-			((Button)findViewById(R.id.BtnLeadboltAd)).setTypeface(btnTypeface);
-		// #end
-
-		// #if !TYPE_IFREE
-			// #if TYPE_DEMO | USE_ADMOB | USE_LEADBOLT
-				SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(appContext);
-				int showMenuCnt = sp.getInt("ShowMenuCnt", 1);
-
-				if (showMenuCnt < 2) {
-					SharedPreferences.Editor spEditor = sp.edit();
-					spEditor.putInt("ShowMenuCnt", showMenuCnt + 1);
-					spEditor.commit();
-
-					findViewById(R.id.BtnFullVersion).setVisibility(View.GONE);
-
-					// #if USE_ADMOB
-						findViewById(R.id.AdView).setVisibility(View.GONE);
-					// #end
-					// #if USE_LEADBOLT
-						findViewById(R.id.BtnLeadboltAd).setVisibility(View.GONE);
-					// #end
-				}
-			// #end
-		// #end
-
 		((Button)findViewById(R.id.BtnContinue)).setOnClickListener(new View.OnClickListener()
 		{
 			public void onClick(View v)
@@ -487,72 +407,6 @@ public class MenuActivity extends TrackedActivity
 				showDialog(DIALOG_SAVE_SLOTS);
 			}
 		});
-
-		// #if TYPE_DEMO | TYPE_IFREE
-			((Button)findViewById(R.id.BtnFullVersion)).setOnClickListener(new View.OnClickListener() {
-				public void onClick(View v)
-				{
-					SoundManager.playSound(SoundManager.SOUND_BTN_PRESS);
-
-					// #if TYPE_DEMO
-						try {
-							startActivity((
-								new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=zame.GloomyDungeons.full.game"))
-							).addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET));
-
-							EasyTracker.getTracker().trackPageView("/menu/full-version");
-						} catch (Exception ex) {
-							Log.e(Common.LOG_KEY, "Exception", ex);
-							Toast.makeText(MenuActivity.appContext, "Could not launch the market application.", Toast.LENGTH_LONG).show();
-						}
-					// #end
-					// #if TYPE_IFREE
-						instantMusicPause = false;
-						startActivity(new Intent(MenuActivity.this, IfreePayActivity.class));
-					// #end
-				}
-			});
-		// #end
-
-		// #if USE_HOOKEDMEDIA
-			findViewById(R.id.WasabiButtonLogo).setVisibility(View.GONE);
-			findViewById(R.id.WasabiButtonTear).setVisibility(View.GONE);
-			wasabiHandler = new Handler();
-
-			final Runnable wasabiRunnable = new Runnable() {
-				public void run() {
-					if (!WasabiApi.isInitialized()) {
-						wasabiHandler.postDelayed(this, 100);
-						return;
-					}
-
-					if (WasabiApi.hasRated()) {
-						findViewById(R.id.WasabiButtonLogo).setVisibility(View.VISIBLE);
-						findViewById(R.id.WasabiButtonTear).setVisibility(View.GONE);
-					} else {
-						findViewById(R.id.WasabiButtonTear).setVisibility(View.VISIBLE);
-						findViewById(R.id.WasabiButtonLogo).setVisibility(View.GONE);
-					}
-				}
-			};
-
-			wasabiHandler.postDelayed(wasabiRunnable, 200);
-		// #end
-
-		// #if USE_LEADBOLT
-			((Button)findViewById(R.id.BtnLeadboltAd)).setOnClickListener(new View.OnClickListener() {
-				public void onClick(View v)
-				{
-					SoundManager.playSound(SoundManager.SOUND_BTN_PRESS);
-
-					startActivity((
-						new Intent(Intent.ACTION_VIEW, Uri.parse("http://ad.leadboltads.net/show_app_wall?section_id=961750788"))
-					).addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET));
-
-					EasyTracker.getTracker().trackPageView("/menu/leadbolt-wall");
-				}
-			});
-		// #end
 	}
 
 	protected void onResumeMenuView()
@@ -562,14 +416,6 @@ public class MenuActivity extends TrackedActivity
 
 		// fix bug with pressing HOME when save/load dialogs is active
 		fillSlots(slotStringsForSave, slotFileNamesForSave, false);
-
-		// #if TYPE_IFREE
-			SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(appContext);
-
-			if (sp.getBoolean("Charged", false)) {
-				((Button)findViewById(R.id.BtnFullVersion)).setVisibility(View.GONE);
-			}
-		// #end
 	}
 
 	@Override
@@ -607,45 +453,8 @@ public class MenuActivity extends TrackedActivity
 	protected void onDestroy()
 	{
 		super.onDestroy();
-
-		// #if TYPE_IFREE
-			if (monetization != null) {
-				monetization.unregisterListener(ZameApplication.ifreeEngine);
-				monetization = null;
-			}
-		// #end
-
 		self = null;
 	}
-
-	// #if USE_RATE_OFFER
-		@Override
-		public void onBackPressed()
-		{
-			SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(appContext);
-			int showRateOfferCnt = sp.getInt("RateOfferCnt", 5);
-
-			if (showRateOfferCnt > 0) {
-				showRateOfferCnt--;
-				SharedPreferences.Editor spEditor = sp.edit();
-				spEditor.putInt("RateOfferCnt", showRateOfferCnt);
-				spEditor.commit();
-
-				if (showRateOfferCnt <= 0) {
-					int rateOfferDlgShownCnt = sp.getInt("RateOfferDlgShownCnt", 0);
-					spEditor = sp.edit();
-					spEditor.putInt("RateOfferDlgShownCnt", rateOfferDlgShownCnt + 1);
-					spEditor.commit();
-
-					EasyTracker.getTracker().trackPageView("/menu/dlg-rate");
-					showDialog(DIALOG_RATE_OFFER);
-					return;
-				}
-			}
-
-			super.onBackPressed();
-		}
-	// #end
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
@@ -888,94 +697,6 @@ public class MenuActivity extends TrackedActivity
 
 				return aboutDialog;
 			}
-
-			// #if USE_FULL_VERSION_OFFER
-				case DIALOG_FULL_VERSION_OFFER:
-				{
-					return new AlertDialog.Builder(MenuActivity.this)
-						.setIcon(R.drawable.ic_dialog_alert)
-						.setTitle(R.string.dlg_full_version_offer)
-						.setPositiveButton(R.string.dlg_yes, new DialogInterface.OnClickListener()
-						{
-							public void onClick(DialogInterface dialog, int whichButton)
-							{
-								startActivity((
-									new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=zame.GloomyDungeons.full.game"))
-								).addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET));
-
-								EasyTracker.getTracker().trackPageView("/menu/dlg-full-version/ok");
-							}
-						})
-						.setNegativeButton(R.string.dlg_no, new DialogInterface.OnClickListener()
-						{
-							public void onClick(DialogInterface dialog, int whichButton)
-							{
-								EasyTracker.getTracker().trackPageView("/menu/dlg-full-version/cancel");
-							}
-						})
-						.create();
-				}
-			// #end
-
-			// #if USE_RATE_OFFER
-				case DIALOG_RATE_OFFER:
-				{
-					AlertDialog.Builder resDialog = new AlertDialog.Builder(MenuActivity.this)
-						.setIcon(R.drawable.ic_dialog_alert)
-						.setTitle(R.string.dlg_rate_offer)
-						.setPositiveButton(R.string.dlg_yes, new DialogInterface.OnClickListener()
-						{
-							public void onClick(DialogInterface dialog, int whichButton)
-							{
-								// #if TYPE_DEMO
-									startActivity((
-										new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=zame.GloomyDungeons.freedemo.game"))
-									).addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET));
-								// #end
-								// #if TYPE_FULL
-									startActivity((
-										new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=zame.GloomyDungeons.full.game"))
-									).addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET));
-								// #end
-
-								EasyTracker.getTracker().trackPageView("/menu/dlg-rate/ok");
-								finish();
-							}
-						});
-
-					SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(appContext);
-					int rateOfferDlgShownCnt = sp.getInt("RateOfferDlgShownCnt", 0);
-
-					DialogInterface.OnClickListener remindMeLaterClickListener = new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int whichButton) {
-							SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(appContext);
-							SharedPreferences.Editor spEditor = sp.edit();
-							spEditor.putInt("RateOfferCnt", 5);
-							spEditor.commit();
-
-							EasyTracker.getTracker().trackPageView("/menu/dlg-rate/later");
-							finish();
-						}
-					};
-
-					if (rateOfferDlgShownCnt > 1) {
-						resDialog.setNegativeButton(R.string.dlg_no, new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int whichButton) {
-								EasyTracker.getTracker().trackPageView("/menu/dlg-rate/cancel");
-								finish();
-							}
-						});
-
-						if (rateOfferDlgShownCnt < 5) {
-							resDialog.setNeutralButton(R.string.dlg_later, remindMeLaterClickListener);
-						}
-					} else {
-						resDialog.setNegativeButton(R.string.dlg_later, remindMeLaterClickListener);
-					}
-
-					return resDialog.create();
-				}
-			// #end
 		}
 
 		return null;

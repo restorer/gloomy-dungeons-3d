@@ -1,5 +1,6 @@
 #!/usr/bin/ruby
 
+require 'rubygems'
 require 'RMagick'
 
 BASE_ICONS = 0x00
@@ -22,6 +23,11 @@ class TexMapCreator
 
 		puts name
 		img = Magick::ImageList.new(name)
+		img.set_channel_depth(Magick::AllChannels, 8)
+
+		unless img.alpha?
+			img.alpha(Magick::ResetAlphaChannel)
+		end
 
 		result.composite!(img, xpos, ypos, Magick::CopyCompositeOp)
 	end
@@ -32,6 +38,11 @@ class TexMapCreator
 
 		puts name
 		img = Magick::ImageList.new(name)
+		img.set_channel_depth(Magick::AllChannels, 8)
+
+		unless img.alpha?
+			img.alpha(Magick::ResetAlphaChannel)
+		end
 
 		result.composite!(img, xpos + 1, ypos + 1, Magick::CopyCompositeOp)
 

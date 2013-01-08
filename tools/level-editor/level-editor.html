@@ -811,7 +811,7 @@ function do_save()
 
 	get('data-text').value = res;
 	st('data-text').display = '';
-	//get('data-text').focus();
+	get('data-text').focus();
 
 	log('[I] Data saved');
 	return false;
@@ -1070,6 +1070,22 @@ function do_convert()
 	return false;
 }
 
+function set_wide()
+{
+	if (get('wide-screen').checked)
+	{
+		get('level-container').style.width = '860px';
+		get('items').style.left = '880px';
+		get('buttons').style.left = '880px';
+	}
+	else
+	{
+		get('level-container').style.width = '660px';
+		get('items').style.left = '680px';
+		get('buttons').style.left = '680px';
+	}
+}
+
 function main()
 {
 	el_log = get('log');
@@ -1085,14 +1101,10 @@ function main()
 }
 
 	</script>
-
-	<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
-	<script type="text/javascript" src="js/maps.js"></script>
-
 </head>
 <body onload="main()">
 	<div class="wrap">
-		<div class="level-container">
+		<div class="level-container" id="level-container">
 			<div class="level-wrap">
 				<div class="level-zoom">
 					<div id="level">
@@ -1103,16 +1115,11 @@ function main()
 		<div id="items">
 		</div>
 
-		<form class="buttons">
-			Map list:
-			<select class="maps"></select>
-			<input type="button" value="Load" class="button-load" /> <input type="checkbox" id="wide_screen" /><label for="wide_screen">Wide screen</label>
+		<form class="buttons" id="buttons">
+			<input type="button" value="Load" onclick="return do_load()" />
+			<input type="button" value="Save" onclick="return do_save()" />
+			<input type="checkbox" id="wide-screen" onclick="return set_wide()" /><label for="wide-screen">Wide screen</label>
 			<br />
-			<input type="text" class="current-map-name" value="" />
-			<input type="button" value="Save" class="button-save" />
-			<br />
-			<br />
-
 			<input type="button" value="&uarr;" onclick="return move_up()" />
 			<input type="button" value="&darr;" onclick="return move_dn()" />
 			<input type="button" value="&larr;" onclick="return move_lt()" />

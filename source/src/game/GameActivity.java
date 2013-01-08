@@ -35,10 +35,6 @@ import com.zeemote.zc.event.JoystickEvent;
 import com.zeemote.zc.ui.android.ControllerAndroidUi;
 import com.google.android.apps.analytics.easytracking.TrackedActivity;
 
-// #if USE_HEYZAP
-	import com.heyzap.sdk.HeyzapLib;
-// #end
-
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.FileWriter;
@@ -52,19 +48,7 @@ public class GameActivity extends Activity implements IStatusListener, IJoystick
 	private static final int VIEW_TYPE_PRE_LEVEL = 1;
 	private static final int VIEW_TYPE_END_LEVEL = 2;
 	private static final int VIEW_TYPE_GAME_OVER = 3;
-	// #if !TYPE_SFC
-		// #if USE_EOD_BLOCKER
-			private static final int VIEW_TYPE_EOD_BLOCKER = 4;
-			private static final int VIEW_TYPE_LAST = 5;
-		// #end
-		// #if !USE_EOD_BLOCKER
-			private static final int VIEW_TYPE_LAST = 4;
-		// #end
-	// #end
-	// #if TYPE_SFC
-		private static final int VIEW_TYPE_SFC_BLOCKER = 4;
-		private static final int VIEW_TYPE_LAST = 5;
-	// #end
+	private static final int VIEW_TYPE_LAST = 4;
 
 	public static Context appContext;
 	public static GameActivity self;
@@ -136,22 +120,6 @@ public class GameActivity extends Activity implements IStatusListener, IJoystick
 		}
 	};
 
-	// #if TYPE_SFC
-		public final Runnable showSfcBlockerView = new Runnable() {
-			public void run() {
-				setViewByType(VIEW_TYPE_SFC_BLOCKER);
-			}
-		};
-	// #end
-
-	// #if USE_EOD_BLOCKER
-		public final Runnable showEodBlockerView = new Runnable() {
-			public void run() {
-				setViewByType(VIEW_TYPE_EOD_BLOCKER);
-			}
-		};
-	// #end
-
 	@Override
 	protected void onCreate(Bundle state)
 	{
@@ -160,10 +128,6 @@ public class GameActivity extends Activity implements IStatusListener, IJoystick
 		appContext = getApplicationContext();
 		self = this;
 
-		// #if USE_HEYZAP
-			HeyzapLib.load(this, false);
-		// #end
-
 		SoundManager.init(appContext, getAssets(), true);
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
@@ -171,13 +135,6 @@ public class GameActivity extends Activity implements IStatusListener, IJoystick
 		viewHandlers[VIEW_TYPE_PRE_LEVEL] = new PreLevelViewHandler();
 		viewHandlers[VIEW_TYPE_END_LEVEL] = new EndLevelViewHandler();
 		viewHandlers[VIEW_TYPE_GAME_OVER] = new GameOverViewHandler();
-
-		// #if TYPE_SFC
-			viewHandlers[VIEW_TYPE_SFC_BLOCKER] = new SfcBlockerViewHandler();
-		// #end
-		// #if USE_EOD_BLOCKER
-			viewHandlers[VIEW_TYPE_EOD_BLOCKER] = new EodBlockerViewHandler();
-		// #end
 
 		if (currentViewType < 0) {
 			setViewByType(VIEW_TYPE_GAME);

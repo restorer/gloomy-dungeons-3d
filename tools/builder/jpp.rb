@@ -3,7 +3,7 @@
 require 'fileutils'
 
 $pkg_root = ''
-$pkg_common = 'zame.GloomyDungeons.common'
+$pkg_common = 'zame.GloomyDungeons.oscommon'
 $admob_unit_id = 'XXXXXXXX'
 $values_hash = {}
 $exclude_hash = {}

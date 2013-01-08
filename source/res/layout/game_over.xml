@@ -39,18 +39,6 @@
 					android:layout_gravity="center_vertical"
 				/>
 			</LinearLayout>
-			<!-- #if USE_ADMOB -->
-				<com.google.ads.AdView
-					android:id="@+id/AdView"
-					android:layout_width="320px"
-					android:layout_height="50px"
-					ads:adUnitId="{$ADMOB_UNIT_ID}"
-					ads:adSize="BANNER"
-					ads:testDevices="TEST_EMULATOR"
-					ads:loadAdOnCreate="true"
-					android:layout_marginTop="32sp"
-				/>
-			<!-- #end -->
 		</LinearLayout>
 	</RelativeLayout>
 </{$PKG_ROOT}.libs.FrameLayout>

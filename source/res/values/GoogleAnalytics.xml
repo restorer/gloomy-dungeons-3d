@@ -1,40 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<!-- #if GA_DEMO -->
-		<string name="ga_api_key">UA-XXXXXXX-9</string>
-	<!-- #end -->
-	<!-- #if GA_FULL -->
-		<string name="ga_api_key">UA-XXXXXXX-10</string>
-	<!-- #end -->
-	<!-- #if GA_GETJAR -->
-		<string name="ga_api_key">UA-XXXXXXX-11</string>
-	<!-- #end -->
-	<!-- #if GA_IFREE -->
-		<string name="ga_api_key">UA-XXXXXXX-12</string>
-	<!-- #end -->
-	<!-- #if GA_SFC -->
-		<string name="ga_api_key">UA-XXXXXXX-13</string>
-	<!-- #end -->
-	<!-- #if GA_RAZLO4KA -->
-		<string name="ga_api_key">UA-XXXXXXX-14</string>
-	<!-- #end -->
-	<!-- #if GA_LENOVO -->
-		<string name="ga_api_key">UA-XXXXXXX-15</string>
-	<!-- #end -->
-	<!-- #if GA_INDIA -->
-		<string name="ga_api_key">UA-XXXXXXX-16</string>
-	<!-- #end -->
-	<!-- #if GA_MAILRU -->
-		<string name="ga_api_key">UA-XXXXXXX-17</string>
-	<!-- #end -->
-
-	<bool name="ga_debug">true</bool>
-	<bool name="ga_dryRun">false</bool>
+	<string name="ga_api_key">UA-XXXXXXX-XX</string>
 	<bool name="ga_auto_activity_tracking">true</bool>
 
-	<string name="{$PKG_ROOT}.game.MenuActivity">/menu</string>
+	<!--
+	<bool name="ga_debug">false</bool>
+	<bool name="ga_dryRun">false</bool>
+	-->
 
-	<!-- #if TYPE_IFREE -->
-		<string name="{$PKG_ROOT}.game.IfreePayActivity">/pay</string>
-	<!-- #end -->
+	<bool name="ga_debug">true</bool>
+	<bool name="ga_dryRun">true</bool>
+
+	<string name="{$PKG_ROOT}.game.MenuActivity">/menu</string>
 </resources>

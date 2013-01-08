@@ -11,14 +11,14 @@ public class TextureLoader
 	public static final int TEXTURE_FLOOR = 1;
 	public static final int TEXTURE_CEIL = 2;
 	public static final int TEXTURE_HAND = 3;		// 3, 4, 5, 6
-	public static final int TEXTURE_PIST = 7;		// 7, 8, 9, 10, 11
-	public static final int TEXTURE_SHTG = 12;		// 12, 13, 14, 15, 16
-	public static final int TEXTURE_CHGN = 17;		// 17, 18, 19, 20
-	public static final int TEXTURE_DBLSHTG = 21;	// 21, 22, 23, 24, 25
-	public static final int TEXTURE_DBLCHGN = 26;	// 26, 27, 28, 29
-	public static final int TEXTURE_SAW = 30;		// 30, 31, 32
-	public static final int TEXTURE_MON = 33;
-	public static final int TEXTURE_LAST = 34;
+	public static final int TEXTURE_PIST = 7;		// 7, 8, 9, 10
+	public static final int TEXTURE_SHTG = 11;		// 11, 12, 13, 14
+	public static final int TEXTURE_CHGN = 15;		// 15, 16, 17, 18
+	public static final int TEXTURE_DBLSHTG = 19;	// 19, 20, 21, 22, 23, 24, 25, 26, 27
+	public static final int TEXTURE_DBLCHGN = 28;	// 28, 29, 30, 31
+	public static final int TEXTURE_SAW = 32;		// 32, 33, 34
+	public static final int TEXTURE_MON = 35;
+	public static final int TEXTURE_LAST = 36;
 
 	public static final int BASE_ICONS = 0x00;
 	public static final int BASE_WALLS = 0x10;
@@ -96,13 +96,11 @@ public class TextureLoader
 		loadAndBindTexture(gl, R.drawable.hit_pist_2, TEXTURE_PIST + 1);
 		loadAndBindTexture(gl, R.drawable.hit_pist_3, TEXTURE_PIST + 2);
 		loadAndBindTexture(gl, R.drawable.hit_pist_4, TEXTURE_PIST + 3);
-		loadAndBindTexture(gl, R.drawable.hit_pist_5, TEXTURE_PIST + 4);
 
 		loadAndBindTexture(gl, R.drawable.hit_shtg_1, TEXTURE_SHTG + 0);
 		loadAndBindTexture(gl, R.drawable.hit_shtg_2, TEXTURE_SHTG + 1);
 		loadAndBindTexture(gl, R.drawable.hit_shtg_3, TEXTURE_SHTG + 2);
 		loadAndBindTexture(gl, R.drawable.hit_shtg_4, TEXTURE_SHTG + 3);
-		loadAndBindTexture(gl, R.drawable.hit_shtg_5, TEXTURE_SHTG + 4);
 
 		loadAndBindTexture(gl, R.drawable.hit_chgn_1, TEXTURE_CHGN + 0);
 		loadAndBindTexture(gl, R.drawable.hit_chgn_2, TEXTURE_CHGN + 1);
@@ -114,6 +112,10 @@ public class TextureLoader
 		loadAndBindTexture(gl, R.drawable.hit_dblshtg_3, TEXTURE_DBLSHTG + 2);
 		loadAndBindTexture(gl, R.drawable.hit_dblshtg_4, TEXTURE_DBLSHTG + 3);
 		loadAndBindTexture(gl, R.drawable.hit_dblshtg_5, TEXTURE_DBLSHTG + 4);
+		loadAndBindTexture(gl, R.drawable.hit_dblshtg_6, TEXTURE_DBLSHTG + 5);
+		loadAndBindTexture(gl, R.drawable.hit_dblshtg_7, TEXTURE_DBLSHTG + 6);
+		loadAndBindTexture(gl, R.drawable.hit_dblshtg_8, TEXTURE_DBLSHTG + 7);
+		loadAndBindTexture(gl, R.drawable.hit_dblshtg_9, TEXTURE_DBLSHTG + 8);
 
 		loadAndBindTexture(gl, R.drawable.hit_dblchgn_1, TEXTURE_DBLCHGN + 0);
 		loadAndBindTexture(gl, R.drawable.hit_dblchgn_2, TEXTURE_DBLCHGN + 1);

@@ -8,18 +8,8 @@ import com.google.android.apps.analytics.easytracking.EasyTracker;
 public class Level
 {
 	public static final int FIRST_REAL_LEVEL = 9;
-
-	// #if TYPE_DEMO
-		public static final int MAX_LEVEL = 14;
-	// #end
-	// #if TYPE_FULL | TYPE_SFC
-		public static final int MAX_LEVEL = 35;
-		public static final int MAX_DEMO_LEVEL = 14;
-	// #end
-	// #if TYPE_IFREE
-		public static final int MAX_LEVEL = 35;
-		public static final int MAX_DEMO_LEVEL = 14;
-	// #end
+	public static final int MAX_LEVEL = 35;
+	public static final int MAX_DEMO_LEVEL = 14;
 
 	public static final int MAX_WIDTH = 64;
 	public static final int MAX_HEIGHT = 64;
@@ -95,16 +85,9 @@ public class Level
 
 	public static boolean exists(int idx)
 	{
-		// #if TYPE_IFREE
-			if (idx > (Config.charged ? MAX_LEVEL : MAX_DEMO_LEVEL)) {
-				return false;
-			}
-		// #end
-		// #if !TYPE_IFREE
-			if (idx > MAX_LEVEL) {
-				return false;
-			}
-		// #end
+		if (idx > MAX_LEVEL) {
+			return false;
+		}
 
 		try {
 			Game.assetManager.open("levels/level-" + String.valueOf(idx) + ".map").close();

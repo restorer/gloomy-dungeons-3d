@@ -222,12 +222,13 @@ public class Renderer
 	}
 
 	private static final float TEX_CELL_MON = 128.0f / 1024.0f;
-	private static final float TEX_SIZE_MON = 127.8f / 1024.0f;
+	private static final float TEX_SIZE_MON = 126.8f / 1024.0f;
+	private static final float TEX_1PX_MON = 1.1f / 1024.0f;
 
 	public static void drawQuadMon(int texNum)
 	{
-		float sx = (float)(texNum % 8) * TEX_CELL_MON;
-		float sy = (float)((int)(texNum / 8)) * TEX_CELL_MON;
+		float sx = (float)(texNum % 8) * TEX_CELL_MON + TEX_1PX_MON;
+		float sy = (float)((int)(texNum / 8)) * TEX_CELL_MON + TEX_1PX_MON;
 		float ex = sx + TEX_SIZE_MON;
 		float ey = sy + TEX_SIZE_MON;
 

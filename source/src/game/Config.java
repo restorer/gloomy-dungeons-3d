@@ -36,10 +36,6 @@ public class Config
 	public static float padYAccel;
 	public static float accelerometerAcceleration;
 
-	// #if TYPE_IFREE | TYPE_SFC
-		public static boolean charged;
-	// #end
-
 	protected static void updateKeyMap(SharedPreferences sp, String key, int type)
 	{
 		int keyCode = sp.getInt(key, 0);
@@ -144,9 +140,5 @@ public class Config
 		padYAccel = ((tmpPadYAccel >= 8) ? (((float)tmpPadYAccel - 8.0f) / 7.0f + 1.0f) : (1.0f / (2.0f - ((float)tmpPadYAccel - 1.0f) / 7.0f)));
 
 		accelerometerAcceleration = (float)sp.getInt("AccelerometerAcceleration", 5);
-
-		// #if TYPE_IFREE | TYPE_SFC
-			charged = sp.getBoolean("Charged", false);
-		// #end
 	}
 }

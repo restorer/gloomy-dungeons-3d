@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<!-- #if TYPE_DEMO -->
-		<string name="app_name">Gloomy Dungeons 3D demo</string>
-	<!-- #end -->
-	<!-- #if !TYPE_DEMO -->
-		<string name="app_name">Gloomy Dungeons 3D</string>
-	<!-- #end -->
+	<string name="app_name">Gloomy Dungeons 3D</string>
 	<string name="font_name">Cuprum.ttf</string>
 	<string name="font_lbl_size">30</string>
 	<string name="font_stats_size">24</string>
@@ -37,7 +32,7 @@
 <i>ver. {$BUILD}</i><br />
 <br />
 <b>Код:</b> restorer<br />
-<b>Графика:</b> <a href="mailto:smoktunovich@gmail.com">Denis Smoktunovich</a><br />
+<b>Графика:</b> <a href="http://www.nongnu.org/freedoom/">www.nongnu.org/freedoom</a>, <a href="http://www.lostgarden.com/">http://www.lostgarden.com/</a><br />
 <b>Звук:</b> <a href="http://www.nongnu.org/freedoom/">www.nongnu.org/freedoom</a><br />
 <b>Дизайн уровней:</b> <a href="mailto:zin.wtf@gmail.com">zin</a>, restorer<br />
 <b>Тексты:</b> <a href="mailto:zin.wtf@gmail.com">zin</a><br />
@@ -126,63 +121,6 @@ oOLokiOo<br />
 	<string name="setup_smooth_hardcore">Для хардкорных 8-битников</string>
 	<string name="setup_smooth_optimal">Оптимальный</string>
 	<string name="setup_smooth_maximum">Максимальный</string>
-
-	<!-- #if TYPE_DEMO | TYPE_IFREE -->
-		<string name="btn_full_version">Полная версия</string>
-		<string name="btn_full_version_menu">Полная версия</string>
-	<!-- #end -->
-	<!-- #if USE_EOD_BLOCKER -->
-		<string name="eod_info">Конец демо-версии. Купите полную версию и получите более 30 новых уровней!</string>
-		<string name="eod_full_version">Полная версия</string>
-		<string name="eod_cancel">Отмена</string>
-	<!-- #end -->
-	<!-- #if TYPE_IFREE -->
-		<string name="ifree_select_payment_method">Выберите метод оплаты.</string>
-		<string name="ifree_paypal">PayPal</string>
-		<string name="ifree_sms">СМС</string>
-		<string name="ifree_ok">Да</string>
-		<string name="ifree_cancel">Отмена</string>
-		<string name="ifree_close">Закрыть</string>
-		<string name="ifree_country_not_available">Недоступно в вашей стране.</string>
-		<string name="ifree_paypal_cancelled">Платёж отменён.</string>
-		<string name="ifree_info">Разблокировать полную версию за СМС (%1$s %2$s)?</string>
-		<string name="ifree_paypal_info">Разблокировать полную версию используя PayPal (%1$s %2$s)?</string>
-		<string name="ifree_please_wait">Пожалуйста, подождите...</string>
-		<string name="ifree_payment_cancelled">Ошибка отправки СМС.</string>
-		<string name="ifree_payment_successfull">Спасибо за покупку.</string>
-		<string name="ifree_unlocked">Полная версия разблокирована.</string>
-		<string name="ifree_no_connection">Ошибка соединения с сервером.</string>
-	<!-- #end -->
-	<!-- #if TYPE_SFC -->
-		<string name="sfc_ok">Отправить</string>
-		<string name="sfc_cancel">Выход</string>
-		<string name="sfc_close">Закрыть</string>
-		<!-- #if USE_TIME_TRIAL -->
-			<string name="sfc_info">Время демо-версии истекло. Для приобретения полной версии необходимо отправить СМС стоимостью ~ 100 руб. с НДС. После отправки игра автоматически разблокируется.</string>
-		<!-- #end -->
-		<!-- #if !USE_TIME_TRIAL -->
-			<string name="sfc_info">Конец демо-версии. Для приобретения полной версии необходимо отправить СМС стоимостью ~ 100 руб. с НДС. После отправки игра автоматически разблокируется.</string>
-		<!-- #end -->
-		<string name="sfc_please_wait">Пожалуйста, подождите...</string>
-		<string name="sfc_payment_cancelled">Ошибка отправки СМС.</string>
-		<string name="sfc_payment_successfull">СМС отправлено. Спасибо за покупку. Теперь вы можете продолжить игру.</string>
-	<!-- #end -->
-	<!-- #if USE_FULL_VERSION_OFFER -->
-		<string name="dlg_full_version_offer"><![CDATA[
-Cпешите, а то всё раскупят!
-Полная версия всего за $0.99
-		]]></string>
-	<!-- #end -->
-	<!-- #if USE_RATE_OFFER -->
-		<string name="dlg_rate_offer"><![CDATA[
-Понравилась игра?
-Поставьте ей оценку или оставьте отзыв в Android Market!
-		]]></string>
-		<string name="dlg_later">Напомнить позже</string>
-	<!-- #end -->
-	<!-- #if USE_LEADBOLT -->
-		<string name="btn_top_apps">Топ приложений</string>
-	<!-- #end -->
 
 	<!-- controller menu -->
 	<string name="menu_connect">Controller: Connect</string>
