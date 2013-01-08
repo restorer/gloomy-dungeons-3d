@@ -7,8 +7,9 @@ As side effect, it works on low-end phones pretty fast.
 It has big sexy square pixels (*love*)... You should really love pixelart (like me :)
 
   - Code: restorer
-  - Free graphics: www.nongnu.org/freedoom, www.lostgarden.com, restorer
-  - Free levels: restorer
+  - Graphics: www.nongnu.org/freedoom, www.lostgarden.com, restorer
+  - Levels: zin (zin.wtf@gmail.com), restorer
+  - Texts: zin (zin.wtf@gmail.com), restorer
   - Sound: www.nongnu.org/freedoom
 
 This game is released under MIT License (http://www.opensource.org/licenses/mit-license.php).
