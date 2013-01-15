@@ -182,6 +182,9 @@ def fix_libs(add_mode_only=false)
 			src_path = "#{src_dir}/#{name}"
 			dest_path = "#{dest_dir}/#{name}"
 
+			dest_path_dir = File.dirname(dest_path)
+			FileUtils.mkdir_p(dest_path_dir) unless File.exists?(dest_path_dir)
+
 			puts "jpp (copy): \"#{src_path}\" -> \"#{dest_path}\""
 			FileUtils.copy(src_path, dest_path)
 		end

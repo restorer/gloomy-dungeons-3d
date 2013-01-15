@@ -7,7 +7,9 @@
 		<item>Правый джойстик</item>
 		<item>Экспериментальное 1</item>
 		<item>Экспериментальное 2</item>
-		<item>Zeemote</item>
+		<!-- #if USE_ZEEMOTE -->
+			<item>Zeemote</item>
+		<!-- #end -->
 	</string-array>
 	<string-array name="values_controls">
 		<item>Classic</item>
@@ -16,7 +18,9 @@
 		<item>PadR</item>
 		<item>ExperimentalA</item>
 		<item>ExperimentalB</item>
-		<item>Zeemote</item>
+		<!-- #if USE_ZEEMOTE -->
+			<item>Zeemote</item>
+		<!-- #end -->
 	</string-array>
 	<string-array name="entries_zeemote_mapping">
 		<item>Нет действия</item>

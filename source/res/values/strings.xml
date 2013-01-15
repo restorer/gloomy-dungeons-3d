@@ -22,7 +22,9 @@
 	<string name="dlg_cancel">Cancel</string>
 	<string name="dlg_select_controls">Select controls type</string>
 	<string name="dlg_select_max_rotate">Select max rotate angle</string>
-	<string name="dlg_select_zeemote_mapping">Select button mapping</string>
+	<!-- #if USE_ZEEMOTE -->
+		<string name="dlg_select_zeemote_mapping">Select button mapping</string>
+	<!-- #end -->
 	<string name="dlg_select_slot_load">Select slot for load</string>
 	<string name="dlg_select_slot_save">Select slot for save</string>
 	<string name="dlg_enter_code">Enter code</string>
@@ -66,13 +68,15 @@ oOLokiOo<br />
 	<string name="pref_move_speed">Move speed</string>
 	<string name="pref_strafe_speed">Strafe speed</string>
 	<string name="pref_rotate_speed">Rotate speed</string>
-	<string name="pref_zeemote">Zeemote</string>
-	<string name="pref_zeemote_x_accel">X-Acceleration</string>
-	<string name="pref_zeemote_y_accel">Y-Acceleration</string>
-	<string name="pref_zeemote_mapping_fire">Button A</string>
-	<string name="pref_zeemote_mapping_a">Button B</string>
-	<string name="pref_zeemote_mapping_b">Button C</string>
-	<string name="pref_zeemote_mapping_c">Button D</string>
+	<!-- #if USE_ZEEMOTE -->
+		<string name="pref_zeemote">Zeemote</string>
+		<string name="pref_zeemote_x_accel">X-Acceleration</string>
+		<string name="pref_zeemote_y_accel">Y-Acceleration</string>
+		<string name="pref_zeemote_mapping_fire">Button A</string>
+		<string name="pref_zeemote_mapping_a">Button B</string>
+		<string name="pref_zeemote_mapping_b">Button C</string>
+		<string name="pref_zeemote_mapping_c">Button D</string>
+	<!-- #end -->
 	<string name="pref_key_mappings">Key mappings</string>
 	<string name="pref_screen">Screen</string>
 	<string name="pref_gamma">Gamma</string>
@@ -121,14 +125,17 @@ oOLokiOo<br />
 	<string name="setup_ctl_right_pad">Right Pad</string>
 	<string name="setup_ctl_experimental_a">Experimental A</string>
 	<string name="setup_ctl_experimental_b">Experimental B</string>
-	<string name="setup_ctl_zeemote">Zeemote</string>
+	<!-- #if USE_ZEEMOTE -->
+		<string name="setup_ctl_zeemote">Zeemote</string>
+	<!-- #end -->
 	<string name="setup_smooth_hardcore">8-bit hardcore</string>
 	<string name="setup_smooth_optimal">Optimal</string>
 	<string name="setup_smooth_maximum">Maximum</string>
 
-	<!-- controller menu -->
-	<string name="menu_connect">Controller: Connect</string>
-	<string name="menu_disconnect">Controller: Disconnect</string>
-	<string name="connecting">Connecting ...</string>
-	<string name="disconnecting">Disconnecting ...</string>
+	<!-- #if USE_ZEEMOTE -->
+		<string name="menu_connect">Controller: Connect</string>
+		<string name="menu_disconnect">Controller: Disconnect</string>
+		<string name="connecting">Connecting ...</string>
+		<string name="disconnecting">Disconnecting ...</string>
+	<!-- #end -->
 </resources>

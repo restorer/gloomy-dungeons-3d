@@ -22,24 +22,32 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
-import com.zeemote.zc.Configuration;
-import com.zeemote.zc.Controller;
-import com.zeemote.zc.event.BatteryEvent;
-import com.zeemote.zc.event.ButtonEvent;
-import com.zeemote.zc.event.ControllerEvent;
-import com.zeemote.zc.event.DisconnectEvent;
-import com.zeemote.zc.event.IButtonListener;
-import com.zeemote.zc.event.IJoystickListener;
-import com.zeemote.zc.event.IStatusListener;
-import com.zeemote.zc.event.JoystickEvent;
-import com.zeemote.zc.ui.android.ControllerAndroidUi;
+// #if USE_ZEEMOTE
+	import com.zeemote.zc.Configuration;
+	import com.zeemote.zc.Controller;
+	import com.zeemote.zc.event.BatteryEvent;
+	import com.zeemote.zc.event.ButtonEvent;
+	import com.zeemote.zc.event.ControllerEvent;
+	import com.zeemote.zc.event.DisconnectEvent;
+	import com.zeemote.zc.event.IButtonListener;
+	import com.zeemote.zc.event.IJoystickListener;
+	import com.zeemote.zc.event.IStatusListener;
+	import com.zeemote.zc.event.JoystickEvent;
+	import com.zeemote.zc.ui.android.ControllerAndroidUi;
+// #end
+
 import com.google.android.apps.analytics.easytracking.TrackedActivity;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.FileWriter;
 
+// #if USE_ZEEMOTE
 public class GameActivity extends Activity implements IStatusListener, IJoystickListener, IButtonListener, SensorEventListener
+// #end
+// #if !USE_ZEEMOTE
+public class GameActivity extends Activity implements SensorEventListener
+// #end
 {
 	private static final int DIALOG_ENTER_CODE = 1;
 	private static final int REQUEST_CODE_PREFERENCES = 1;
@@ -52,8 +60,11 @@ public class GameActivity extends Activity implements IStatusListener, IJoystick
 
 	public static Context appContext;
 	public static GameActivity self;
-	public static Controller zeemoteController = null;
-	public static ControllerAndroidUi zeemoteControllerUi = null;
+
+	// #if USE_ZEEMOTE
+		public static Controller zeemoteController = null;
+		public static ControllerAndroidUi zeemoteControllerUi = null;
+	// #end
 
 	public static boolean instantMusicPause = true;
 	private static View codeDialogView;
@@ -218,6 +229,7 @@ public class GameActivity extends Activity implements IStatusListener, IJoystick
 		Controls.accelerometerX = 0.0f;
 		Controls.accelerometerY = 0.0f;
 
+		// #if USE_ZEEMOTE
 		if (Config.controlsType == Controls.TYPE_ZEEMOTE)
 		{
 			if (zeemoteController == null)
@@ -236,6 +248,7 @@ public class GameActivity extends Activity implements IStatusListener, IJoystick
 				zeemoteControllerUi.startConnectionProcess();
 			}
 		}
+		// #end
 
 		if (Config.accelerometerEnabled) {
 			sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
@@ -354,6 +367,7 @@ public class GameActivity extends Activity implements IStatusListener, IJoystick
 		}
 	}
 
+	// #if USE_ZEEMOTE
     @Override
     public void batteryUpdate(BatteryEvent event)
     {
@@ -405,4 +419,5 @@ public class GameActivity extends Activity implements IStatusListener, IJoystick
     		}
     	}
     }
+    // #end
 }

@@ -191,6 +191,7 @@ public class MenuActivity extends TrackedActivity
 								new InitialSetupEntryItemSetting("ControlsType", "ExperimentalB")
 							}
 						),
+						// #if USE_ZEEMOTE
 						new InitialSetupEntryItem(
 							R.drawable.sel_ctl_zeemote,
 							getString(R.string.setup_ctl_zeemote),
@@ -198,6 +199,7 @@ public class MenuActivity extends TrackedActivity
 								new InitialSetupEntryItemSetting("ControlsType", "Zeemote")
 							}
 						),
+						// #end
 						new InitialSetupEntryItem(
 							R.drawable.sel_ctl_classic,
 							getString(R.string.setup_ctl_classic),

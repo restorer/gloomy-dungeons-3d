@@ -147,7 +147,11 @@ public class Controls
 	public static final int TYPE_CLASSIC = 0;
 	public static final int TYPE_IMPROVED = 1;
 	public static final int TYPE_EXPERIMENTAL_A = 2;
-	public static final int TYPE_ZEEMOTE = 3;
+
+	// #if USE_ZEEMOTE
+		public static final int TYPE_ZEEMOTE = 3;
+	// #end
+
 	public static final int TYPE_EXPERIMENTAL_B = 4;
 	public static final int TYPE_PAD_L = 5;
 	public static final int TYPE_PAD_R = 6;
@@ -245,9 +249,11 @@ public class Controls
 			new ControlItem(15, 14, STRAFE_LEFT),
 			new ControlItem(18, 14, STRAFE_RIGHT)
 		}),
-		// TYPE_ZEEMOTE
-		new ControlVariant(false, 0.8125f, 0.7f, 0f, new ControlItem[] {
-		}),
+		// #if USE_ZEEMOTE
+			// TYPE_ZEEMOTE
+			new ControlVariant(false, 0.8125f, 0.7f, 0f, new ControlItem[] {
+			}),
+		// #end
 		// TYPE_EXPERIMENTAL_B
 		new ControlVariant(true, 0.8125f, 0.7f, 0f, new ControlItem[] {
 			new ControlItem(15, 1, TOGGLE_MAP),

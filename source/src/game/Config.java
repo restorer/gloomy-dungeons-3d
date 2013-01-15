@@ -8,8 +8,11 @@ import android.view.KeyEvent;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.FileWriter;
-import com.zeemote.zc.Controller;
 import android.util.Log;
+
+// #if USE_ZEEMOTE
+	import com.zeemote.zc.Controller;
+// #end
 
 public class Config
 {
@@ -27,9 +30,13 @@ public class Config
 	public static float mapPosition;
 	public static boolean showCrosshair;
 	public static boolean rotateScreen;
-	public static float zeemoteXAccel;
-	public static float zeemoteYAccel;
-	public static int[] zeemoteButtonMappings;
+
+	// #if USE_ZEEMOTE
+		public static float zeemoteXAccel;
+		public static float zeemoteYAccel;
+		public static int[] zeemoteButtonMappings;
+	// #end
+
 	public static boolean accelerometerEnabled;
 	public static float controlsAlpha;
 	public static float padXAccel;
@@ -71,8 +78,10 @@ public class Config
 			controlsType = Controls.TYPE_EXPERIMENTAL_A;
 		} else if (controlsTypeStr.equals("ExperimentalB")) {
 			controlsType = Controls.TYPE_EXPERIMENTAL_B;
+		// #if USE_ZEEMOTE
 		} else if (controlsTypeStr.equals("Zeemote")) {
 			controlsType = Controls.TYPE_ZEEMOTE;
+		// #end
 		} else if (controlsTypeStr.equals("PadL")) {
 			controlsType = Controls.TYPE_PAD_L;
 		} else if (controlsTypeStr.equals("PadR")) {
@@ -91,6 +100,7 @@ public class Config
 		levelTextureFilter = (sp.getBoolean("LevelTextureSmoothing", false) ? GL10.GL_LINEAR : GL10.GL_NEAREST);
 		weaponsTextureFilter = (sp.getBoolean("WeaponsTextureSmoothing", true) ? GL10.GL_LINEAR : GL10.GL_NEAREST);
 
+		// #if USE_ZEEMOTE
 		int tmpZeemoteXAccel = sp.getInt("ZeemoteXAccel", 8);	// zeemoteXAccel : 0.5 (1) -> 1.0 (8) -> 2.0 (15)
 		zeemoteXAccel = ((tmpZeemoteXAccel >= 8) ? (((float)tmpZeemoteXAccel - 8.0f) / 7.0f + 1.0f) : (1.0f / (2.0f - ((float)tmpZeemoteXAccel - 1.0f) / 7.0f)));
 
@@ -109,6 +119,7 @@ public class Config
 		zeemoteButtonMappings[Controller.GAME_A] = getControlMaskByName(sp.getString("ZeemoteMappingA", "None"));
 		zeemoteButtonMappings[Controller.GAME_B] = getControlMaskByName(sp.getString("ZeemoteMappingB", "None"));
 		zeemoteButtonMappings[Controller.GAME_C] = getControlMaskByName(sp.getString("ZeemoteMappingC", "None"));
+		// #end
 
 		keyMappings = new int[KeyEvent.getMaxKeyCode()];
 

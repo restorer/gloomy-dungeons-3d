@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ "$1" = "" ] ; then
+	echo "Usage: f-build <preset-name>"
+	exit
+fi
+
+./tools/builder/build-fdroid.sh $1

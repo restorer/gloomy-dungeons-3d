@@ -87,54 +87,56 @@
 					android:defaultValue="6"
 				/>
 			</PreferenceCategory>
-			<PreferenceCategory android:title="@string/pref_zeemote">
-				<{$PKG_ROOT}.libs.SeekBarPreference
-					android:key="ZeemoteXAccel"
-					android:title="@string/pref_zeemote_x_accel"
-					app:min="1"
-					android:max="15"
-					android:defaultValue="8"
-				/>
-				<{$PKG_ROOT}.libs.SeekBarPreference
-					android:key="ZeemoteYAccel"
-					android:title="@string/pref_zeemote_y_accel"
-					app:min="1"
-					android:max="15"
-					android:defaultValue="8"
-				/>
-				<{$PKG_ROOT}.libs.ListPreference
-					android:key="ZeemoteMappingFire"
-					android:title="@string/pref_zeemote_mapping_fire"
-					android:entries="@array/entries_zeemote_mapping"
-					android:entryValues="@array/values_zeemote_mapping"
-					android:dialogTitle="@string/dlg_select_zeemote_mapping"
-					android:defaultValue="Action"
-				/>
-				<{$PKG_ROOT}.libs.ListPreference
-					android:key="ZeemoteMappingA"
-					android:title="@string/pref_zeemote_mapping_a"
-					android:entries="@array/entries_zeemote_mapping"
-					android:entryValues="@array/values_zeemote_mapping"
-					android:dialogTitle="@string/dlg_select_zeemote_mapping"
-					android:defaultValue="NextWeapon"
-				/>
-				<{$PKG_ROOT}.libs.ListPreference
-					android:key="ZeemoteMappingB"
-					android:title="@string/pref_zeemote_mapping_b"
-					android:entries="@array/entries_zeemote_mapping"
-					android:entryValues="@array/values_zeemote_mapping"
-					android:dialogTitle="@string/dlg_select_zeemote_mapping"
-					android:defaultValue="Strafe"
-				/>
-				<{$PKG_ROOT}.libs.ListPreference
-					android:key="ZeemoteMappingC"
-					android:title="@string/pref_zeemote_mapping_c"
-					android:entries="@array/entries_zeemote_mapping"
-					android:entryValues="@array/values_zeemote_mapping"
-					android:dialogTitle="@string/dlg_select_zeemote_mapping"
-					android:defaultValue="ToggleMap"
-				/>
-			</PreferenceCategory>
+			<!-- #if USE_ZEEMOTE -->
+				<PreferenceCategory android:title="@string/pref_zeemote">
+					<{$PKG_ROOT}.libs.SeekBarPreference
+						android:key="ZeemoteXAccel"
+						android:title="@string/pref_zeemote_x_accel"
+						app:min="1"
+						android:max="15"
+						android:defaultValue="8"
+					/>
+					<{$PKG_ROOT}.libs.SeekBarPreference
+						android:key="ZeemoteYAccel"
+						android:title="@string/pref_zeemote_y_accel"
+						app:min="1"
+						android:max="15"
+						android:defaultValue="8"
+					/>
+					<{$PKG_ROOT}.libs.ListPreference
+						android:key="ZeemoteMappingFire"
+						android:title="@string/pref_zeemote_mapping_fire"
+						android:entries="@array/entries_zeemote_mapping"
+						android:entryValues="@array/values_zeemote_mapping"
+						android:dialogTitle="@string/dlg_select_zeemote_mapping"
+						android:defaultValue="Action"
+					/>
+					<{$PKG_ROOT}.libs.ListPreference
+						android:key="ZeemoteMappingA"
+						android:title="@string/pref_zeemote_mapping_a"
+						android:entries="@array/entries_zeemote_mapping"
+						android:entryValues="@array/values_zeemote_mapping"
+						android:dialogTitle="@string/dlg_select_zeemote_mapping"
+						android:defaultValue="NextWeapon"
+					/>
+					<{$PKG_ROOT}.libs.ListPreference
+						android:key="ZeemoteMappingB"
+						android:title="@string/pref_zeemote_mapping_b"
+						android:entries="@array/entries_zeemote_mapping"
+						android:entryValues="@array/values_zeemote_mapping"
+						android:dialogTitle="@string/dlg_select_zeemote_mapping"
+						android:defaultValue="Strafe"
+					/>
+					<{$PKG_ROOT}.libs.ListPreference
+						android:key="ZeemoteMappingC"
+						android:title="@string/pref_zeemote_mapping_c"
+						android:entries="@array/entries_zeemote_mapping"
+						android:entryValues="@array/values_zeemote_mapping"
+						android:dialogTitle="@string/dlg_select_zeemote_mapping"
+						android:defaultValue="ToggleMap"
+					/>
+				</PreferenceCategory>
+			<!-- #end -->
 		</PreferenceScreen>
 		<PreferenceScreen android:title="@string/pref_key_mappings">
 			<!-- KEYCODE_DPAD_UP -->
