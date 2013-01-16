@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 if [ "$1" = "" ] ; then
 	echo "Usage: build-fdroid.sh <preset-name>"
@@ -6,9 +6,9 @@ if [ "$1" = "" ] ; then
 fi
 
 SELF=`dirname "$0"`
-SELF=`realpath "$SELF"`
-TOOLS=`realpath "$SELF/.."`
-BASE=`realpath "$SELF/../.."`
+SELF="`pwd`/$SELF"
+TEMP="$SELF/../../temp"
+BASE="$SELF/../.."
 
 if [ ! -e "$SELF/presets/$1" ] ; then
 	echo "Preset \"$1\" not found"
@@ -19,7 +19,9 @@ BPARAMS=""
 
 while read LINE ; do
 	if [ "$LINE" != "" ] ; then
-		if [ "${LINE:0:1}" != "#" ] ; then
+		FSYM=$( echo "$LINE" | awk '{ string=substr($0, 1, 1); print string; }' )
+
+		if [ "$FSYM" != "#" ] ; then
 			if [ "$BPARAMS" = "" ] ; then
 				BPARAMS="$LINE"
 			else
@@ -34,7 +36,8 @@ mkdir "$BASE/.build"
 
 ruby "$SELF/jpp.rb" $BPARAMS && \
 ruby "$SELF/convert-levels.rb" && \
-pushd "$BASE/.build" && \
-ndk-build && \
+CDIR="`pwd`" && \
+cd "$BASE/.build" && \
+$$NDK$$/ndk-build && \
 ruby "$SELF/jpp.rb" --fixlibs $BPARAMS && \
-popd
+cd "$CDIR"
