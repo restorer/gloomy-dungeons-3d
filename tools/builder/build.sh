@@ -32,8 +32,12 @@ while read LINE ; do
 done < "$SELF/presets/$1"
 
 [ -e "$TOOLS/GloomyDungeons-$SUFFIX.apk" ] && rm "$TOOLS/GloomyDungeons-$SUFFIX.apk"
-[ -e "$BASE/.build" ] && rm -r "$BASE/.build"
-mkdir "$BASE/.build"
+
+if [ -e "$BASE/.build" ] ; then
+	rm -r "$BASE/.build"/* 2> /dev/null
+else
+	mkdir "$BASE/.build"
+fi
 
 ruby "$SELF/jpp.rb" $BPARAMS && \
 ruby "$SELF/convert-levels.rb" && \

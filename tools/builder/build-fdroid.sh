@@ -31,13 +31,22 @@ while read LINE ; do
 	fi
 done < "$SELF/presets/$1"
 
-[ -e "$BASE/.build" ] && rm -r "$BASE/.build"
-mkdir "$BASE/.build"
+if [ -e "$BASE/.build" ] ; then
+	rm -r "$BASE/.build"/* 2> /dev/null
+else
+	mkdir "$BASE/.build"
+fi
+
+NDKBUILDTOOL="ndk-build"
+
+if [ "$NDK" != "" ] ; then
+	NDKBUILDTOOL="$NDK/ndk-build"
+fi
 
 ruby "$SELF/jpp.rb" $BPARAMS && \
 ruby "$SELF/convert-levels.rb" && \
 CDIR="`pwd`" && \
 cd "$BASE/.build" && \
-$$NDK$$/ndk-build && \
+$NDKBUILDTOOL && \
 ruby "$SELF/jpp.rb" --fixlibs $BPARAMS && \
 cd "$CDIR"
