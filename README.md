@@ -34,3 +34,12 @@ Compile release version (put key.store and key.alias into ant.properties before 
 ```
 ./z-build opensource release
 ```
+
+Presets
+=======
+
+Currently there are 2 presets:
+
+**opensource** - opensource version without Zeemote support
+
+**opensource-zeemote** - version with Zeemote support
