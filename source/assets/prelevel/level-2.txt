@@ -1,5 +1,5 @@
 controls_rotate
 Excellent! You have not forgotten how to move your feet.
 
-Now we’ll check your motor coordination - you shouldn’t forget where left and where right is.
-Go to the next training area using rotate buttons.
+Now we’ll check your motor coordination. Remember your left and right?
+Go to the next training area using the rotate buttons.

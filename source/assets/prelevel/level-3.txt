@@ -1,7 +1,8 @@
 controls_action
-Great! The main things are mental balance and tranquility, and you have no problems with that.
+Great! Your balance and stability are coming back to you I see.
 
-Let’s get acquainted with the place of your future job. There’ll be custom doors without handles at the place (they have too tricky safety engineers).
-To open a door, use the action button in front of it and say the magic words. ...
-Just a sec... Wait...
-Magic words are not necessary.
+Let’s get acquainted with the environment of your future assignment. Where your're going there’ll be lots of heavy fire-proof pressure doors without handles (Some stupid health and safety rules no doubt).
+To open a door, stand in front of it and say the magic words...
+
+...just kidding sergeant. Magic words are not necessary.
+Use the action button on the right-hand side to open doors.
