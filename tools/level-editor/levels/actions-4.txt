@@ -1,3 +1,0 @@
-: close 1 close 2 close 3 disable_pistol
-4 : wall 4 21 open 3
-5 : next_tutor_level

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<zame.game.views.EndLevelView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/RootZameView"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+>
+	<RelativeLayout
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:background="@drawable/endl_back"
+	>
+		<LinearLayout
+			android:orientation="vertical"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:gravity="center"
+		>
+			<TextView
+				android:id="@+id/TxtKills"
+				style="@style/EndLevelText"
+			/>
+			<TextView
+				android:id="@+id/TxtItems"
+				style="@style/EndLevelText"
+			/>
+			<TextView
+				android:id="@+id/TxtSecrets"
+				style="@style/EndLevelText"
+			/>
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:gravity="center"
+				android:layout_marginTop="32dp"
+			>
+				<Button
+					android:id="@+id/BtnNextLevel"
+					android:text="@string/btn_continue"
+					style="@style/EndLevelButton"
+					android:layout_gravity="center_vertical"
+				/>
+			</LinearLayout>
+		</LinearLayout>
+	</RelativeLayout>
+</zame.game.views.EndLevelView>

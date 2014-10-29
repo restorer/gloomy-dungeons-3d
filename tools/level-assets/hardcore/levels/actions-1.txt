@@ -1,0 +1,24 @@
+: disable_pistol
+: close 4
+: req_key 18 1
+: btn_on FORWARD msg_on PRESS_FORWARD
+1 : btn_off btn_on ROTATE_LEFT btn_on ROTATE_RIGHT msg_on PRESS_ROTATE unmark 1
+21 : msg_off btn_off unmark 21
+8 : btn_off msg_on GO_TO_DOOR wall 22 11 unmark 8
+3 : btn_off btn_on ACTION msg_on PRESS_ACTION_TO_OPEN_DOOR unmark 3
+17 : btn_off msg_off unmark 17
+23 : wall 24 11 unmark 23
+104 : btn_off btn_on ROTATE_RIGHT msg_on SWITCH_AT_RIGHT
+5 : btn_off btn_on ACTION msg_on PRESS_ACTION_TO_SWITCH unmark 5
+20 : btn_off msg_off wall 20 21 open 4 unmark 4 unmark 20
+25 : wall 26 11 unmark 25
+118 : btn_on ROTATE_LEFT msg_on KEY_AT_LEFT
+7 : btn_off btn_on ACTION msg_on OPEN_DOOR_USING_KEY unmark 7
+18 : btn_on ACTION msg_on PRESS_ACTION_TO_FIGHT wall 10 0 unmark 18
+9 : btn_off msg_off unmark 9
+11 : btn_on TOGGLE_MAP msg_on PRESS_MAP unmark 11
+12 : btn_off btn_on NEXT_WEAPON msg_on PRESS_NEXT_WEAPON enable_pistol ensure_weapon 1 weapon_hand unmark 12
+13 : btn_on ACTION wall 19 0 ensure_weapon 1 unmark 13
+14 : wall 6 11 msg_on PRESS_END_LEVEL_SWITCH unmark 14
+2 : btn_off msg_off unmark 2
+16 : msg_off wall 16 24 next_level

@@ -1,2 +1,0 @@
-: close 2 disable_pistol
-1 : next_tutor_level

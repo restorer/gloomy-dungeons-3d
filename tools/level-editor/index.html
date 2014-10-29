@@ -1,0 +1,80 @@
+<html>
+<head>
+	<title>Gloomy Dungeons 3D Level editor</title>
+	<script type="text/javascript">
+
+var conf = {
+	set: ['normal', 'hardcore'][1],
+	floor: 'floor_2',
+	walls: 31,
+	trans_a: 4,
+	trans_b: 6,
+	trans_c: 4,
+	doors: 5,
+	objects: 16,
+	decor_a: 10,
+	decor_b: 1,
+	monsters: 4,
+	use_server: false
+};
+
+	</script>
+	<link rel="stylesheet" type="text/css" href="editor.css" />
+	<script type="text/javascript" src="editor.js"></script>
+	<script type="text/javascript" src="jquery.js"></script>
+	<script type="text/javascript" src="maps.js"></script>
+</head>
+<body onload="main()">
+	<div class="wrap">
+		<div class="level-container">
+			<div class="level-wrap">
+				<div class="level-zoom">
+					<div id="level">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="items">
+		</div>
+
+		<form class="buttons">
+			<!--
+			Map list:
+			<select class="maps"></select>
+			<input type="text" class="current-map-name" value="" />
+			-->
+			<input type="button" value="Load" class="button-load" autocomplete="off" />
+			<input type="button" value="Save" class="button-save" autocomplete="off" />
+			<input type="checkbox" id="wide_screen" /> <label for="wide_screen">Wide screen</label>
+			<br />
+			<br />
+
+			<input type="button" value="&uarr;" onclick="return move_up()" autocomplete="off" />
+			<input type="button" value="&darr;" onclick="return move_dn()" autocomplete="off" />
+			<input type="button" value="&larr;" onclick="return move_lt()" autocomplete="off" />
+			<input type="button" value="&rarr;" onclick="return move_rt()" autocomplete="off" />
+			<input type="button" value="Select" onclick="return do_select()" autocomplete="off" />
+			<input type="button" value="Deselect" onclick="return select_all()" autocomplete="off" />
+			<input type="button" value="Copy" onclick="return do_copy()" autocomplete="off" />
+			<input type="button" value="Move" onclick="return do_move()" autocomplete="off" />
+			<input type="button" value="Fill" onclick="return do_fill()" autocomplete="off" />
+			<br />
+			<input type="button" value="Undo" onclick="return do_undo()" autocomplete="off" />
+			<input type="button" value="Redo" onclick="return do_redo()" autocomplete="off" />
+			<input type="button" value="Convert" onclick="return do_convert()" autocomplete="off" />
+			<input type="button" value="Clear log" onclick="return clear_log()" autocomplete="off" />
+			<br />
+			<input type="text" value="" id="mark" autocomplete="off" />
+			<input type="button" value="Mark" onclick="return do_mark()" autocomplete="off" />
+			<br />
+			<textarea id="log" rows="12" cols="64" autocomplete="off"></textarea>
+			<br />
+		</form>
+	</div>
+	<form class="data-wrap">
+		<input type="button" value="Show/Hide" onclick="return toggle_data_text()" />
+		<br />
+		<textarea id="data-text" rows="32" cols="128" autocomplete="off"></textarea>
+	</form>
+</body>
+</html>

@@ -1,8 +1,0 @@
-controls_action
-Great! Your balance and stability are coming back to you I see.
-
-Let’s get acquainted with the environment of your future assignment. Where your're going there’ll be lots of heavy fire-proof pressure doors without handles (Some stupid health and safety rules no doubt).
-To open a door, stand in front of it and say the magic words...
-
-...just kidding sergeant. Magic words are not necessary.
-Use the action button on the right-hand side to open doors.

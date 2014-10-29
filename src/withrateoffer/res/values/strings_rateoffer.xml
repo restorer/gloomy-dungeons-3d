@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dlg_rate_offer"><![CDATA[
+Love this game?
+Vote for it or leave feedback in Google Play!
+    ]]></string>
+    <string name="dlg_later">Remind me later</string>
+</resources>

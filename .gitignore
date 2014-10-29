@@ -1,2 +1,7 @@
-/.build/*
-!/.build/.build-dir
+/.gradle
+/build
+/tools/info.txt
+/tools/signing.keystore
+/tools/signing.properties
+/local.properties
+.DS_Store

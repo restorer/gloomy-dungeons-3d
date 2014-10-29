@@ -1,70 +1,50 @@
 #!/bin/bash
 
 if [[ "$1" = "" || "$2" = "" ]] ; then
-	echo "Usage: z-build <preset-name>|all <build-type> [install]"
+	echo "Usage: z-build <gplaynormal|gplayhardcore|fdroidnormal|fdroidhardcore> <debug|release> [install]"
 	exit
 fi
 
-if [ "$2" = "debug" ] ; then
-	if [ "$1" = "all" ] ; then
-		for NAME in `ls ./tools/builder/presets/` ; do
-			echo "Building $NAME..."
-			./tools/builder/build.sh $NAME debug
-		done
-	else
-		./tools/builder/build.sh $1 debug
-	fi
-elif [ "$2" = "release" ] ; then
-	sed -e '/^[ ]*key\.store\.password[ ]*=/d' ./source/ant.properties > ./source/ant.properties.n && \
-	rm ./source/ant.properties && \
-	mv ./source/ant.properties.n ./source/ant.properties
+if [[ "$3" = "install" ]] ; then
+	PREFIX="install"
+else
+	PREFIX="assemble"
+fi
 
-	sed -e '/^[ ]*key\.alias\.password[ ]*=/d' ./source/ant.properties > ./source/ant.properties.n && \
-	rm ./source/ant.properties && \
-	mv ./source/ant.properties.n ./source/ant.properties
+case "$2" in
+	debug)
+		SUFFIX="Debug"
+		;;
 
-	stty -echo
-	read -p 'Keystore (and alias) password: ' -e PASSWD ; echo
-	stty echo
+	release)
+		SUFFIX="Release"
+		;;
 
-	if [ "$PASSWD" = "" ] ; then
-		echo "No password given"
+	*)
+		echo "Unknown build type: $2"
 		exit
-	fi
+esac
 
-	echo "key.store.password = $PASSWD" >> ./source/ant.properties
-	echo "key.alias.password = $PASSWD" >> ./source/ant.properties
+case "$1" in
+	gplaynormal)
+		TASK="GplaynormalNormalWithanalyticsWithzeemoteWithrateoffer"
+		;;
 
-	if [ "$1" = "all" ] ; then
-		for NAME in `ls ./tools/builder/presets/` ; do
-			echo "Building $NAME..."
-			./tools/builder/build.sh $NAME release
-		done
-	else
-		./tools/builder/build.sh $1 release
-	fi
+	gplayhardcore)
+		TASK="GplayhardcoreHardcoreWithanalyticsWithzeemoteWithrateoffer"
+		;;
 
-	echo -n "Removing passwords... "
+	fdroidnormal)
+		TASK="FdroidnormalNormalWithoutanalyticsWithoutzeemoteWithoutrateoffer"
+		;;
 
-	sed -e '/^[ ]*key\.store\.password[ ]*=/d' ./source/ant.properties > ./source/ant.properties.n && \
-	rm ./source/ant.properties && \
-	mv ./source/ant.properties.n ./source/ant.properties
+	fdroidhardcore)
+		TASK="FdroidhardcoreHardcoreWithoutanalyticsWithoutzeemoteWithoutrateoffer"
+		;;
 
-	sed -e '/^[ ]*key\.alias\.password[ ]*=/d' ./source/ant.properties > ./source/ant.properties.n && \
-	rm ./source/ant.properties && \
-	mv ./source/ant.properties.n ./source/ant.properties
+	*)
+		echo "Unknown build variant: $1"
+		exit
+esac
 
-	sed -e '/^[ ]*key\.store\.password[ ]*=/d' ./.build/ant.properties > ./.build/ant.properties.n && \
-	rm ./.build/ant.properties && \
-	mv ./.build/ant.properties.n ./.build/ant.properties
-
-	sed -e '/^[ ]*key\.alias\.password[ ]*=/d' ./.build/ant.properties > ./.build/ant.properties.n && \
-	rm ./.build/ant.properties && \
-	mv ./.build/ant.properties.n ./.build/ant.properties
-
-	echo "OK"
-fi
-
-if [[ "$1" != "all" && "$3" = "install" ]] ; then
-	[ -e tools/GloomyDungeons-$1-$2.apk ] && adb install -r tools/GloomyDungeons-$1-$2.apk
-fi
+./gradlew "${PREFIX}${TASK}${SUFFIX}"

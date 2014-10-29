@@ -1,5 +1,4 @@
-What is it?
-===========
+# What is it?
 
 It is old-school 3d shooter, indie game developed by small team.
 It didn't use hi-end engine, so it looks more like wolf-3d than quake or even doom.
@@ -7,39 +6,49 @@ As side effect, it works on low-end phones pretty fast.
 It has big sexy square pixels (*love*)... You should really love pixelart (like me :)
 
   - Code: restorer
-  - Graphics: www.nongnu.org/freedoom, www.lostgarden.com, restorer
+  - Old-school graphics: www.nongnu.org/freedoom, www.lostgarden.com, restorer
+  - Modern graphics: Denis Smoktunovich (smoktunovich@gmail.com)
   - Levels: zin (zin.wtf@gmail.com), restorer
   - Texts: zin (zin.wtf@gmail.com), restorer
   - Sound: www.nongnu.org/freedoom
 
 This game is released under MIT License (http://www.opensource.org/licenses/mit-license.php).
 
-Compiling
-=========
+# Compiling
 
-Compile debug version (apk will be in "tools" folder):
+There are 2 version of game: normal version and hard oldschool version.
+You can compile either by using build script or directly using gradle.
+
+## Compile and install debug build
+
+Normal version:
+
+  - `./z-build fdroidnormal debug install` or
+  - `./gradlew installFdroidnormalNormalWithoutanalyticsWithoutzeemoteWithoutrateofferDebug`
+
+Hardcore version:
+
+  - `./z-build fdroidhardcore debug install` or
+  - `./gradlew installFdroidhardcoreHardcoreWithoutanalyticsWithoutzeemoteWithoutrateofferDebug`
+
+## Compile release builds
+
+To be able to compile release builds, create put your keystore file (or create new) to `tools/signing.keystore` and create `tools/signing.properties`:
 
 ```
-./z-build opensource debug
+keyAlias=put_key_alias_here
+storePassword=put_keystore_password_here
+keyPassword=put_key_password_here
 ```
 
-Compile and install debug version:
+Normal version:
 
-```
-./z-build opensource debug install
-```
+  - `./z-build fdroidnormal release` or
+  - `./gradlew assembleFdroidnormalNormalWithoutanalyticsWithoutzeemoteWithoutrateofferRelease`
 
-Compile release version (put key.store and key.alias into ant.properties before compiling):
+Hardcore version:
 
-```
-./z-build opensource release
-```
+  - `./z-build fdroidhardcore release` or
+  - `./gradlew assembleFdroidhardcoreHardcoreWithoutanalyticsWithoutzeemoteWithoutrateofferRelease`
 
-Presets
-=======
-
-Currently there are 2 presets:
-
-**opensource** - opensource version without Zeemote support
-
-**opensource-zeemote** - version with Zeemote support
+Search for result .apk files in build/outputs/apk/

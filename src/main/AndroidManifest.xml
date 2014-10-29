@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:installLocation="auto"
+	package="zame.game"
+>
+	<support-screens android:anyDensity="true" />
+
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+	<application
+		android:label="@string/app_name"
+		android:icon="@drawable/ic_launcher"
+		android:name="zame.game.ZameApplication"
+	>
+		<activity
+			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+			android:name="zame.game.MenuActivity"
+			android:label="@string/app_name"
+			android:screenOrientation="landscape"
+			android:launchMode="singleTop"
+			android:alwaysRetainTaskState="true"
+			android:configChanges="keyboard|keyboardHidden|orientation"
+		>
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity
+			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+			android:name="zame.game.GameActivity"
+			android:label="@string/app_name"
+			android:screenOrientation="landscape"
+			android:launchMode="singleTop"
+			android:configChanges="keyboard|keyboardHidden|orientation"
+		/>
+		<activity
+			android:theme="@android:style/Theme.NoTitleBar"
+			android:name="zame.game.GamePreferencesActivity"
+			android:label="@string/app_name"
+			android:launchMode="standard"
+		/>
+	</application>
+</manifest>

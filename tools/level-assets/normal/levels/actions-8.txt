@@ -1,0 +1,16 @@
+: restore_health ensure_weapon 1 ensure_weapon 2 ensure_weapon 3 ensure_weapon 4
+: close 25
+2 : wall 1 0
+5 : wall 4 0 unmark 5
+6 : wall 3 0
+8 : wall 7 0 unmark 8
+10 : wall 9 0 unmark 10
+12 : wall 11 0 unmark 12
+13 : wall 14 0 unmark 13
+16 : wall 15 0 unmark 16
+18 : wall 17 0 unmark 18
+20 : wall 19 0 unmark 20
+21 : wall 21 24 next_level
+22 : secret 1 unmark 22
+23 : secret 2 unmark 23
+24 : wall 24 21 open 25

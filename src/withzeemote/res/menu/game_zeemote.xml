@@ -1,0 +1,6 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:id="@+id/menu_code" android:title="@string/menu_code" android:icon="@drawable/ic_menu_more" />
+	<item android:id="@+id/menu_options" android:title="@string/menu_options" android:icon="@drawable/ic_menu_preferences" />
+	<item android:id="@+id/menu_zeemote" android:title="@string/menu_zeemote" android:icon="@drawable/ic_menu_preferences" />
+	<item android:id="@+id/menu_menu" android:title="@string/menu_menu" android:icon="@drawable/ic_menu_exit" />
+</menu>

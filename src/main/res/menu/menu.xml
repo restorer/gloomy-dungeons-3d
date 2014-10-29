@@ -1,0 +1,6 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:id="@+id/menu_about" android:title="@string/menu_about" android:icon="@drawable/ic_menu_info" />
+	<item android:id="@+id/menu_site_help" android:title="@string/menu_site_help" android:icon="@drawable/ic_menu_info" />
+	<item android:id="@+id/menu_options" android:title="@string/menu_options" android:icon="@drawable/ic_menu_preferences" />
+	<item android:id="@+id/menu_exit" android:title="@string/menu_exit" android:icon="@drawable/ic_menu_exit" />
+</menu>

@@ -1,8 +1,0 @@
-controls_move
-Welcome back to the army sergeant. Let's check if our doctors have you all patched up.
-
-Walk down this corridor. Use the on-screen arrow buttons to move forward.
-
-If you're lost, try activating your navigation visor with the top-right button.
-
-Also you can enter the menu (you know, you need to press the MENU button) - it has a bunch of cool options.

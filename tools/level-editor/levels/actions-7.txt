@@ -1,2 +1,0 @@
-: close 1 close 2 enable_pistol weapon_hand restore_health
-3 : next_tutor_level

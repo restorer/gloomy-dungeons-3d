@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="font_name">YanoneKaffeesatz-Regular.ttf</string>
+
+	<string name="font_lbl_size">32</string>
+	<string name="font_lbl_size_sm">28</string>
+	<string name="font_msg_size">32</string>
+	<string name="font_msg_size_sm">20</string>
+	<string name="font_stats_size">26</string>
+	<string name="font_stats_size_sm">22</string>
+
+	<string name="menu_menu">Menu</string>
+	<string name="menu_options">Options</string>
+	<string name="menu_about">About</string>
+	<string name="menu_site_help">Help</string>
+	<string name="menu_exit">Exit</string>
+	<string name="menu_code">Code</string>
+	<string name="menu_help">Press MENU for more options</string>
+
+	<string name="btn_new_game">New Game</string>
+	<string name="btn_continue">Continue</string>
+	<string name="btn_skip_tutorial">Skip tutorial</string>
+	<string name="btn_load">Load</string>
+	<string name="btn_save">Save</string>
+
+	<string name="dlg_yes">Yes</string>
+	<string name="dlg_no">No</string>
+	<string name="dlg_new_game">Current progress will be lost.\nAre you sure?</string>
+	<string name="dlg_ok">OK</string>
+	<string name="dlg_cancel">Cancel</string>
+	<string name="dlg_select_controls">Select control scheme</string>
+	<string name="dlg_select_max_rotate">Select max rotate angle</string>
+	<string name="dlg_select_slot_load">Select slot for load</string>
+	<string name="dlg_select_slot_save">Select slot for save</string>
+	<string name="dlg_enter_code">Enter code</string>
+
+	<string name="dlg_about_title">About</string>
+
+	<string name="msg_game_saved">Game saved</string>
+	<string name="msg_cant_copy_state">Can’t copy state</string>
+	<string name="msg_cant_save_state">Can’t save state</string>
+	<string name="msg_cant_load_state">Can’t load state</string>
+	<string name="msg_old_saves_restored">Old saves restored</string>
+
+	<string name="val_empty">Empty</string>
+
+	<string name="pref_controls">Controls</string>
+	<string name="pref_controls_type">Control scheme</string>
+	<string name="pref_controls_settings">Controls settings</string>
+	<string name="pref_controls_alpha">Controls opacity</string>
+	<string name="pref_params">Parameters</string>
+	<string name="pref_max_rotate">Max rotate angle (for Experimental)</string>
+	<string name="pref_invert_rotation">Invert rotation (for Experimantal and Accelerometer)</string>
+	<string name="pref_accelerometer_enabled">Enable accelerometer</string>
+	<string name="pref_accelerometer_acceleration">Accelerometer acceleration</string>
+	<string name="pref_trackball_acceleration">Trackball acceleration</string>
+	<string name="pref_speed">Move/Rotate speed</string>
+	<string name="pref_pad_x_accel">Pad X-Acceleration</string>
+	<string name="pref_pad_y_accel">Pad Y-Acceleration</string>
+	<string name="pref_move_speed">Move speed</string>
+	<string name="pref_strafe_speed">Strafe speed</string>
+	<string name="pref_rotate_speed">Rotate speed</string>
+	<string name="pref_key_mappings">Key mappings</string>
+	<string name="pref_screen">Screen</string>
+	<string name="pref_gamma">Gamma</string>
+	<string name="pref_level_texture_smoothing">Level texture smoothing</string>
+	<string name="pref_weapons_texture_smoothing">Weapons texture smoothing</string>
+	<string name="pref_sound">Sound</string>
+	<string name="pref_enable_sound">Enable sound</string>
+	<string name="pref_music_volume">Music volume</string>
+	<string name="pref_effects_volume">Effects volume</string>
+	<string name="pref_key_forward">Forward</string>
+	<string name="pref_key_backward">Backward</string>
+	<string name="pref_key_strafe_left">Strafe left</string>
+	<string name="pref_key_strafe_right">Strafe right</string>
+	<string name="pref_key_rotate_left">Rotate left</string>
+	<string name="pref_key_rotate_right">Rotate right</string>
+	<string name="pref_key_action">Action</string>
+	<string name="pref_key_next_weapon">Next weapon</string>
+	<string name="pref_key_toggle_map">Toggle map</string>
+	<string name="pref_key_strafe_mode">Enable strafe mode</string>
+	<string name="pref_misc">Misc</string>
+	<string name="pref_map_position">Map position</string>
+	<string name="pref_show_crosshair">Show crosshair</string>
+	<string name="pref_rotate_screen">Rotate in-game screen</string>
+
+	<string name="endl_kills">Kills: %d%%</string>
+	<string name="endl_items">Items: %d%%</string>
+	<string name="endl_secrets">Secrets: %d%%</string>
+
+	<string name="lib_press_key">Press a hardware key</string>
+	<string name="lib_none">&lt;none&gt;</string>
+	<string name="lib_clear">Clear</string>
+
+	<string name="lbl_fps">FPS:</string>
+	<string name="lbl_cant_open_door">Can’t open this door</string>
+	<string name="lbl_need_blue_key">You need a blue key</string>
+	<string name="lbl_need_red_key">You need a red key</string>
+	<string name="lbl_need_green_key">You need a green key</string>
+	<string name="lbl_secret_found">Secret found</string>
+	<string name="lbl_try_different_control_scheme">Try different control scheme</string>
+	<string name="lbl_can_change_control_scheme">You can always change controls in options</string>
+	<string name="lbl_press_ok_when_done">Press OK when you’re done</string>
+
+	<string name="game_over">Game Over</string>
+	<string name="start_new_game">Start New Game</string>
+	<string name="load_autosave">Load Autosave</string>
+
+	<string name="lblm_press_forward">Move forward, master sergeant!</string>
+	<string name="lblm_press_rotate">Use rotate buttons to turn left or right</string>
+	<string name="lblm_slide_rotate">Swipe left or right to turn</string>
+	<string name="lblm_press_action_to_open_door">Open the door using action button</string>
+	<string name="lblm_switch_at_right">Find switch on the right to open this door</string>
+	<string name="lblm_press_action_to_switch">Use action button to activate a door switch</string>
+	<string name="lblm_key_at_left">Find blue key on the left and open this door</string>
+	<string name="lblm_press_action_to_fight">Use action button and hit an enemy!</string>
+	<string name="lblm_press_map">If you lost, just press map button</string>
+	<string name="lblm_press_next_weapon">Change weapon and destroy the next enemy!</string>
+	<string name="lblm_open_door_using_key">Blue key is yours. Now you can open next door</string>
+	<string name="lblm_press_end_level_switch">Press end level switch</string>
+	<string name="lblm_go_to_door">Excellent! Now go to the door</string>
+</resources>

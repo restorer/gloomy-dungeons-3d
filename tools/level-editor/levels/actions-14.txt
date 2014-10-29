@@ -1,1 +1,0 @@
-1 : wall 2 0 unmark 1

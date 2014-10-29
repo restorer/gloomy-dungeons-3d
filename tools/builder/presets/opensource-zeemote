@@ -1,7 +1,0 @@
--d USE_ZEEMOTE
--i armeabi/libZControllerLib_Android.so
--i zc-strings-1.4.3.jar
--i ZControllerLib-android-1.4.3.jar
--i ZControllerLib-android-ui-1.4.3.jar
--i ZControllerLib-common-1.4.3.jar
--pr zame.GloomyDungeons.opensource

@@ -1,0 +1,111 @@
+body {
+	background-color: #000;
+	margin: 0;
+	padding: 0;
+	font-family: Tahoma, Arial;
+	font-size: 12px;
+	color: #FFF;
+	padding: 8px;
+}
+
+.wrap {
+	position: relative;
+	height: 680px;
+}
+
+.level-container {
+	width: 660px;
+	height: 660px;
+	border: 1px solid #444;
+	overflow: auto;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.level-wrap {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 2048px;
+	height: 2048px;
+	overflow: hidden;
+}
+
+.level-zoom {
+	position: absolute;
+	top: 0;
+	left: 0;
+	-webkit-transform: scale(0.5,0.5);
+	-moz-transform: scale(0.5,0.5);
+}
+
+#level {
+	width: 4096px;
+	height: 4096px;
+	background-position: 0 0;
+	background-repeat: repeat;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.cell {
+	width: 60px;
+	height: 60px;
+	padding: 2px 1px 1px 2px;
+	border-right: 1px solid #444;
+	border-bottom: 1px solid #444;
+	position: absolute;
+	background-position: 0 0;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	font-size: 24px;
+	line-height: 60px;
+	text-align: center;
+	font-weight: bold;
+	color: #F00;
+	background-size: 64px 64px;
+}
+
+.cell:hover {
+	padding: 0;
+	border: 2px solid #F00;
+	background-position: -2px -2px;
+}
+
+.cell-selected {
+	padding: 0;
+	border: 2px dashed #F00;
+	background-position: -2px -2px;
+}
+
+.cell-selected:hover {
+	padding: 0px;
+	border: 2px solid #F00;
+	background-position: -2px -2px;
+}
+
+#items {
+	position: absolute;
+	top: 0;
+	left: 680px;
+	width: 530px;
+	height: 340px;
+	border: 1px solid #444;
+	overflow: auto;
+}
+
+.buttons {
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	top: 360px;
+	left: 680px;
+	white-space: nowrap;
+}
+
+.data-wrap {
+	margin: 0;
+	padding: 0;
+}
