@@ -14,8 +14,8 @@ apply plugin: 'android'
 
 allprojects {
     tasks.withType(Compile) {
-        options.compilerArgs << "-Xlint:all"
-        options.compilerArgs << "-Xlint:-deprecation"
+        options.compilerArgs << '-Xlint:all'
+        options.compilerArgs << '-Xlint:-deprecation'
     }
 }
 
@@ -31,23 +31,23 @@ android {
         versionCode Integer.parseInt(project.VERSION_CODE)
 
         ndk {
-            moduleName "libzameJniRenderer"
-            cFlags "-Werror"
-            ldLibs "log", "GLESv1_CM"
-            // abiFilters "armeabi-v7a", "armeabi", "x86"
+            moduleName 'libzameJniRenderer'
+            cFlags '-Werror'
+            ldLibs 'log', 'GLESv1_CM'
+            // abiFilters 'armeabi-v7a', 'armeabi', 'x86'
         }
     }
 
-    if (new File("tools/signing.properties").exists()) {
+    if (new File('tools/signing.properties').exists()) {
         Properties props = new Properties()
-        props.load(new FileInputStream(file("tools/signing.properties")))
+        props.load(new FileInputStream(file('tools/signing.properties')))
 
         signingConfigs {
             release {
-                storeFile file("tools/signing.keystore")
-                keyAlias props["keyAlias"]
-                storePassword props["storePassword"]
-                keyPassword props["keyPassword"]
+                storeFile file('tools/signing.keystore')
+                keyAlias props['keyAlias']
+                storePassword props['storePassword']
+                keyPassword props['keyPassword']
             }
         }
 
@@ -60,8 +60,8 @@ android {
 
     buildTypes {
         release {
-            runProguard false
-            proguardFile getDefaultProguardFile("proguard-android.txt")
+            runProguard true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-project.txt'
         }
     }
 
@@ -136,8 +136,8 @@ android {
 }
 
 dependencies {
-    withanalyticsCompile fileTree(dir: "src/withanalytics/libs", include: ["*.jar"])
-    withzeemoteCompile fileTree(dir: "src/withzeemote/libs", include: ["*.jar"])
+    withanalyticsCompile fileTree(dir: 'src/withanalytics/libs', include: ['*.jar'])
+    withzeemoteCompile fileTree(dir: 'src/withzeemote/libs', include: ['*.jar'])
 }
 
 def filterResources(variant) {
@@ -149,14 +149,14 @@ def filterResources(variant) {
 
     copy {
         from(variant.processResources.resDir) {
-            ant.properties["project.VERSION_NAME"] = project.VERSION_NAME
+            ant.properties['project.VERSION_NAME'] = project.VERSION_NAME
 
-            include "**/*.xml"
+            include '**/*.xml'
             filter(ExpandProperties, project: ant.project)
         }
 
         from(variant.processResources.resDir) {
-            exclude "**/*.xml"
+            exclude '**/*.xml'
         }
 
         into resFiltered

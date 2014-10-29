@@ -1,0 +1,25 @@
+# Google Analytics
+
+-keep class com.google.** { *; }
+-dontwarn com.google.**
+-dontnote com.google.**
+
+# Zeemote
+
+-keep class com.zeemote.** { *; }
+-keep interface com.zeemote.** { *; }
+-keep enum com.zeemote.** { *; }
+
+-keep class com.motorola.** { *; }
+-keep interface com.motorola.** { *; }
+-keep enum com.motorola.** { *; }
+
+-keep class com.samsung.** { *; }
+-keep interface com.samsung.** { *; }
+-keep enum com.samsung.** { *; }
+
+-keep class android.bluetooth.** { *; }
+-keep interface android.bluetooth.** { *; }
+-keep enum android.bluetooth.** { *; }
+
+-dontwarn com.zeemote.**
