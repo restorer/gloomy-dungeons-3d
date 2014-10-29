@@ -4,7 +4,7 @@
 	android:installLocation="auto"
 	package="zame.game"
 >
-	<support-screens android:anyDensity="true" />
+	<supports-screens android:anyDensity="true" />
 
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.INTERNET" />

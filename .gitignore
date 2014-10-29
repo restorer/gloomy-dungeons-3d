@@ -1,6 +1,6 @@
 /.gradle
 /build
-/tools/info.txt
+/temp
 /tools/signing.keystore
 /tools/signing.properties
 /local.properties
