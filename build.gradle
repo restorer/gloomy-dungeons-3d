@@ -82,7 +82,7 @@ android {
 
         fdroidnormal {
             flavorDimension 'package'
-            applicationId 'zame.GloomyDungeons.opensource'
+            applicationId 'zame.GloomyDungeons.opensource.game'
         }
 
         fdroidhardcore {

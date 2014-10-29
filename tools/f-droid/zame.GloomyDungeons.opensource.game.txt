@@ -1,0 +1,41 @@
+Categories:Games
+License:MIT
+Web Site:http://mobile.zame-dev.org/gloomy/index.php
+Source Code:https://github.com/restorer/Gloomy-Dungeons-3D
+Issue Tracker:https://github.com/restorer/Gloomy-Dungeons-3D/issues
+Bitcoin:1BkmsNEeW5A2YketBaa4pDFSAcDwnDuyDp
+Summary:First-person shooter
+
+Description:
+If you loved Doom and Wolfenstein 3D and want to go to back to gaming in the
+early ‘90s, Gloomy Dungeons 3D is for you! The game has so many features that
+you will be glued to your phone for hours. Watch out for sore fingers!
+
+* Virtual world simulation with 3D visuals
+* Different types of enemies
+* Travel through immense graphically detailed mazes
+* 6 control modes
+* More than 5 hours of game play
+* 25 different shooting locations
+* Unlock new weapons, skills and spill more blood
+* Optimized to run even on 1st Gen Android phones
+* All resources are free as in freedom
+
+In f-droid.org Zeemote isn't supported and Google Analytics was removed.
+Non-personalized promo ads (of new games made by ZameDev) can be shown
+on menu screen.
+.
+
+Repo Type:git
+Repo:https://github.com/restorer/Gloomy-Dungeons-3D
+
+Build:2014.10.26.1200,1414314000
+    commit=PUT_COMMIT_HERE
+    gradle=assembleFdroidnormalNormalWithoutanalyticsWithoutzeemoteWithoutrateofferRelease
+    novcheck=yes
+
+AntiFeatures:Ads,UpstreamNonFree
+Update Check Mode:Static
+Auto Update Mode:None
+Current Version:2014.10.26.1200
+Current Version Code:1414314000
