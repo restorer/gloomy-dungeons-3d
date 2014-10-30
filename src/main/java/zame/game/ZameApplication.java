@@ -61,7 +61,7 @@ public class ZameApplication extends Application
 
 	public String getVersionName() {
 		if (cachedVersionName == null) {
-			cachedVersionName = "2014.xx.xx.xxxx";
+			cachedVersionName = "xxxx.xx.xx.xxxx";
 
 			try {
 				cachedVersionName = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;

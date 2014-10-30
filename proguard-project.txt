@@ -1,3 +1,7 @@
+# Game
+
+-keepclassmembers class zame.promo.PromoView$JsApi { public *; }
+
 # Google Analytics
 
 -keep class com.google.** { *; }

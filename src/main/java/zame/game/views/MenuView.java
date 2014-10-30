@@ -265,7 +265,10 @@ public class MenuView extends RelativeLayout
 			case DIALOG_ABOUT: {
 				data.aboutDialog = new AlertDialog.Builder(activity)
 					.setTitle(R.string.dlg_about_title)
-					.setMessage(Html.fromHtml(activity.getApplicationContext().getText(R.string.dlg_about_text).toString()))
+					.setMessage(Html.fromHtml(activity
+						.getString(R.string.dlg_about_text)
+						.replace("{VERSION_NAME}", ZameApplication.self.getVersionName())
+					))
 					.setPositiveButton(R.string.dlg_ok, null)
 					.create();
 

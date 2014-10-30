@@ -18,10 +18,7 @@ public class Labels
 	public static final int LABEL_NEED_RED_KEY = 4;
 	public static final int LABEL_NEED_GREEN_KEY = 5;
 	public static final int LABEL_SECRET_FOUND = 6;
-	public static final int LABEL_TRY_DIFFERENT_CONTROL_SCHEME = 7;
-	public static final int LABEL_CAN_CHANGE_CONTROL_SCHEME = 8;
-	public static final int LABEL_PRESS_OK_WHEN_DONE = 9;
-	public static final int LABEL_LAST = 10;
+	public static final int LABEL_LAST = 7;
 
 	public static final int MSG_PRESS_FORWARD = 1;
 	public static final int MSG_PRESS_ROTATE = 2;
@@ -95,9 +92,29 @@ public class Labels
 
 	public static void surfaceSizeChanged(int width)
 	{
-		labelPaint.setTextSize(getInt(width < 480 ? R.string.font_lbl_size_sm : R.string.font_lbl_size));
-		msgPaint.setTextSize(getInt(width < 480 ? R.string.font_msg_size_sm : R.string.font_msg_size));
-		statsPaint.setTextSize(getInt(width < 480 ? R.string.font_stats_size_sm : R.string.font_stats_size));
+		labelPaint.setTextSize(getInt(width < 480
+			? R.string.font_lbl_size_sm
+			: (width < 800
+				? R.string.font_lbl_size_md
+				: R.string.font_lbl_size_lg
+			)
+		));
+
+		msgPaint.setTextSize(getInt(width < 480
+			? R.string.font_msg_size_sm
+			: (width < 800
+				? R.string.font_msg_size_md
+				: R.string.font_msg_size_lg
+			)
+		));
+
+		statsPaint.setTextSize(getInt(width < 480
+			? R.string.font_stats_size_sm
+			: (width < 800
+				? R.string.font_stats_size_md
+				: R.string.font_stats_size_lg
+			)
+		));
 	}
 
 	public static int getMessageLabelId(GL10 gl, int messageId)
@@ -160,13 +177,10 @@ public class Labels
 		map[LABEL_NEED_RED_KEY] = maker.add(gl, ZameApplication.self.getString(R.string.lbl_need_red_key), labelPaint);
 		map[LABEL_NEED_GREEN_KEY] = maker.add(gl, ZameApplication.self.getString(R.string.lbl_need_green_key), labelPaint);
 		map[LABEL_SECRET_FOUND] = maker.add(gl, ZameApplication.self.getString(R.string.lbl_secret_found), labelPaint);
-		map[LABEL_TRY_DIFFERENT_CONTROL_SCHEME] = maker.add(gl, ZameApplication.self.getString(R.string.lbl_try_different_control_scheme), msgPaint);
-		map[LABEL_CAN_CHANGE_CONTROL_SCHEME] = maker.add(gl, ZameApplication.self.getString(R.string.lbl_can_change_control_scheme), msgPaint);
-		map[LABEL_PRESS_OK_WHEN_DONE] = maker.add(gl, ZameApplication.self.getString(R.string.lbl_press_ok_when_done), labelPaint);
 		maker.endAdding(gl);
 
 		if (msgMaker == null) {
-			msgMaker = new LabelMaker(true, 512, 64);
+			msgMaker = new LabelMaker(true, 1024, 64);
 		} else {
 			msgMaker.shutdown(gl);
 		}

@@ -2,12 +2,17 @@
 <resources>
 	<string name="font_name">YanoneKaffeesatz-Regular.ttf</string>
 
-	<string name="font_lbl_size">32</string>
 	<string name="font_lbl_size_sm">28</string>
-	<string name="font_msg_size">32</string>
+	<string name="font_lbl_size_md">32</string>
+	<string name="font_lbl_size_lg">36</string>
+
 	<string name="font_msg_size_sm">20</string>
-	<string name="font_stats_size">26</string>
+	<string name="font_msg_size_md">32</string>
+	<string name="font_msg_size_lg">36</string>
+
 	<string name="font_stats_size_sm">22</string>
+	<string name="font_stats_size_md">26</string>
+	<string name="font_stats_size_lg">30</string>
 
 	<string name="menu_menu">Menu</string>
 	<string name="menu_options">Options</string>
@@ -98,9 +103,6 @@
 	<string name="lbl_need_red_key">You need a red key</string>
 	<string name="lbl_need_green_key">You need a green key</string>
 	<string name="lbl_secret_found">Secret found</string>
-	<string name="lbl_try_different_control_scheme">Try different control scheme</string>
-	<string name="lbl_can_change_control_scheme">You can always change controls in options</string>
-	<string name="lbl_press_ok_when_done">Press OK when you’re done</string>
 
 	<string name="game_over">Game Over</string>
 	<string name="start_new_game">Start New Game</string>

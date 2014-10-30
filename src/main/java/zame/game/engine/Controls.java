@@ -507,7 +507,9 @@ public class Controls
 				}
 			}
 
-			else if (pointerIsSlide[pid])
+			// ----
+
+			if (pointerIsSlide[pid])
 			{
 				float distX = x - pointerPrevX[pid];
 				float da = distX * Config.maxRotateAngle / (float)Game.width;

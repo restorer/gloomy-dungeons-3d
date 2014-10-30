@@ -23,6 +23,7 @@ import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 import java.io.InputStream;
+import java.util.Locale;
 import zame.game.BuildConfig;
 
 public class PromoView extends FrameLayout {
@@ -125,12 +126,15 @@ public class PromoView extends FrameLayout {
         WebSettings webSettings = webView.getSettings();
         webSettings.setBuiltInZoomControls(false);
         webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
-        webSettings.setDisplayZoomControls(false);
         webSettings.setJavaScriptEnabled(true);
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
         webSettings.setSupportZoom(false);
         webSettings.setUseWideViewPort(true);
         webSettings.setSupportMultipleWindows(true);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            webSettings.setDisplayZoomControls(false);
+        }
 
         webView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         addView(webView);
@@ -149,11 +153,12 @@ public class PromoView extends FrameLayout {
 
         if (isNetworkConnected()) {
             state = STATE_LOADING;
+            String url = PROMO_URL + context.getPackageName() + "&lang=" + Locale.getDefault().getLanguage().toLowerCase();
 
             if (BuildConfig.DEBUG) {
-                currentWebView.loadUrl(PROMO_URL + context.getPackageName() + "&mode=debug");
+                currentWebView.loadUrl(url + "&mode=debug");
             } else {
-                currentWebView.loadUrl(PROMO_URL + context.getPackageName());
+                currentWebView.loadUrl(url);
             }
         } else {
             postDelayed(loadPromoRunnable, RELOAD_INTERVAL);
@@ -353,9 +358,8 @@ public class PromoView extends FrameLayout {
                 childWebView = new WebView(view.getContext());
 
                 childWebView.setWebViewClient(new WebViewClient() {
-                    @SuppressLint("NewApi")
                     @Override
-                    public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
+                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
                         url = url.trim();
 
                         if (url.length() != 0) {
@@ -366,7 +370,7 @@ public class PromoView extends FrameLayout {
                         childWebView.destroy();
                         childWebView = null;
 
-                        return null;
+                        return true;
                     }
                 });
 

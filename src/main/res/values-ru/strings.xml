@@ -2,12 +2,17 @@
 <resources>
 	<string name="font_name">Cuprum.ttf</string>
 
-	<string name="font_lbl_size">30</string>
 	<string name="font_lbl_size_sm">24</string>
-	<string name="font_msg_size">22</string>
+	<string name="font_lbl_size_md">30</string>
+	<string name="font_lbl_size_lg">40</string>
+
 	<string name="font_msg_size_sm">14</string>
-	<string name="font_stats_size">24</string>
+	<string name="font_msg_size_md">22</string>
+	<string name="font_msg_size_lg">40</string>
+
 	<string name="font_stats_size_sm">20</string>
+	<string name="font_stats_size_md">24</string>
+	<string name="font_stats_size_lg">34</string>
 
 	<string name="menu_menu">Меню</string>
 	<string name="menu_options">Настройки</string>
@@ -98,9 +103,6 @@
 	<string name="lbl_need_red_key">Нужен красный ключ</string>
 	<string name="lbl_need_green_key">Нужен зелёный ключ</string>
 	<string name="lbl_secret_found">Найден секрет</string>
-	<string name="lbl_try_different_control_scheme">Попробуй другие типы управления</string>
-	<string name="lbl_can_change_control_scheme">Управление всегда можно сменить в настройках</string>
-	<string name="lbl_press_ok_when_done">Нажми OK, когда закончишь</string>
 
 	<string name="game_over">Игра окончена</string>
 	<string name="start_new_game">Начать сначала</string>

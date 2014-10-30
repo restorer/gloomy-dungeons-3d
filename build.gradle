@@ -127,41 +127,9 @@ android {
             flavorDimension 'rateoffer'
         }
     }
-
-    applicationVariants.all { variant ->
-        variant.mergeResources.doLast {
-            filterResources(variant)
-        }
-    }
 }
 
 dependencies {
     withanalyticsCompile fileTree(dir: 'src/withanalytics/libs', include: ['*.jar'])
     withzeemoteCompile fileTree(dir: 'src/withzeemote/libs', include: ['*.jar'])
-}
-
-def filterResources(variant) {
-    File resFiltered = file("${buildDir}/intermediates/res-filtered/${variant.dirName}")
-
-    if (resFiltered.exists()) {
-        resFiltered.delete()
-    }
-
-    copy {
-        from(variant.processResources.resDir) {
-            ant.properties['project.VERSION_NAME'] = project.VERSION_NAME
-
-            include '**/*.xml'
-            filter(ExpandProperties, project: ant.project)
-        }
-
-        from(variant.processResources.resDir) {
-            exclude '**/*.xml'
-        }
-
-        into resFiltered
-    }
-
-    file(variant.processResources.resDir).deleteDir()
-    resFiltered.renameTo(file(variant.processResources.resDir))
 }
