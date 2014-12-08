@@ -263,6 +263,10 @@ public class GameActivity extends Activity implements SensorEventListener
 		super.onPause();
 		justAfterPause = true;
 
+		if (zeemoteHelper != null) {
+			zeemoteHelper.onPause();
+		}
+
 		if (!soundAlreadyStopped) {
 			SoundManager.onPause(instantMusicPause);
 			soundAlreadyStopped = true;

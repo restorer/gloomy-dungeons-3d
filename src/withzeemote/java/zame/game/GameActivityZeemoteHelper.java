@@ -2,6 +2,7 @@ package zame.game;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.util.Log;
 import com.zeemote.zc.Controller;
 import com.zeemote.zc.event.BatteryEvent;
 import com.zeemote.zc.event.ButtonEvent;
@@ -12,6 +13,7 @@ import com.zeemote.zc.event.IJoystickListener;
 import com.zeemote.zc.event.IStatusListener;
 import com.zeemote.zc.event.JoystickEvent;
 import com.zeemote.zc.ui.android.ControllerAndroidUi;
+import zame.game.Common;
 import zame.game.engine.Controls;
 
 public class GameActivityZeemoteHelper implements IStatusListener, IJoystickListener, IButtonListener
@@ -20,6 +22,7 @@ public class GameActivityZeemoteHelper implements IStatusListener, IJoystickList
 
     private Controller zeemoteController = null;
     private ControllerAndroidUi zeemoteControllerUi = null;
+    private boolean keepConnection = false;
 
     public int getMenuResId()
     {
@@ -38,6 +41,7 @@ public class GameActivityZeemoteHelper implements IStatusListener, IJoystickList
             case R.id.menu_zeemote:
                 if (zeemoteControllerUi != null) {
                     zeemoteControllerUi.showControllerMenu();
+                    keepConnection = true;
                 }
                 return true;
         }
@@ -57,10 +61,25 @@ public class GameActivityZeemoteHelper implements IStatusListener, IJoystickList
 
             if (zeemoteControllerUi == null) {
                 zeemoteControllerUi = new ControllerAndroidUi(activity, zeemoteController);
+                keepConnection = false;
             }
 
-            if (!zeemoteController.isConnected()) {
+            if (!keepConnection && !zeemoteController.isConnected()) {
                 zeemoteControllerUi.startConnectionProcess();
+                keepConnection = true;
+            } else {
+                keepConnection = false;
+            }
+        }
+    }
+
+    public void onPause()
+    {
+        if (!keepConnection && zeemoteController != null && zeemoteController.isConnected()) {
+            try {
+                zeemoteController.disconnect();
+            } catch (Exception ex) {
+                Log.e(Common.LOG_KEY, "Exception", ex);
             }
         }
     }

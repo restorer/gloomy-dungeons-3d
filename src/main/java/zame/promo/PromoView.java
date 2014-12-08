@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
+import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.view.View;
@@ -37,6 +38,7 @@ public class PromoView extends FrameLayout {
     protected static final int STATE_LOADED = 2;
     protected static final int STATE_DISMISSED = 3;
 
+    protected final Handler handler = new Handler();
     protected Context context;
     protected WebView prevWebView;
     protected WebView currentWebView;
@@ -143,9 +145,9 @@ public class PromoView extends FrameLayout {
     }
 
     protected void loadPromo() {
-        removeCallbacks(loadPromoRunnable);
-        removeCallbacks(reloadPromoRunnable);
-        removeCallbacks(rotatePromoRunnable);
+        handler.removeCallbacks(loadPromoRunnable);
+        handler.removeCallbacks(reloadPromoRunnable);
+        handler.removeCallbacks(rotatePromoRunnable);
 
         if (state != STATE_INITIALIZED) {
             return;
@@ -161,7 +163,7 @@ public class PromoView extends FrameLayout {
                 currentWebView.loadUrl(url);
             }
         } else {
-            postDelayed(loadPromoRunnable, RELOAD_INTERVAL);
+            handler.postDelayed(loadPromoRunnable, RELOAD_INTERVAL);
         }
     }
 
@@ -191,7 +193,7 @@ public class PromoView extends FrameLayout {
             prevWebView.loadData("", "text/html", null);
 
             state = STATE_LOADED;
-            postDelayed(rotatePromoRunnable, ROTATE_INTERVAL);
+            handler.postDelayed(rotatePromoRunnable, ROTATE_INTERVAL);
         }
     }
 
@@ -206,7 +208,7 @@ public class PromoView extends FrameLayout {
             currentWebView.loadData("", "text/html", null);
 
             state = STATE_DISMISSED;
-            postDelayed(rotatePromoRunnable, ROTATE_INTERVAL);
+            handler.postDelayed(rotatePromoRunnable, ROTATE_INTERVAL);
         }
     }
 
@@ -221,8 +223,23 @@ public class PromoView extends FrameLayout {
         if (hasWindowFocus) {
             loadPromo();
         } else {
-            removeCallbacks(loadPromoRunnable);
+            handler.removeCallbacks(loadPromoRunnable);
         }
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        if (state == STATE_INITIALIZED) {
+            loadPromo();
+        }
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        handler.removeCallbacks(loadPromoRunnable);
+        handler.removeCallbacks(reloadPromoRunnable);
+        handler.removeCallbacks(rotatePromoRunnable);
+        state = STATE_INITIALIZED;
     }
 
     protected boolean isNetworkConnected() {
@@ -237,7 +254,7 @@ public class PromoView extends FrameLayout {
     }
 
     protected void openExternalBrowser(final String uri) {
-        post(new Runnable() {
+        handler.post(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -255,7 +272,7 @@ public class PromoView extends FrameLayout {
     }
 
     protected void openExternalIntent(final Intent intent) {
-        post(new Runnable() {
+        handler.post(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -273,12 +290,12 @@ public class PromoView extends FrameLayout {
     protected class JsApi {
         @JavascriptInterface
         public void loaded() {
-            PromoView.this.postDelayed(promoLoadedRunnable, 100L);
+            handler.postDelayed(promoLoadedRunnable, 100L);
         }
 
         @JavascriptInterface
         public void dismiss() {
-            PromoView.this.post(promoDismissedRunnable);
+            handler.post(promoDismissedRunnable);
         }
     }
 
@@ -327,20 +344,20 @@ public class PromoView extends FrameLayout {
             view.stopLoading();
             view.loadData("", "text/html", null);
 
-            PromoView.this.post(reloadPromoRunnable);
+            handler.post(reloadPromoRunnable);
         }
 
         @Override
-        public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-            handler.proceed();
+        public void onReceivedSslError(WebView view, SslErrorHandler sslErrorHandler, SslError error) {
+            sslErrorHandler.proceed();
         }
 
         @Override
-        public void onReceivedHttpAuthRequest(WebView view, HttpAuthHandler handler, String host, String realm) {
+        public void onReceivedHttpAuthRequest(WebView view, HttpAuthHandler httpAuthHandler, String host, String realm) {
             view.stopLoading();
             view.loadData("", "text/html", null);
 
-            PromoView.this.post(reloadPromoRunnable);
+            handler.post(reloadPromoRunnable);
         }
     }
 

@@ -23,4 +23,8 @@ public class GameActivityZeemoteHelper
     public void onStart(GameActivity activity)
     {
     }
+
+    public void onPause()
+    {
+    }
 }
