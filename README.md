@@ -1,3 +1,6 @@
+> Gloomy Dungeons 2 is also opensourced!<br />
+> Check it out - https://github.com/restorer/gloomy-dungeons-2
+
 # What is it?
 
 It is old-school 3d shooter, indie game developed by small team.
