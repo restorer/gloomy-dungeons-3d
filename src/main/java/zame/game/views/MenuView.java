@@ -73,7 +73,7 @@ public class MenuView extends RelativeLayout
 
 	public static void onActivityCreate(MenuActivity activity)
 	{
-		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
+		PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
 	}
 
 	@Override
@@ -89,7 +89,7 @@ public class MenuView extends RelativeLayout
 			R.id.TxtHelp,
 		});
 
-		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getContext());
+		PreferenceManager.getDefaultSharedPreferences(getContext());
 
 		((Button)findViewById(R.id.BtnContinue)).setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -241,7 +241,11 @@ public class MenuView extends RelativeLayout
 				return true;
 
 			case R.id.menu_site_help:
-				Common.openBrowser(activity, "http://mobile.zame-dev.org/gloomy/help.php?hl=" + Locale.getDefault().getLanguage().toLowerCase());
+				Common.openBrowser(
+					activity,
+					"http://mobile.zame-dev.org/gloomy/help.php?hl=" + Locale.getDefault().getLanguage().toLowerCase(Locale.US)
+				);
+
 				return true;
 
 			case R.id.menu_exit:

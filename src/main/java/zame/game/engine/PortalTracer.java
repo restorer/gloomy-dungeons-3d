@@ -2,7 +2,7 @@ package zame.game.engine;
 
 public class PortalTracer
 {
-	public class Wall
+	public static class Wall
 	{
 		public int cellX;
 		public int cellY;
@@ -13,7 +13,7 @@ public class PortalTracer
 		public int texture;
 	}
 
-	public class TouchedCell
+	public static class TouchedCell
 	{
 		public int x;
 		public int y;

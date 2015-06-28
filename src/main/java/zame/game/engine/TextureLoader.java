@@ -101,8 +101,8 @@ public class TextureLoader
 	private static boolean texturesInitialized = false;
 	public static int[] textures = new int[TEXTURE_LAST];
 
-	private static BitmapFactory.Options tOpts;
-	private static LevelConfig levelConf;
+	private static volatile BitmapFactory.Options tOpts;
+	private static volatile LevelConfig levelConf;
 
 	private static void loadAndBindTexture(GL10 gl, int tex, int resId)
 	{
@@ -156,7 +156,7 @@ public class TextureLoader
 		return texMap[(texNum < 1 || texNum > texMap.length) ? 0 : (texNum - 1)];
 	}
 
-	public static boolean loadTexture(GL10 gl, int createdTexturesCount)
+	public static synchronized boolean loadTexture(GL10 gl, int createdTexturesCount)
 	{
 		if (createdTexturesCount >= TEXTURES_TO_LOAD.length) {
 			return false;

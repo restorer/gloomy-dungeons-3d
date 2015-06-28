@@ -34,7 +34,7 @@ public class Common
 	public static float heroCs;	// cos of angle
 	public static float heroSn;	// sin of angle
 
-	public static Random random = null;
+	public static volatile Random random = null;
 	public static float ratio;
 
 	public static void init()
@@ -254,7 +254,7 @@ public class Common
 
 	public static InputStream openLocalizedAsset(AssetManager assetManager, String pathTemplate) throws IOException
 	{
-		String path = String.format(Locale.US, pathTemplate, "-" + Locale.getDefault().getLanguage().toLowerCase());
+		String path = String.format(Locale.US, pathTemplate, "-" + Locale.getDefault().getLanguage().toLowerCase(Locale.US));
 		InputStream res;
 
 		try

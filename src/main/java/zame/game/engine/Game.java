@@ -181,7 +181,7 @@ public class Game extends ZameGame
 
 	public void processGameCode(String codes)
 	{
-		String[] codeList = codes.toLowerCase().split(" ");
+		String[] codeList = codes.toLowerCase(Locale.US).split(" ");
 
 		for (String code : codeList)
 		{

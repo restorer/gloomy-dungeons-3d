@@ -123,7 +123,7 @@ public class SeekBarPreference extends DialogPreference implements SeekBar.OnSee
 		value += mMin;
 
 		mValueText.setText(String.valueOf(value));
-		callChangeListener(new Integer(value));
+		callChangeListener(Integer.valueOf(value));
 	}
 
 	@Override

@@ -21,7 +21,7 @@ public abstract class ZameGame implements zame.libs.GLSurfaceView21.Renderer
 {
 	protected static Object lockUpdate = new Object();
 	private static Object lockControls = new Object();
-	private static ZameGameView view;
+	// private static ZameGameView view;
 
 	private static long updateInterval;
 	private static long startTime = 0;
@@ -58,10 +58,10 @@ public abstract class ZameGame implements zame.libs.GLSurfaceView21.Renderer
 		return buffer;
 	}
 
-	public void setView(ZameGameView view)
-	{
-		ZameGame.view = view;
-	}
+	// public void setView(ZameGameView view)
+	// {
+		// ZameGame.view = view;
+	// }
 
 	public void onSurfaceCreated(GL10 gl, EGLConfig config)
 	{
@@ -100,31 +100,27 @@ public abstract class ZameGame implements zame.libs.GLSurfaceView21.Renderer
 
 	public void pause()
 	{
-		if (!isPaused) {
-			synchronized (lockUpdate) {
-				if (!isPaused) {
-					elapsedTime = System.currentTimeMillis() - startTime;
-					isPaused = true;
-				}
-
-				State.tempElapsedTime = elapsedTime;
-				State.tempLastTime = lastTime;
-				saveState();
+		synchronized (lockUpdate) {
+			if (!isPaused) {
+				elapsedTime = System.currentTimeMillis() - startTime;
+				isPaused = true;
 			}
+
+			State.tempElapsedTime = elapsedTime;
+			State.tempLastTime = lastTime;
+			saveState();
 		}
 	}
 
 	public void resume()
 	{
-		if (isPaused) {
-			synchronized (lockUpdate) {
-				elapsedTime = State.tempElapsedTime;
-				lastTime = State.tempLastTime;
+		synchronized (lockUpdate) {
+			elapsedTime = State.tempElapsedTime;
+			lastTime = State.tempLastTime;
 
-				if (isPaused) {
-					startTime = System.currentTimeMillis() - elapsedTime;
-					isPaused = false;
-				}
+			if (isPaused) {
+				startTime = System.currentTimeMillis() - elapsedTime;
+				isPaused = false;
 			}
 		}
 	}

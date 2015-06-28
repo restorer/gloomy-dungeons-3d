@@ -28,8 +28,8 @@ public class SoundManager
 
 	private static Context appContext;
 	private static AssetManager assetManager;
-	private static MediaPlayer mediaPlayer = null;
-	private static SoundPool soundPool = null;
+	private static volatile MediaPlayer mediaPlayer = null;
+	private static volatile SoundPool soundPool = null;
 
 	public static PlayList LIST_MAIN = new PlayList(new String[] {
 		"l1.mid",
@@ -67,8 +67,8 @@ public class SoundManager
 
 	private static PlayList current = null;
 	private static boolean musicLoaded = false;
-	private static Timer pauseTimer = null;
-	private static TimerTask pauseTask = null;
+	private static volatile Timer pauseTimer = null;
+	private static volatile TimerTask pauseTask = null;
 
 	private static boolean soundEnabled = false;
 	private static float musicVolume = 1.0f;
@@ -86,7 +86,7 @@ public class SoundManager
 		}
 	}
 
-	public static void init(Context context, AssetManager assets, boolean reInitialize)
+	public static synchronized void init(Context context, AssetManager assets, boolean reInitialize)
 	{
 		appContext = context;
 		assetManager = assets;
@@ -311,7 +311,7 @@ public class SoundManager
 		onPause(false);
 	}
 
-	public static void onPause(boolean instant)
+	public static synchronized void onPause(boolean instant)
 	{
 		if (mediaPlayer != null && mediaPlayer.isPlaying())
 		{

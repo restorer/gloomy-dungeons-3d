@@ -636,7 +636,7 @@ public class Level
 		}
 	}
 
-	private static boolean[] wasAlreadyInWall = null;
+	private static volatile boolean[] wasAlreadyInWall = null;
 	public static boolean quickReturnFromFillInitialInWall = false; // set to false before using fillInitialInWallMap
 
 	public static void fillInitialInWallMap(float x, float y, float wallDist, int mask)

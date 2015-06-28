@@ -52,10 +52,10 @@ public class Labels
 		R.string.lblm_go_to_door, // MSG_GO_TO_DOOR
 	};
 
-	public static LabelMaker maker;
-	public static LabelMaker msgMaker;
-	public static NumericSprite numeric;
-	public static NumericSprite statsNumeric;
+	public static volatile LabelMaker maker;
+	public static volatile LabelMaker msgMaker;
+	public static volatile NumericSprite numeric;
+	public static volatile NumericSprite statsNumeric;
 
 	private static Typeface labelTypeface;
 	private static Paint labelPaint;

@@ -20,7 +20,6 @@ public class MenuActivity extends Activity
 
 	private boolean justAfterPause = false;
 	private boolean soundAlreadyStopped = false; // fix multi-activity issues
-	private Dialog dialogToShow = null;
 
 	public boolean instantMusicPause = true;
 	public MenuView.Data menuViewData = new MenuView.Data();
