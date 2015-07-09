@@ -11,6 +11,11 @@ import zame.game.SoundManager;
 
 public class GameOverView extends zame.libs.FrameLayout implements IZameView
 {
+	public GameOverView(Context context, AttributeSet attrs)
+	{
+		super(context, attrs);
+	}
+
 	@Override
 	protected void onFinishInflate()
 	{

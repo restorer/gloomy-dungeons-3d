@@ -21,7 +21,7 @@ public abstract class ZameGame implements zame.libs.GLSurfaceView21.Renderer
 {
 	protected static Object lockUpdate = new Object();
 	private static Object lockControls = new Object();
-	// private static ZameGameView view;
+	private static ZameGameView view;
 
 	private static long updateInterval;
 	private static long startTime = 0;
@@ -58,10 +58,10 @@ public abstract class ZameGame implements zame.libs.GLSurfaceView21.Renderer
 		return buffer;
 	}
 
-	// public void setView(ZameGameView view)
-	// {
-		// ZameGame.view = view;
-	// }
+	public void setView(ZameGameView view)
+	{
+		ZameGame.view = view;
+	}
 
 	public void onSurfaceCreated(GL10 gl, EGLConfig config)
 	{
