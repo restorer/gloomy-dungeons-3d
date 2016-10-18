@@ -17,6 +17,20 @@ It has big sexy square pixels (*love*)... You should really love pixelart (like 
 
 This game is released under MIT License (http://www.opensource.org/licenses/mit-license.php).
 
+# Product support
+
+This product is already finished, so no long support is planned.
+
+| Feature | Support status |
+|---|---|
+| New features | No |
+| Non-critical bugfixes | No |
+| Critical bugfixes | Yes, if it will be easy to understand where to fix |
+| Pull requests | Accepted (after review) |
+| Issues | Monitored, but if you want to change something - submit a pull request |
+| Android version planned to support | Up to 8.x |
+| Estimated end-of-life | Up to 2018 |
+
 # Compiling
 
 There are 2 version of game: normal version and hard oldschool version.
