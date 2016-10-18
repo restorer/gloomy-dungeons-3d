@@ -5,6 +5,7 @@ import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.Debug;
 import android.os.Environment;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.Toast;
@@ -16,8 +17,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.microedition.khronos.opengles.GL10;
 import zame.game.Common;
 import zame.game.Config;
@@ -1019,7 +1018,7 @@ public class Game extends ZameGame
 	{
 		mFrames++;
 
-		long time = System.currentTimeMillis();
+		long time = SystemClock.elapsedRealtime();
 		long diff = time - mPrevRenderTime;
 
 		if (diff > 1000)

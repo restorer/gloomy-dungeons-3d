@@ -2,6 +2,7 @@ package zame.game;
 
 import android.content.res.AssetManager;
 import android.content.res.Resources;
+import android.os.SystemClock;
 import android.view.MotionEvent;
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,7 +45,7 @@ public abstract class ZameGame implements zame.libs.GLSurfaceView21.Renderer
 		resources = res;
 		assetManager = assets;
 
-		startTime = System.currentTimeMillis();		// (*1)
+		startTime = SystemClock.elapsedRealtime();		// (*1)
 	}
 
 	public static byte[] readBytes(InputStream is) throws IOException
@@ -102,7 +103,7 @@ public abstract class ZameGame implements zame.libs.GLSurfaceView21.Renderer
 	{
 		synchronized (lockUpdate) {
 			if (!isPaused) {
-				elapsedTime = System.currentTimeMillis() - startTime;
+				elapsedTime = SystemClock.elapsedRealtime() - startTime;
 				isPaused = true;
 			}
 
@@ -119,7 +120,7 @@ public abstract class ZameGame implements zame.libs.GLSurfaceView21.Renderer
 			lastTime = State.tempLastTime;
 
 			if (isPaused) {
-				startTime = System.currentTimeMillis() - elapsedTime;
+				startTime = SystemClock.elapsedRealtime() - elapsedTime;
 				isPaused = false;
 			}
 		}
@@ -150,7 +151,7 @@ public abstract class ZameGame implements zame.libs.GLSurfaceView21.Renderer
 		}
 
 		synchronized (lockUpdate) {
-			elapsedTime = System.currentTimeMillis() - startTime;
+			elapsedTime = SystemClock.elapsedRealtime() - startTime;
 
 			// sometimes (*1) caused weird bug.
 			// but sometimes without (*1) other bug occurred :)
