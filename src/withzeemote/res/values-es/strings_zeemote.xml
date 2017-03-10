@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="dlg_select_zeemote_mapping">Selecciona el botón de mapa</string>
+	<string name="pref_zeemote_x_accel">Aceleración del eje X</string>
+	<string name="pref_zeemote_y_accel">Aceleración del eje Y</string>
+</resources>

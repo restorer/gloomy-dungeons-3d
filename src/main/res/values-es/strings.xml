@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="font_name">YanoneKaffeesatz-Regular.ttf</string>
+
+    <string name="font_lbl_size_sm">28</string>
+    <string name="font_lbl_size_md">32</string>
+    <string name="font_lbl_size_lg">36</string>
+
+    <string name="font_msg_size_sm">20</string>
+    <string name="font_msg_size_md">32</string>
+    <string name="font_msg_size_lg">36</string>
+
+    <string name="font_stats_size_sm">22</string>
+    <string name="font_stats_size_md">26</string>
+    <string name="font_stats_size_lg">30</string>
+
+    <string name="menu_menu">Menú</string>
+    <string name="menu_options">Opciones</string>
+    <string name="menu_about">Información</string>
+    <string name="menu_site_help">Ayuda</string>
+    <string name="menu_exit">Salir</string>
+    <string name="menu_code">Código</string>
+    <string name="menu_help">Pulsa MENÚ para ver más opciones</string>
+
+    <string name="btn_new_game">Nueva partida</string>
+    <string name="btn_continue">Continuar</string>
+    <string name="btn_skip_tutorial">Saltar tutorial</string>
+    <string name="btn_load">Cargar</string>
+    <string name="btn_save">Guardar</string>
+
+    <string name="dlg_yes">Sí</string>
+    <string name="dlg_no">No</string>
+    <string name="dlg_new_game">&quot;Se perderá el progreso actual.\n¿Estás seguro?&quot;</string>
+    <string name="dlg_ok">SÍ</string>
+    <string name="dlg_cancel">Cancelar</string>
+    <string name="dlg_select_controls">Selecciona esquema de control</string>
+    <string name="dlg_select_max_rotate">Seleciona ángulo de rotación máxima</string>
+    <string name="dlg_select_slot_load">Selecciona espacio para cargar</string>
+    <string name="dlg_select_slot_save">Selecciona espacio para guardar</string>
+    <string name="dlg_enter_code">Insertar código</string>
+
+    <string name="dlg_about_title">Información</string>
+
+    <string name="msg_game_saved">Se ha guardado la partida</string>
+    <string name="msg_cant_copy_state">No se puede copiar el estado</string>
+    <string name="msg_cant_save_state">No se puede guardar estado</string>
+    <string name="msg_cant_load_state">No se puede cargar estado</string>
+    <string name="msg_old_saves_restored">Se han restaurado partidas guardadas anteriores</string>
+
+    <string name="val_empty">Vacío</string>
+
+    <string name="pref_controls">Controles</string>
+    <string name="pref_controls_type">Plan de control del juego</string>
+    <string name="pref_controls_settings">Ajustes de los controles</string>
+    <string name="pref_controls_alpha">Opacidad de los controles</string>
+    <string name="pref_params">Parámetros</string>
+    <string name="pref_max_rotate">Ángulo de rotación máximo (para Experimental)</string>
+    <string name="pref_invert_rotation">Invertir rotación (para Experimental y Acelerómetro)</string>
+    <string name="pref_accelerometer_enabled">Activar acelerómetro</string>
+    <string name="pref_accelerometer_acceleration">Aceleración del acelerómetro</string>
+    <string name="pref_trackball_acceleration">Aceleración de la bola de seguimiento</string>
+    <string name="pref_speed">Moverse/Girar rápido</string>
+    <string name="pref_pad_x_accel">Mando de aceleración del eje X</string>
+    <string name="pref_pad_y_accel">Mando de aceleración del eje Y</string>
+    <string name="pref_move_speed">Moverse rápido</string>
+    <string name="pref_strafe_speed">Ametrallar rápido</string>
+    <string name="pref_rotate_speed">Rotar velocidad</string>
+    <string name="pref_key_mappings">Asignación de teclas</string>
+    <string name="pref_screen">Pantalla</string>
+    <string name="pref_gamma">Gamma</string>
+    <string name="pref_level_texture_smoothing">Suavizado de textura del nivel</string>
+    <string name="pref_weapons_texture_smoothing">Suavizado de textura de las armas</string>
+    <string name="pref_sound">Sonido</string>
+    <string name="pref_enable_sound">Activar sonido</string>
+    <string name="pref_music_volume">Volumen de la música</string>
+    <string name="pref_effects_volume">Efectos de volumen</string>
+    <string name="pref_key_forward">Hacia delante</string>
+    <string name="pref_key_backward">Hacia atrás</string>
+    <string name="pref_key_strafe_left">Ametrallar a la izquierda</string>
+    <string name="pref_key_strafe_right">Ametrallar a la derecha</string>
+    <string name="pref_key_rotate_left">Gira a la izquierda</string>
+    <string name="pref_key_rotate_right">Gira a la derecha</string>
+    <string name="pref_key_action">Acción</string>
+    <string name="pref_key_next_weapon">Siguiente arma</string>
+    <string name="pref_key_toggle_map">Ver mapa</string>
+    <string name="pref_key_strafe_mode">Activar modo Ametrallar</string>
+    <string name="pref_misc">Miscelánea</string>
+    <string name="pref_map_position">Posición del mapa</string>
+    <string name="pref_show_crosshair">Mostrar punto de mira</string>
+    <string name="pref_rotate_screen">Rotar pantalla durante el juego</string>
+
+    <string name="endl_kills">Muertes: %d%%</string>
+    <string name="endl_items">Objetos: %d%%</string>
+    <string name="endl_secrets">Secretos: %d%%</string>
+
+    <string name="lib_press_key">Pulsa una tecla de hardware</string>
+    <string name="lib_none">&lt;vacío&gt;</string>
+    <string name="lib_clear">Borrar</string>
+
+    <string name="lbl_fps">FPS:</string>
+    <string name="lbl_cant_open_door">No se puede abrir esta puerta</string>
+    <string name="lbl_need_blue_key">Necesitas una llave azul</string>
+    <string name="lbl_need_red_key">Necesitas una llave roja</string>
+    <string name="lbl_need_green_key">Necesitas una llave verde</string>
+    <string name="lbl_secret_found">Secreto encontrado</string>
+
+    <string name="game_over">Fin de la partida</string>
+    <string name="start_new_game">Empezar nueva partida</string>
+    <string name="load_autosave">Cargar autoguardado</string>
+
+    <string name="lblm_press_forward">¡Siga adelante, sargento mayor!</string>
+    <string name="lblm_press_rotate">Usa los botones de rotar para girar a derecha e izquierda</string>
+    <string name="lblm_slide_rotate">Desliza hacia la izquierda o la derecha para girar</string>
+    <string name="lblm_press_action_to_open_door">Abre la puerta usando el botón Acción</string>
+    <string name="lblm_switch_at_right">Encuentra el interruptor a la derecha y abre esta puerta</string>
+    <string name="lblm_press_action_to_switch">Usa el botón Acción para activar el interruptor de la puerta</string>
+    <string name="lblm_key_at_left">Encuentra la llave azul a la izquierda y abre esta puerta</string>
+    <string name="lblm_press_action_to_fight">¡Usa el botón Acción y golpea a un enemigo!</string>
+    <string name="lblm_press_map">Si pierdes, pulsa el botón de mapa</string>
+    <string name="lblm_press_next_weapon">¡Cambia de arma y destruye al próximo enemigo!</string>
+    <string name="lblm_open_door_using_key">La llave azul es tuya. Ya puedes abrir la siguiente puerta.</string>
+    <string name="lblm_press_end_level_switch">Pulsa el interruptor de nivel del final</string>
+    <string name="lblm_go_to_door">¡Excelente! Ahora dirígete a la puerta</string>
+</resources>
