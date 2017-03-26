@@ -18,473 +18,423 @@ package zame.libs;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Paint.Style;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.opengl.GLUtils;
 import java.util.ArrayList;
 import javax.microedition.khronos.opengles.GL10;
-import javax.microedition.khronos.opengles.GL11;
-import javax.microedition.khronos.opengles.GL11Ext;
-import zame.game.Config;
 import zame.game.Renderer;
 
 /**
  * An OpenGL text label maker.
- *
- *
+ * <p>
+ * <p>
  * OpenGL labels are implemented by creating a Bitmap, drawing all the labels
  * into the Bitmap, converting the Bitmap into an Alpha texture, and creating a
  * mesh for each label
- *
+ * <p>
  * The benefits of this approach are that the labels are drawn using the high
  * quality anti-aliased font rasterizer, full character set support, and all the
  * text labels are stored on a single texture, which makes it faster to use.
- *
+ * <p>
  * The drawbacks are that you can only have as many labels as will fit onto one
  * texture, and you have to recreate the whole texture if any label text
  * changes.
- *
  */
-public class LabelMaker
-{
-	/**
-	 * Create a label maker
-	 * or maximum compatibility with various OpenGL ES implementations,
-	 * the strike width and height must be powers of two,
-	 * We want the strike width to be at least as wide as the widest window.
-	 *
-	 * @param fullColor true if we want a full color backing store (4444),
-	 * otherwise we generate a grey L8 backing store.
-	 * @param strikeWidth width of strike
-	 * @param strikeHeight height of strike
-	 */
-	public LabelMaker(boolean fullColor, int strikeWidth, int strikeHeight)
-	{
-		mFullColor = fullColor;
-		mStrikeWidth = strikeWidth;
-		mStrikeHeight = strikeHeight;
-		mTexelWidth = (float) (1.0 / mStrikeWidth);
-		mTexelHeight = (float) (1.0 / mStrikeHeight);
-		mClearPaint = new Paint();
-		mClearPaint.setARGB(0, 0, 0, 0);
-		mClearPaint.setStyle(Style.FILL);
-		mState = STATE_NEW;
-	}
+public class LabelMaker {
+    private int mStrikeWidth;
+    private int mStrikeHeight;
+    private boolean mFullColor;
+    private Bitmap mBitmap;
+    private Canvas mCanvas;
 
-	/**
-	 * Call to initialize the class.
-	 * Call whenever the surface has been created.
-	 *
-	 * @param gl
-	 */
-	public void initialize(GL10 gl)
-	{
-		mState = STATE_INITIALIZED;
+    private int mTextureID;
 
-		int[] textures = new int[1];
-		gl.glGenTextures(1, textures, 0);
-		mTextureID = textures[0];
+    private float mTexelWidth;  // Convert texel to U
+    private float mTexelHeight; // Convert texel to V
+    private int mU;
+    private int mV;
+    private int mLineHeight;
+    private ArrayList<Label> mLabels = new ArrayList<Label>();
 
-		gl.glBindTexture(GL10.GL_TEXTURE_2D, mTextureID);
+    private static final int STATE_NEW = 0;
+    private static final int STATE_INITIALIZED = 1;
+    private static final int STATE_ADDING = 2;
+    private static final int STATE_DRAWING = 3;
+    private int mState;
 
-		// Use Nearest for performance.
-		gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_NEAREST);
-		gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_NEAREST);
+    /**
+     * Create a label maker
+     * or maximum compatibility with various OpenGL ES implementations,
+     * the strike width and height must be powers of two,
+     * We want the strike width to be at least as wide as the widest window.
+     *
+     * @param fullColor true if we want a full color backing store (4444),
+     * otherwise we generate a grey L8 backing store.
+     * @param strikeWidth width of strike
+     * @param strikeHeight height of strike
+     */
+    public LabelMaker(boolean fullColor, int strikeWidth, int strikeHeight) {
+        mFullColor = fullColor;
+        mStrikeWidth = strikeWidth;
+        mStrikeHeight = strikeHeight;
+        mTexelWidth = (float)(1.0 / mStrikeWidth);
+        mTexelHeight = (float)(1.0 / mStrikeHeight);
+        mState = STATE_NEW;
+    }
 
-		gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_S, GL10.GL_CLAMP_TO_EDGE);
-		gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_T, GL10.GL_CLAMP_TO_EDGE);
+    /**
+     * Call to initialize the class.
+     * Call whenever the surface has been created.
+     *
+     * @param gl GL
+     */
+    public void initialize(GL10 gl) {
+        mState = STATE_INITIALIZED;
 
-		gl.glTexEnvf(GL10.GL_TEXTURE_ENV, GL10.GL_TEXTURE_ENV_MODE, GL10.GL_REPLACE);
-	}
+        int[] textures = new int[1];
+        gl.glGenTextures(1, textures, 0);
+        mTextureID = textures[0];
 
-	/**
-	 * Call when the surface has been destroyed
-	 */
-	public void shutdown(GL10 gl)
-	{
-		if (gl != null)
-		{
-			if (mState > STATE_NEW)
-			{
-				int[] textures = new int[1];
-				textures[0] = mTextureID;
-				gl.glDeleteTextures(1, textures, 0);
-				mState = STATE_NEW;
-			}
-		}
-	}
+        gl.glBindTexture(GL10.GL_TEXTURE_2D, mTextureID);
 
-	/**
-	 * Call before adding labels. Clears out any existing labels.
-	 *
-	 * @param gl
-	 */
-	public void beginAdding(GL10 gl)
-	{
-		checkState(STATE_INITIALIZED, STATE_ADDING);
-		mLabels.clear();
-		mU = 0;
-		mV = 0;
-		mLineHeight = 0;
-		Bitmap.Config config = (mFullColor ? Bitmap.Config.ARGB_4444 : Bitmap.Config.ALPHA_8);
-		mBitmap = Bitmap.createBitmap(mStrikeWidth, mStrikeHeight, config);
-		mCanvas = new Canvas(mBitmap);
-		mBitmap.eraseColor(0);
-	}
+        // Use Nearest for performance.
+        gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_NEAREST);
+        gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_NEAREST);
 
-	/**
-	 * Call to add a label
-	 *
-	 * @param gl
-	 * @param text the text of the label
-	 * @param textPaint the paint of the label
-	 * @return the id of the label, used to measure and draw the label
-	 */
-	public int add(GL10 gl, String text, Paint textPaint)
-	{
-		return add(gl, null, text, textPaint);
-	}
+        gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_S, GL10.GL_CLAMP_TO_EDGE);
+        gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_T, GL10.GL_CLAMP_TO_EDGE);
 
-	/**
-	 * Call to add a label
-	 *
-	 * @param gl
-	 * @param text the text of the label
-	 * @param textPaint the paint of the label
-	 * @return the id of the label, used to measure and draw the label
-	 */
-	public int add(GL10 gl, Drawable background, String text, Paint textPaint)
-	{
-		return add(gl, background, text, textPaint, 0, 0);
-	}
+        gl.glTexEnvf(GL10.GL_TEXTURE_ENV, GL10.GL_TEXTURE_ENV_MODE, GL10.GL_REPLACE);
+    }
 
-	/**
-	 * Call to add a label
-	 * @return the id of the label, used to measure and draw the label
-	 */
-	public int add(GL10 gl, Drawable drawable, int minWidth, int minHeight)
-	{
-		return add(gl, drawable, null, null, minWidth, minHeight);
-	}
+    /**
+     * Call when the surface has been destroyed
+     *
+     * @param gl GL
+     */
+    public void shutdown(GL10 gl) {
+        if ((gl != null) && (mState > STATE_NEW)) {
+            int[] textures = new int[1];
+            textures[0] = mTextureID;
+            gl.glDeleteTextures(1, textures, 0);
+            mState = STATE_NEW;
+        }
+    }
 
-	/**
-	 * Call to add a label
-	 *
-	 * @param gl
-	 * @param text the text of the label
-	 * @param textPaint the paint of the label
-	 * @return the id of the label, used to measure and draw the label
-	 */
-	public int add(GL10 gl, Drawable background, String text, Paint textPaint, int minWidth, int minHeight)
-	{
-		checkState(STATE_ADDING, STATE_ADDING);
-		boolean drawBackground = (background != null);
-		boolean drawText = ((text != null) && (textPaint != null));
+    /**
+     * Call before adding labels. Clears out any existing labels.
+     *
+     * @param gl GL
+     */
+    public void beginAdding(@SuppressWarnings("UnusedParameters") GL10 gl) {
+        checkState(STATE_INITIALIZED, STATE_ADDING);
 
-		Rect padding = new Rect();
+        mLabels.clear();
+        mU = 0;
+        mV = 0;
+        mLineHeight = 0;
 
-		if (drawBackground)
-		{
-			background.getPadding(padding);
-			minWidth = Math.max(minWidth, background.getMinimumWidth());
-			minHeight = Math.max(minHeight, background.getMinimumHeight());
-		}
+        Bitmap.Config config = (mFullColor ? Bitmap.Config.ARGB_4444 : Bitmap.Config.ALPHA_8);
+        mBitmap = Bitmap.createBitmap(mStrikeWidth, mStrikeHeight, config);
+        mCanvas = new Canvas(mBitmap);
+        mBitmap.eraseColor(0);
+    }
 
-		int ascent = 0;
-		int descent = 0;
-		int measuredTextWidth = 0;
+    /**
+     * Call to add a label
+     *
+     * @param gl GL
+     * @param text the text of the label
+     * @param textPaint the paint of the label
+     * @return the id of the label, used to measure and draw the label
+     */
+    public int add(GL10 gl, String text, Paint textPaint) {
+        return add(gl, null, text, textPaint);
+    }
 
-		if (drawText)
-		{
-			// Paint.ascent is negative, so negate it.
-			ascent = (int) Math.ceil(-textPaint.ascent());
-			descent = (int) Math.ceil(textPaint.descent());
-			measuredTextWidth = (int) Math.ceil(textPaint.measureText(text));
-		}
+    /**
+     * Call to add a label
+     *
+     * @param gl GL
+     * @param text the text of the label
+     * @param textPaint the paint of the label
+     * @return the id of the label, used to measure and draw the label
+     */
+    public int add(GL10 gl, Drawable background, String text, Paint textPaint) {
+        return add(gl, background, text, textPaint, 0, 0);
+    }
 
-		int textHeight = ascent + descent;
-		int textWidth = Math.min(mStrikeWidth,measuredTextWidth);
+    /**
+     * Call to add a label
+     *
+     * @return the id of the label, used to measure and draw the label
+     */
+    public int add(GL10 gl, Drawable drawable, int minWidth, int minHeight) {
+        return add(gl, drawable, null, null, minWidth, minHeight);
+    }
 
-		int padHeight = padding.top + padding.bottom;
-		int padWidth = padding.left + padding.right;
-		int height = Math.max(minHeight, textHeight + padHeight);
-		int width = Math.max(minWidth, textWidth + padWidth);
-		int effectiveTextHeight = height - padHeight;
-		int effectiveTextWidth = width - padWidth;
+    /**
+     * Call to add a label
+     *
+     * @param gl GL
+     * @param text the text of the label
+     * @param textPaint the paint of the label
+     * @return the id of the label, used to measure and draw the label
+     */
+    public int add(@SuppressWarnings("UnusedParameters") GL10 gl,
+            Drawable background,
+            String text,
+            Paint textPaint,
+            int minWidth,
+            int minHeight) {
 
-		int centerOffsetHeight = (effectiveTextHeight - textHeight) / 2;
-		int centerOffsetWidth = (effectiveTextWidth - textWidth) / 2;
+        checkState(STATE_ADDING, STATE_ADDING);
 
-		// Make changes to the local variables, only commit them
-		// to the member variables after we've decided not to throw
-		// any exceptions.
+        boolean drawBackground = (background != null);
+        boolean drawText = ((text != null) && (textPaint != null));
+        Rect padding = new Rect();
 
-		int u = mU;
-		int v = mV;
-		int lineHeight = mLineHeight;
+        if (drawBackground) {
+            background.getPadding(padding);
+            minWidth = Math.max(minWidth, background.getMinimumWidth());
+            minHeight = Math.max(minHeight, background.getMinimumHeight());
+        }
 
-		if (width > mStrikeWidth) {
-			width = mStrikeWidth;
-		}
+        int ascent = 0;
+        int descent = 0;
+        int measuredTextWidth = 0;
 
-		// Is there room for this string on the current line?
-		if (u + width > mStrikeWidth)
-		{
-			// No room, go to the next line:
-			u = 0;
-			v += lineHeight;
-			lineHeight = 0;
-		}
+        if (drawText) {
+            // Paint.ascent is negative, so negate it.
+            ascent = (int)Math.ceil(-textPaint.ascent());
+            descent = (int)Math.ceil(textPaint.descent());
+            measuredTextWidth = (int)Math.ceil(textPaint.measureText(text));
+        }
 
-		lineHeight = Math.max(lineHeight, height);
+        int textHeight = ascent + descent;
+        int textWidth = Math.min(mStrikeWidth, measuredTextWidth);
 
-		if (v + lineHeight > mStrikeHeight) {
-			throw new IllegalArgumentException("Out of texture space.");
-		}
+        int padHeight = padding.top + padding.bottom;
+        int padWidth = padding.left + padding.right;
+        int height = Math.max(minHeight, textHeight + padHeight);
+        int width = Math.max(minWidth, textWidth + padWidth);
+        int effectiveTextHeight = height - padHeight;
+        int effectiveTextWidth = width - padWidth;
 
-		int u2 = u + width;
-		int vBase = v + ascent;
-		int v2 = v + height;
+        int centerOffsetHeight = (effectiveTextHeight - textHeight) / 2;
+        int centerOffsetWidth = (effectiveTextWidth - textWidth) / 2;
 
-		if (drawBackground)
-		{
-			background.setBounds(u, v, u + width, v + height);
-			background.draw(mCanvas);
-		}
+        // Make changes to the local variables, only commit them
+        // to the member variables after we've decided not to throw
+        // any exceptions.
 
-		if (drawText)
-		{
-			mCanvas.drawText(
-				text,
-				u + padding.left + centerOffsetWidth,
-				vBase + padding.top + centerOffsetHeight,
-				textPaint
-			);
-		}
+        int u = mU;
+        int v = mV;
+        int lineHeight = mLineHeight;
 
-		Grid grid = new Grid(2, 2);
-		// Grid.set arguments: i, j, x, y, z, u, v
+        if (width > mStrikeWidth) {
+            width = mStrikeWidth;
+        }
 
-		float texU = u * mTexelWidth;
-		float texU2 = u2 * mTexelWidth;
-		float texV = 1.0f - v * mTexelHeight;
-		float texV2 = 1.0f - v2 * mTexelHeight;
+        // Is there room for this string on the current line?
+        if ((u + width) > mStrikeWidth) {
+            // No room, go to the next line:
+            u = 0;
+            v += lineHeight;
+            lineHeight = 0;
+        }
 
-		grid.set(0, 0,   0.0f,   0.0f, 0.0f, texU , texV2);
-		grid.set(1, 0,  width,   0.0f, 0.0f, texU2, texV2);
-		grid.set(0, 1,   0.0f, height, 0.0f, texU , texV );
-		grid.set(1, 1,  width, height, 0.0f, texU2, texV );
+        lineHeight = Math.max(lineHeight, height);
 
-		// We know there's enough space, so update the member variables
-		mU = u + width;
-		mV = v;
-		mLineHeight = lineHeight;
-		mLabels.add(new Label(grid, width, height, ascent, u, v + height, width, -height));
+        if ((v + lineHeight) > mStrikeHeight) {
+            throw new IllegalArgumentException("Out of texture space.");
+        }
 
-		return mLabels.size() - 1;
-	}
+        int vBase = v + ascent;
 
-	/**
-	 * Call to end adding labels. Must be called before drawing starts.
-	 *
-	 * @param gl
-	 */
-	public void endAdding(GL10 gl)
-	{
-		checkState(STATE_ADDING, STATE_INITIALIZED);
-		gl.glBindTexture(GL10.GL_TEXTURE_2D, mTextureID);
-		GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, mBitmap, 0);
+        if (drawBackground) {
+            background.setBounds(u, v, u + width, v + height);
+            background.draw(mCanvas);
+        }
 
-		// Reclaim storage used by bitmap and canvas.
-		mCanvas = null;
-		mBitmap.recycle();
-		mBitmap = null;
-		System.gc();
-	}
+        if (drawText) {
+            mCanvas.drawText(text,
+                    u + padding.left + centerOffsetWidth,
+                    vBase + padding.top + centerOffsetHeight,
+                    textPaint);
+        }
 
-	/**
-	 * Get the width in pixels of a given label.
-	 *
-	 * @param labelID
-	 * @return the width in pixels
-	 */
-	public float getWidth(int labelID)
-	{
-		return mLabels.get(labelID).width;
-	}
+        // We know there's enough space, so update the member variables
+        mU = u + width;
+        mV = v;
+        mLineHeight = lineHeight;
 
-	/**
-	 * Get the height in pixels of a given label.
-	 *
-	 * @param labelID
-	 * @return the height in pixels
-	 */
-	public float getHeight(int labelID)
-	{
-		return mLabels.get(labelID).height;
-	}
+        float sx = u * mTexelWidth;
+        float sy = v * mTexelHeight;
+        float ex = sx + (width * mTexelWidth);
+        float ey = sy + (height * mTexelHeight);
 
-	/**
-	 * Get the baseline of a given label. That's how many pixels from the top of
-	 * the label to the text baseline. (This is equivalent to the negative of
-	 * the label's paint's ascent.)
-	 *
-	 * @param labelID
-	 * @return the baseline in pixels.
-	 */
-	public float getBaseline(int labelID)
-	{
-		return mLabels.get(labelID).baseline;
-	}
+        mLabels.add(new Label(width, height, ascent, sx, sy, ex, ey));
+        return mLabels.size() - 1;
+    }
 
-	/**
-	 * Begin drawing labels. Sets the OpenGL state for rapid drawing.
-	 * Don't forget to set appropriate colors via glColor4x or glColor4f
-	 *
-	 * @param gl
-	 * @param viewWidth
-	 * @param viewHeight
-	 */
-	public void beginDrawing(GL10 gl, float viewWidth, float viewHeight)
-	{
-		checkState(STATE_INITIALIZED, STATE_DRAWING);
+    /**
+     * Call to end adding labels. Must be called before drawing starts.
+     *
+     * @param gl GL
+     */
+    public void endAdding(GL10 gl) {
+        checkState(STATE_ADDING, STATE_INITIALIZED);
 
-		gl.glDisableClientState(GL10.GL_COLOR_ARRAY);
-		gl.glBindTexture(GL10.GL_TEXTURE_2D, mTextureID);
-		gl.glShadeModel(GL10.GL_FLAT);
-		gl.glEnable(GL10.GL_BLEND);
-		gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
-		gl.glMatrixMode(GL10.GL_PROJECTION);
-		gl.glPushMatrix();
-		Renderer.loadIdentityAndOrthof(gl, 0.0f, viewWidth, 0.0f, viewHeight, 0.0f, 1.0f);
-		gl.glMatrixMode(GL10.GL_MODELVIEW);
-		gl.glPushMatrix();
-		gl.glLoadIdentity();
+        gl.glBindTexture(GL10.GL_TEXTURE_2D, mTextureID);
+        GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, mBitmap, 0);
 
-		// Magic offsets to promote consistent rasterization.
-		gl.glTranslatef(0.375f, 0.375f, 0.0f);
+        // Reclaim storage used by bitmap and canvas.
+        mCanvas = null;
+        mBitmap.recycle();
+        mBitmap = null;
+        System.gc();
+    }
 
-		mCurrentWidth = viewWidth;
-		mCurrentHeight = viewHeight;
-	}
+    /**
+     * Get the width in pixels of a given label.
+     *
+     * @param labelID ID of the label
+     * @return the width in pixels
+     */
+    public float getWidth(int labelID) {
+        return mLabels.get(labelID).width;
+    }
 
-	/**
-	 * Draw a given label at a given x,y position, expressed in pixels, with the
-	 * lower-left-hand-corner of the view being (0,0).
-	 *
-	 * @param gl
-	 * @param x
-	 * @param y
-	 * @param labelID
-	 */
-	public void draw(GL10 gl, float x, float y, int labelID)
-	{
-		checkState(STATE_DRAWING, STATE_DRAWING);
-		gl.glPushMatrix();
+    /**
+     * Get the height in pixels of a given label.
+     *
+     * @param labelID ID of the label
+     * @return the height in pixels
+     */
+    public float getHeight(int labelID) {
+        return mLabels.get(labelID).height;
+    }
 
-		float snappedX = (float)Math.floor(x);
-		float snappedY = (float)Math.floor(y);
+    /**
+     * Get the baseline of a given label. That's how many pixels from the top of
+     * the label to the text baseline. (This is equivalent to the negative of
+     * the label's paint's ascent.)
+     *
+     * @param labelID ID of the label
+     * @return the baseline in pixels.
+     */
+    @SuppressWarnings("unused")
+    public float getBaseline(int labelID) {
+        return mLabels.get(labelID).baseline;
+    }
 
-		gl.glTranslatef(snappedX, snappedY, 0.0f);
-		Label label = mLabels.get(labelID);
-		gl.glEnable(GL10.GL_TEXTURE_2D);
+    /**
+     * Begin drawing labels. Sets the OpenGL state for rapid drawing.
+     * Don't forget to set appropriate colors via glColor4x or glColor4f
+     *
+     * @param gl GL
+     * @param viewWidth width of the view
+     * @param viewHeight height of the view
+     */
+    public void beginDrawing(GL10 gl, float viewWidth, float viewHeight) {
+        checkState(STATE_INITIALIZED, STATE_DRAWING);
 
-		((GL11)gl).glTexParameteriv(GL10.GL_TEXTURE_2D, GL11Ext.GL_TEXTURE_CROP_RECT_OES, (Config.rotateScreen ? label.mCropRot : label.mCrop), 0);
+        gl.glMatrixMode(GL10.GL_PROJECTION);
+        gl.glPushMatrix();
+        Renderer.loadIdentityAndOrthof(gl, 0.0f, viewWidth, 0.0f, viewHeight, 0.0f, 1.0f);
 
-		if (Config.rotateScreen) {
-			((GL11Ext)gl).glDrawTexiOES((int)(mCurrentWidth - snappedX - label.width - 1), (int)(mCurrentHeight - snappedY - label.height - 1), 0, (int)label.width, (int)label.height);
-		} else {
-			((GL11Ext)gl).glDrawTexiOES((int)snappedX, (int)snappedY, 0, (int)label.width, (int)label.height);
-		}
+        gl.glMatrixMode(GL10.GL_MODELVIEW);
+        gl.glLoadIdentity();
 
-		gl.glPopMatrix();
-	}
+        Renderer.init();
+        Renderer.bindTexture(gl, mTextureID);
 
-	/**
-	 * Ends the drawing and restores the OpenGL state.
-	 *
-	 * @param gl
-	 */
-	public void endDrawing(GL10 gl)
-	{
-		checkState(STATE_DRAWING, STATE_INITIALIZED);
-		gl.glDisable(GL10.GL_BLEND);
-		gl.glMatrixMode(GL10.GL_PROJECTION);
-		gl.glPopMatrix();
-		gl.glMatrixMode(GL10.GL_MODELVIEW);
-		gl.glPopMatrix();
-	}
+        gl.glShadeModel(GL10.GL_FLAT);
+        gl.glDisable(GL10.GL_DEPTH_TEST);
 
-	private void checkState(int oldState, int newState)
-	{
-		if (mState != oldState) {
-			throw new IllegalArgumentException("Can't call this method now.");
-		}
+        gl.glEnable(GL10.GL_BLEND);
+        gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
 
-		mState = newState;
-	}
+        Renderer.setQuadRGBA(1.0f, 1.0f, 1.0f, 1.0f);
+    }
 
-	private static class Label
-	{
-		public Label(
-			Grid grid,
-			float width, float height, float baseLine,
-			int cropU, int cropV, int cropW, int cropH)
-		{
-			this.grid = grid;
-			this.width = width;
-			this.height = height;
-			this.baseline = baseLine;
+    /**
+     * Draw a given label at a given x,y position, expressed in pixels, with the
+     * lower-left-hand-corner of the view being (0,0).
+     *
+     * @param gl GL
+     * @param x x position
+     * @param y y position
+     * @param labelID ID of the label
+     */
+    @SuppressWarnings("MagicNumber")
+    public void draw(@SuppressWarnings("UnusedParameters") GL10 gl, float x, float y, int labelID) {
+        checkState(STATE_DRAWING, STATE_DRAWING);
 
-			int[] crop = new int[4];
-			crop[0] = cropU;
-			crop[1] = cropV;
-			crop[2] = cropW;
-			crop[3] = cropH;
+        float snappedX = (float)Math.floor(x) + 0.375f; // magic offset to promote consistent rasterization
+        float snappedY = (float)Math.floor(y) + 0.375f; // magic offset to promote consistent rasterization
 
-			mCrop = crop;
+        Label label = mLabels.get(labelID);
+        Renderer.setQuadOrthoCoords(snappedX, snappedY, snappedX + label.width, snappedY + label.height);
 
-			int[] cropRot = new int[4];
-			cropRot[0] = cropU + cropW - 1;
-			cropRot[1] = cropV + cropH - 1;
-			cropRot[2] = -cropW;
-			cropRot[3] = -cropH;
+        Renderer.u1 = label.sx;
+        Renderer.v1 = label.ey;
 
-			mCropRot = cropRot;
-		}
+        Renderer.u2 = label.sx;
+        Renderer.v2 = label.sy;
 
-		public Grid grid;
-		public float width;
-		public float height;
-		public float baseline;
-		public int[] mCrop;
-		public int[] mCropRot;
-	}
+        Renderer.u3 = label.ex;
+        Renderer.v3 = label.sy;
 
-	private int mStrikeWidth;
-	private int mStrikeHeight;
-	private boolean mFullColor;
-	private Bitmap mBitmap;
-	private Canvas mCanvas;
-	private Paint mClearPaint;
+        Renderer.u4 = label.ex;
+        Renderer.v4 = label.ey;
 
-	private int mTextureID;
+        Renderer.drawQuad();
+    }
 
-	private float mTexelWidth;  // Convert texel to U
-	private float mTexelHeight; // Convert texel to V
-	private int mU;
-	private int mV;
-	private int mLineHeight;
-	private ArrayList<Label> mLabels = new ArrayList<Label>();
+    /**
+     * Ends the drawing and restores the OpenGL state.
+     *
+     * @param gl GL
+     */
+    public void endDrawing(GL10 gl) {
+        checkState(STATE_DRAWING, STATE_INITIALIZED);
 
-	private static final int STATE_NEW = 0;
-	private static final int STATE_INITIALIZED = 1;
-	private static final int STATE_ADDING = 2;
-	private static final int STATE_DRAWING = 3;
-	private int mState;
+        Renderer.flush(gl);
 
-	private float mCurrentWidth;
-	private float mCurrentHeight;
+        gl.glMatrixMode(GL10.GL_PROJECTION);
+        gl.glPopMatrix();
+    }
+
+    private void checkState(int oldState, int newState) {
+        if (mState != oldState) {
+            throw new IllegalArgumentException("Can't call this method now.");
+        }
+
+        mState = newState;
+    }
+
+    @SuppressWarnings("WeakerAccess")
+    private static class Label {
+        public float width;
+        public float height;
+        public float baseline;
+        public float sx;
+        public float sy;
+        public float ex;
+        public float ey;
+
+        public Label(float width, float height, float baseLine, float sx, float sy, float ex, float ey) {
+            this.width = width;
+            this.height = height;
+            this.baseline = baseLine;
+            this.sx = sx;
+            this.sy = sy;
+            this.ex = ex;
+            this.ey = ey;
+        }
+    }
 }

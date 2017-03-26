@@ -1,20 +1,18 @@
 package zame.game;
 
-public class ZameApplicationAnalyticsHelper
-{
-    public void trackPageView(final String pageUrl)
-    {
+@SuppressWarnings("WeakerAccess")
+public class ZameApplicationAnalyticsHelper {
+    public void trackPageView(@SuppressWarnings("UnusedParameters") final String pageUrl) {
     }
 
-    public void trackEvent(final String category, final String action, final String label, final int value)
-    {
+    @SuppressWarnings("UnusedParameters")
+    public void trackEvent(final String category, final String action, final String label, final int value) {
     }
 
-    public void flushEvents()
-    {
+    public void flushEvents() {
     }
 
-    public void onCreate(ZameApplication app, String initialControlsType)
-    {
+    @SuppressWarnings("UnusedParameters")
+    public void onCreate(ZameApplication app, String initialControlsType) {
     }
 }

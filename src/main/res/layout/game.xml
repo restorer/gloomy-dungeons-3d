@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<zame.game.views.GameView
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/RootZameView"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	android:keepScreenOn="true"
->
-	<zame.game.views.ZameGameView
-		android:id="@+id/ZameGameView"
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-	/>
+<zame.game.views.GameView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RootZameView"
+    android:keepScreenOn="true"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <zame.game.views.ZameGameView
+        android:id="@+id/ZameGameView"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent" />
+
 </zame.game.views.GameView>

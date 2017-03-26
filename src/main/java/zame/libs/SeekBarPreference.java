@@ -24,156 +24,154 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import zame.game.R;
 
-public class SeekBarPreference extends DialogPreference implements SeekBar.OnSeekBarChangeListener
-{
-	private static final String androidns = "http://schemas.android.com/apk/res/android";
+public class SeekBarPreference extends DialogPreference implements SeekBar.OnSeekBarChangeListener {
+    private static final String androidns = "http://schemas.android.com/apk/res/android";
 
-	private Context mContext;
-	private SeekBar mSeekBar;
-	private TextView mSplashText;
-	private TextView mValueText;
+    private Context mContext;
+    private SeekBar mSeekBar;
+    private TextView mValueText;
 
-	private String mDialogMessage;
-	private int mMin;
-	private int mMax;
-	private int mValue = 0;
-	private String mSummary = "%s/%s";
+    private String mDialogMessage;
+    private int mMin;
+    private int mMax;
+    private int mValue;
+    private String mSummary = "%s/%s";
 
-	public SeekBarPreference(Context context, AttributeSet attrs)
-	{
-		super(context, attrs);
-		mContext = context;
+    public SeekBarPreference(Context context, AttributeSet attrs) {
+        super(context, attrs);
 
-		mDialogMessage = attrs.getAttributeValue(androidns, "dialogMessage");
+        mContext = context;
+        mDialogMessage = attrs.getAttributeValue(androidns, "dialogMessage");
 
-		TypedArray app = context.obtainStyledAttributes(attrs, R.styleable.SeekBarPreference);
-		mMin = app.getInt(R.styleable.SeekBarPreference_min, 0);
+        TypedArray app = context.obtainStyledAttributes(attrs, R.styleable.SeekBarPreference);
 
-		mMax = attrs.getAttributeIntValue(androidns, "max", 100);
-	}
+        mMin = app.getInt(R.styleable.SeekBarPreference_min, 0);
+        mMax = attrs.getAttributeIntValue(androidns, "max", 100);
 
-	@Override
-	protected View onCreateDialogView()
-	{
-		LinearLayout.LayoutParams params;
-		LinearLayout layout = new LinearLayout(mContext);
-		layout.setOrientation(LinearLayout.VERTICAL);
-		layout.setPadding(10, 10, 10, 10);
+        app.recycle();
+    }
 
-		mSplashText = new TextView(mContext);
+    @Override
+    protected View onCreateDialogView() {
+        LinearLayout.LayoutParams params;
+        LinearLayout layout = new LinearLayout(mContext);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setPadding(10, 10, 10, 10);
 
-		if (mDialogMessage != null) {
-			mSplashText.setText(mDialogMessage);
-		}
+        TextView mSplashText = new TextView(mContext);
 
-		layout.addView(mSplashText);
+        if (mDialogMessage != null) {
+            mSplashText.setText(mDialogMessage);
+        }
 
-		mValueText = new TextView(mContext);
-		mValueText.setGravity(Gravity.CENTER_HORIZONTAL);
-		mValueText.setTextSize(32);
+        layout.addView(mSplashText);
 
-		params = new LinearLayout.LayoutParams(
-			LinearLayout.LayoutParams.MATCH_PARENT,
-			LinearLayout.LayoutParams.WRAP_CONTENT
-		);
+        mValueText = new TextView(mContext);
+        mValueText.setGravity(Gravity.CENTER_HORIZONTAL);
 
-		layout.addView(mValueText, params);
+        //noinspection MagicNumber
+        mValueText.setTextSize(32);
 
-		mSeekBar = new SeekBar(mContext);
-		mSeekBar.setOnSeekBarChangeListener(this);
-		layout.addView(mSeekBar, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
 
-		mSeekBar.setMax(mMax - mMin);
-		mSeekBar.setProgress(mValue - mMin);
-		mValueText.setText(String.valueOf(mValue));
+        layout.addView(mValueText, params);
 
-		return layout;
-	}
+        mSeekBar = new SeekBar(mContext);
+        mSeekBar.setOnSeekBarChangeListener(this);
 
-	@Override
-	protected void onBindDialogView(View v)
-	{
-		super.onBindDialogView(v);
-		mSeekBar.setMax(mMax - mMin);
-		mSeekBar.setProgress(mValue - mMin);
-	}
+        layout.addView(mSeekBar,
+                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
 
-	@Override
-	protected Object onGetDefaultValue(TypedArray a, int index)
-	{
-		return a.getInteger(index, 0);
-	}
+        mSeekBar.setMax(mMax - mMin);
+        mSeekBar.setProgress(mValue - mMin);
+        mValueText.setText(String.valueOf(mValue));
 
-	@Override
-	protected void onSetInitialValue(boolean restore, Object defaultValue)
-	{
-		super.onSetInitialValue(restore, defaultValue);
+        return layout;
+    }
 
-		mValue = (restore ? getPersistedInt(mValue) : ((defaultValue == null) ? mValue : (Integer)defaultValue));
+    @Override
+    protected void onBindDialogView(View v) {
+        super.onBindDialogView(v);
 
-		if (!restore && shouldPersist()) {
-			persistInt(mValue);
-		}
+        mSeekBar.setMax(mMax - mMin);
+        mSeekBar.setProgress(mValue - mMin);
+    }
 
-		setSummary(String.format(mSummary, String.valueOf(mValue), String.valueOf(mMax)));
-	}
+    @Override
+    protected Object onGetDefaultValue(TypedArray a, int index) {
+        return a.getInteger(index, 0);
+    }
 
-	public void onProgressChanged(SeekBar seek, int value, boolean fromTouch)
-	{
-		value += mMin;
+    @Override
+    protected void onSetInitialValue(boolean restore, Object defaultValue) {
+        super.onSetInitialValue(restore, defaultValue);
 
-		mValueText.setText(String.valueOf(value));
-		callChangeListener(Integer.valueOf(value));
-	}
+        mValue = (restore ? getPersistedInt(mValue) : ((defaultValue == null) ? mValue : (Integer)defaultValue));
 
-	@Override
-	protected void onDialogClosed(boolean positiveResult)
-	{
-		if (positiveResult && (mSeekBar != null))
-		{
-			mValue = mSeekBar.getProgress() + mMin;
-			setSummary(String.format(mSummary, String.valueOf(mValue), String.valueOf(mMax)));
+        if (!restore && shouldPersist()) {
+            persistInt(mValue);
+        }
 
-			if (shouldPersist()) {
-				persistInt(mValue);
-			}
-		}
-	}
+        setSummary(String.format(mSummary, String.valueOf(mValue), String.valueOf(mMax)));
+    }
 
-	public void onStartTrackingTouch(SeekBar seek) {}
-	public void onStopTrackingTouch(SeekBar seek) {}
+    @Override
+    public void onProgressChanged(SeekBar seek, int value, boolean fromTouch) {
+        value += mMin;
 
-	public void setMin(int min)
-	{
-		mMin = min;
-	}
+        mValueText.setText(String.valueOf(value));
+        callChangeListener(value);
+    }
 
-	public int getMin()
-	{
-		return mMin;
-	}
+    @Override
+    protected void onDialogClosed(boolean positiveResult) {
+        if (positiveResult && (mSeekBar != null)) {
+            mValue = mSeekBar.getProgress() + mMin;
+            setSummary(String.format(mSummary, String.valueOf(mValue), String.valueOf(mMax)));
 
-	public void setMax(int max)
-	{
-		mMax = max;
-	}
+            if (shouldPersist()) {
+                persistInt(mValue);
+            }
+        }
+    }
 
-	public int getMax()
-	{
-		return mMax;
-	}
+    @Override
+    public void onStartTrackingTouch(SeekBar seek) {
+    }
 
-	public void setProgress(int progress)
-	{
-		mValue = progress;
+    @Override
+    public void onStopTrackingTouch(SeekBar seek) {
+    }
 
-		if (mSeekBar != null) {
-			mSeekBar.setProgress(progress - mMin);
-		}
-	}
+    public void setMin(int min) {
+        mMin = min;
+    }
 
-	public int getProgress()
-	{
-		return mValue;
-	}
+    public int getMin() {
+        return mMin;
+    }
+
+    public void setMax(int max) {
+        mMax = max;
+    }
+
+    public int getMax() {
+        return mMax;
+    }
+
+    @SuppressWarnings("unused")
+    public void setProgress(int progress) {
+        mValue = progress;
+
+        if (mSeekBar != null) {
+            mSeekBar.setProgress(progress - mMin);
+        }
+    }
+
+    @SuppressWarnings("unused")
+    public int getProgress() {
+        return mValue;
+    }
 }

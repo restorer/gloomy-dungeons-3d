@@ -6,93 +6,80 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import zame.game.ZameGame;
 
-public class ZameGameView extends zame.libs.GLSurfaceView21
-{
-	private ZameGame game;
+public class ZameGameView extends zame.libs.GLSurfaceView21 {
+    private ZameGame game;
 
-	public ZameGameView(Context context, AttributeSet attrs)
-	{
-		super(context, attrs);
+    public ZameGameView(Context context, AttributeSet attrs) {
+        super(context, attrs);
 
-		setFocusable(true);
-		requestFocus();
-		setFocusableInTouchMode(true);
-	}
+        setFocusable(true);
+        requestFocus();
+        setFocusableInTouchMode(true);
+    }
 
-	public void setGame(ZameGame game)
-	{
-		this.game = game;
-		setRenderer(game);
-	}
+    public void setGame(ZameGame game) {
+        this.game = game;
+        setRenderer(game);
+    }
 
-	@Override
-	public void onWindowFocusChanged(boolean hasWindowFocus)
-	{
-		if (game != null) {
-			if (hasWindowFocus) {
-				game.resume();
-			} else {
-				game.pause();
-			}
-		}
-	}
+    @Override
+    public void onWindowFocusChanged(boolean hasWindowFocus) {
+        if (game != null) {
+            if (hasWindowFocus) {
+                game.resume();
+            } else {
+                game.pause();
+            }
+        }
+    }
 
-	public static boolean canUseKey(int keyCode)
-	{
-		return (
-			(keyCode != KeyEvent.KEYCODE_BACK) &&
-			(keyCode != KeyEvent.KEYCODE_HOME) &&
-			(keyCode != KeyEvent.KEYCODE_MENU) &&
-			(keyCode != KeyEvent.KEYCODE_ENDCALL)
-		);
-	}
+    public static boolean canUseKey(int keyCode) {
+        return ((keyCode != KeyEvent.KEYCODE_BACK) && (keyCode != KeyEvent.KEYCODE_HOME) && (keyCode
+                != KeyEvent.KEYCODE_MENU) && (keyCode != KeyEvent.KEYCODE_ENDCALL));
+    }
 
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event)
-	{
-		if (canUseKey(keyCode) && (game != null)) {
-			if (game.handleKeyDown(keyCode)) {
-				return true;
-			}
-		}
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        //noinspection SimplifiableIfStatement
+        if (canUseKey(keyCode) && (game != null) && game.handleKeyDown(keyCode)) {
+            return true;
+        }
 
-		return super.onKeyDown(keyCode, event);
-	}
+        return super.onKeyDown(keyCode, event);
+    }
 
-	@Override
-	public boolean onKeyUp(int keyCode, KeyEvent event)
-	{
-		if (canUseKey(keyCode) && (game != null)) {
-			if (game.handleKeyUp(keyCode)) {
-				return true;
-			}
-		}
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        //noinspection SimplifiableIfStatement
+        if (canUseKey(keyCode) && (game != null) && game.handleKeyUp(keyCode)) {
+            return true;
+        }
 
-		return super.onKeyUp(keyCode, event);
-	}
+        return super.onKeyUp(keyCode, event);
+    }
 
-	@Override
-	public boolean onTouchEvent(MotionEvent event)
-	{
-		if (game != null) {
-			game.handleTouchEvent(event);
-		}
+    @SuppressWarnings("MagicNumber")
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (game != null) {
+            game.handleTouchEvent(event);
+        }
 
-		try {
-			Thread.sleep(16);
-		} catch (InterruptedException e) {
-		}
+        try {
+            Thread.sleep(16);
+        } catch (InterruptedException e) {
+            // ignored
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	@Override
-	public boolean onTrackballEvent(MotionEvent event)
-	{
-		if (game != null) {
-			game.handleTrackballEvent(event);
-		}
+    @Override
+    public boolean onTrackballEvent(MotionEvent event) {
+        if (game != null) {
+            game.handleTrackballEvent(event);
+        }
 
-		return true;
-	}
+        return true;
+    }
 }

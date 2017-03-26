@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="dlg_about_text"><![CDATA[
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string tools:ignore="TypographyQuotes"
+        name="dlg_about_text"><![CDATA[
 <b>Gloomy Dungeons 3D: Hardcore</b><br />
 <i>ver. {VERSION_NAME}</i><br />
 <br />
@@ -9,12 +11,14 @@
 <b>Sound:</b> <a href="http://www.nongnu.org/freedoom/">www.nongnu.org/freedoom</a><br />
 <b>Level design:</b> <a href="mailto:zin.wtf@gmail.com">zin</a>, restorer<br />
 <b>Texts:</b> <a href="mailto:zin.wtf@gmail.com">zin</a>, restorer<br />
+<b>Spanish translation:</b> <a href=“mailto:oton.translator@gmail.com”>Sergio Otón</a>
 <br />
 <b>Thanks for testing:</b><br />
 <a href="http://forum.samdroid.net/">forum.samdroid.net</a><br />
 <a href="http://4pda.ru/forum/">4pda.ru/forum</a><br />
 oOLokiOo<br />
 <br />
-<b>Email me:</b> <a href="mailto:restorer@zame-dev.org">restorer@zame-dev.org</a>
+<b>Email me:</b> <a href="mailto:viachaslau.tratsiak@gmail.com">viachaslau.tratsiak@gmail.com</a>
     ]]></string>
+
 </resources>

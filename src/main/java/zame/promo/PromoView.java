@@ -101,6 +101,7 @@ public class PromoView extends FrameLayout {
         loadPromo();
     }
 
+    @SuppressLint({ "AddJavascriptInterface", "SetJavaScriptEnabled" })
     protected WebView createWebView() {
         WebView webView = new WebView(context);
         webView.addJavascriptInterface(new JsApi(), "promoApi");
@@ -136,7 +137,9 @@ public class PromoView extends FrameLayout {
             webSettings.setDisplayZoomControls(false);
         }
 
-        webView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        webView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
+
         addView(webView);
 
         return webView;
@@ -153,7 +156,10 @@ public class PromoView extends FrameLayout {
 
         if (isNetworkConnected()) {
             state = STATE_LOADING;
-            String url = PROMO_URL + context.getPackageName() + "&lang=" + Locale.getDefault().getLanguage().toLowerCase(Locale.US);
+
+            String url = PROMO_URL + context.getPackageName() + "&lang=" + Locale.getDefault()
+                    .getLanguage()
+                    .toLowerCase(Locale.US);
 
             if (BuildConfig.DEBUG) {
                 currentWebView.loadUrl(url + "&mode=debug");
@@ -196,7 +202,7 @@ public class PromoView extends FrameLayout {
     }
 
     protected void promoDismissed() {
-        if (state == STATE_LOADING || state == STATE_LOADED) {
+        if ((state == STATE_LOADING) || (state == STATE_LOADED)) {
             prevWebView.setVisibility(View.INVISIBLE);
             prevWebView.stopLoading();
             prevWebView.loadData("", "text/html", null);
@@ -227,6 +233,8 @@ public class PromoView extends FrameLayout {
 
     @Override
     protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+
         if (state == STATE_INITIALIZED) {
             loadPromo();
         }
@@ -238,6 +246,8 @@ public class PromoView extends FrameLayout {
         handler.removeCallbacks(reloadPromoRunnable);
         handler.removeCallbacks(rotatePromoRunnable);
         state = STATE_INITIALIZED;
+
+        super.onDetachedFromWindow();
     }
 
     protected boolean isNetworkConnected() {
@@ -248,7 +258,7 @@ public class PromoView extends FrameLayout {
         }
 
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        return (networkInfo != null && networkInfo.isConnected());
+        return ((networkInfo != null) && networkInfo.isConnected());
     }
 
     protected void openExternalBrowser(final String uri) {
@@ -256,13 +266,13 @@ public class PromoView extends FrameLayout {
             @Override
             public void run() {
                 try {
-                    context.startActivity((
-                        new Intent(Intent.ACTION_VIEW, Uri.parse(uri))
-                    ).addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET));
+                    context.startActivity((new Intent(Intent.ACTION_VIEW,
+                            Uri.parse(uri))).addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET));
                 } catch (Exception ex) {
                     try {
                         Toast.makeText(context, "Could not launch the browser application.", Toast.LENGTH_LONG).show();
                     } catch (Exception inner) {
+                        // ignored
                     }
                 }
             }
@@ -279,15 +289,18 @@ public class PromoView extends FrameLayout {
                     try {
                         Toast.makeText(context, "Could not start external intent.", Toast.LENGTH_LONG).show();
                     } catch (Exception inner) {
+                        // ignored
                     }
                 }
             }
         });
     }
 
+    @SuppressWarnings("unused")
     protected class JsApi {
         @JavascriptInterface
         public void loaded() {
+            //noinspection MagicNumber
             handler.postDelayed(promoLoadedRunnable, 100L);
         }
 
@@ -297,7 +310,7 @@ public class PromoView extends FrameLayout {
         }
     }
 
-    protected class PromoWebViewClient extends WebViewClient {
+    private class PromoWebViewClient extends WebViewClient {
         @Override
         public void onPageFinished(WebView view, String url) {
             view.setBackgroundColor(0);
@@ -312,7 +325,9 @@ public class PromoView extends FrameLayout {
             final String MAILTO_PREFIX = "mailto:";
 
             if (url.startsWith(MAILTO_PREFIX)) {
-                Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", url.replaceFirst(MAILTO_PREFIX, ""), null));
+                Intent intent = new Intent(Intent.ACTION_SENDTO,
+                        Uri.fromParts("mailto", url.replaceFirst(MAILTO_PREFIX, ""), null));
+
                 openExternalIntent(intent);
                 return true;
             }
@@ -331,6 +346,7 @@ public class PromoView extends FrameLayout {
                     InputStream stream = view.getContext().getAssets().open(uri.getPath());
                     return new WebResourceResponse("text/html", "UTF-8", stream);
                 } catch (Exception ex) {
+                    // ignored
                 }
             }
 
@@ -346,7 +362,11 @@ public class PromoView extends FrameLayout {
         }
 
         @Override
-        public void onReceivedHttpAuthRequest(WebView view, HttpAuthHandler httpAuthHandler, String host, String realm) {
+        public void onReceivedHttpAuthRequest(WebView view,
+                HttpAuthHandler httpAuthHandler,
+                String host,
+                String realm) {
+
             view.stopLoading();
             view.loadData("", "text/html", null);
 
@@ -354,8 +374,8 @@ public class PromoView extends FrameLayout {
         }
     }
 
-    protected class PromoWebChromeClient extends WebChromeClient {
-        protected WebView childWebView;
+    private class PromoWebChromeClient extends WebChromeClient {
+        private WebView childWebView;
 
         @Override
         public boolean onCreateWindow(WebView view, boolean dialog, boolean userGesture, Message resultMsg) {
@@ -372,6 +392,7 @@ public class PromoView extends FrameLayout {
                     public boolean shouldOverrideUrlLoading(WebView view, String url) {
                         url = url.trim();
 
+                        //noinspection SizeReplaceableByIsEmpty
                         if (url.length() != 0) {
                             openExternalBrowser(url);
                         }
@@ -386,6 +407,7 @@ public class PromoView extends FrameLayout {
 
                 ((WebView.WebViewTransport)resultMsg.obj).setWebView(childWebView);
                 resultMsg.sendToTarget();
+
                 return true;
             } catch (Exception ex) {
                 return false;

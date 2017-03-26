@@ -1,213 +1,220 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
->
-	<PreferenceCategory android:title="@string/pref_controls">
-		<zame.libs.ListPreference
-			android:key="ControlsType"
-			android:title="@string/pref_controls_type"
-			android:entries="@array/entries_controls"
-			android:entryValues="@array/values_controls"
-			android:dialogTitle="@string/dlg_select_controls"
-			android:defaultValue="PadL"
-		/>
-		<PreferenceScreen android:title="@string/pref_controls_settings">
-			<PreferenceCategory android:title="@string/pref_params">
-				<zame.libs.SeekBarPreference
-					android:key="ControlsAlpha"
-					android:title="@string/pref_controls_alpha"
-					app:min="1"
-					android:max="9"
-					android:defaultValue="3"
-				/>
-				<zame.libs.SeekBarPreference
-					android:key="MaxRotateAngle"
-					android:title="@string/pref_max_rotate"
-					app:min="30"
-					android:max="180"
-					android:defaultValue="100"
-				/>
-				<CheckBoxPreference
-					android:key="InvertRotation"
-					android:title="@string/pref_invert_rotation"
-					android:defaultValue="false"
-				/>
-				<CheckBoxPreference
-					android:key="AccelerometerEnabled"
-					android:title="@string/pref_accelerometer_enabled"
-					android:defaultValue="false"
-				/>
-				<zame.libs.SeekBarPreference
-					android:key="AccelerometerAcceleration"
-					android:title="@string/pref_accelerometer_acceleration"
-					app:min="1"
-					android:max="9"
-					android:defaultValue="5"
-				/>
-				<zame.libs.SeekBarPreference
-					android:key="TrackballAcceleration"
-					android:title="@string/pref_trackball_acceleration"
-					app:min="1"
-					android:max="80"
-					android:defaultValue="40"
-				/>
-			</PreferenceCategory>
-			<PreferenceCategory android:title="@string/pref_speed">
-				<zame.libs.SeekBarPreference
-					android:key="PadXAccel"
-					android:title="@string/pref_pad_x_accel"
-					app:min="1"
-					android:max="15"
-					android:defaultValue="6"
-				/>
-				<zame.libs.SeekBarPreference
-					android:key="PadYAccel"
-					android:title="@string/pref_pad_y_accel"
-					app:min="1"
-					android:max="15"
-					android:defaultValue="10"
-				/>
-				<zame.libs.SeekBarPreference
-					android:key="MoveSpeed"
-					android:title="@string/pref_move_speed"
-					app:min="1"
-					android:max="15"
-					android:defaultValue="14"
-				/>
-				<zame.libs.SeekBarPreference
-					android:key="StrafeSpeed"
-					android:title="@string/pref_strafe_speed"
-					app:min="1"
-					android:max="15"
-					android:defaultValue="7"
-				/>
-				<zame.libs.SeekBarPreference
-					android:key="RotateSpeed"
-					android:title="@string/pref_rotate_speed"
-					app:min="1"
-					android:max="10"
-					android:defaultValue="6"
-				/>
-			</PreferenceCategory>
-		</PreferenceScreen>
-		<PreferenceScreen android:title="@string/pref_key_mappings">
-			<!-- KEYCODE_DPAD_UP -->
-			<zame.libs.KeyMapPreference
-				android:key="KeyForward"
-				android:title="@string/pref_key_forward"
-				android:defaultValue="19"
-			/>
-			<!-- KEYCODE_DPAD_DOWN -->
-			<zame.libs.KeyMapPreference
-				android:key="KeyBackward"
-				android:title="@string/pref_key_backward"
-				android:defaultValue="20"
-			/>
-			<!-- KEYCODE_DPAD_LEFT -->
-			<zame.libs.KeyMapPreference
-				android:key="KeyRotateLeft"
-				android:title="@string/pref_key_rotate_left"
-				android:defaultValue="21"
-			/>
-			<!-- KEYCODE_DPAD_RIGHT -->
-			<zame.libs.KeyMapPreference
-				android:key="KeyRotateRight"
-				android:title="@string/pref_key_rotate_right"
-				android:defaultValue="22"
-			/>
-			<!-- none -->
-			<zame.libs.KeyMapPreference
-				android:key="KeyStrafeLeft"
-				android:title="@string/pref_key_strafe_left"
-			/>
-			<!-- none -->
-			<zame.libs.KeyMapPreference
-				android:key="KeyStrafeRight"
-				android:title="@string/pref_key_strafe_right"
-			/>
-			<!-- KEYCODE_DPAD_CENTER -->
-			<zame.libs.KeyMapPreference
-				android:key="KeyAction"
-				android:title="@string/pref_key_action"
-				android:defaultValue="23"
-			/>
-			<!-- KEYCODE_CAMERA -->
-			<zame.libs.KeyMapPreference
-				android:key="KeyNextWeapon"
-				android:title="@string/pref_key_next_weapon"
-				android:defaultValue="27"
-			/>
-			<!-- KEYCODE_SEARCH -->
-			<zame.libs.KeyMapPreference
-				android:key="KeyToggleMap"
-				android:title="@string/pref_key_toggle_map"
-				android:defaultValue="84"
-			/>
-			<!-- none -->
-			<zame.libs.KeyMapPreference
-				android:key="KeyStrafeMode"
-				android:title="@string/pref_key_strafe_mode"
-			/>
-		</PreferenceScreen>
-	</PreferenceCategory>
-	<PreferenceCategory android:title="@string/pref_screen">
-		<zame.libs.SeekBarPreference
-			android:key="Gamma"
-			android:title="@string/pref_gamma"
-			android:max="10"
-		/>
-		<CheckBoxPreference
-			android:key="LevelTextureSmoothing"
-			android:title="@string/pref_level_texture_smoothing"
-			android:defaultValue="false"
-		/>
-		<CheckBoxPreference
-			android:key="WeaponsTextureSmoothing"
-			android:title="@string/pref_weapons_texture_smoothing"
-			android:defaultValue="true"
-		/>
-	</PreferenceCategory>
-	<PreferenceCategory android:title="@string/pref_sound">
-		<CheckBoxPreference
-			android:key="EnableSound"
-			android:title="@string/pref_enable_sound"
-			android:defaultValue="true"
-		/>
-			<zame.libs.SeekBarPreference
-				android:key="MusicVolume"
-				android:title="@string/pref_music_volume"
-				android:max="10"
-				android:defaultValue="10"
-				android:layout="?android:attr/preferenceLayoutChild"
-				android:dependency="EnableSound"
-			/>
-			<zame.libs.SeekBarPreference
-				android:key="EffectsVolume"
-				android:title="@string/pref_effects_volume"
-				android:max="10"
-				android:defaultValue="5"
-				android:layout="?android:attr/preferenceLayoutChild"
-				android:dependency="EnableSound"
-			/>
-	</PreferenceCategory>
-	<PreferenceCategory android:title="@string/pref_misc">
-		<zame.libs.SeekBarPreference
-			android:key="MapPosition"
-			android:title="@string/pref_map_position"
-			app:min="1"
-			android:max="9"
-			android:defaultValue="5"
-		/>
-		<CheckBoxPreference
-			android:key="ShowCrosshair"
-			android:title="@string/pref_show_crosshair"
-			android:defaultValue="false"
-		/>
-		<CheckBoxPreference
-			android:key="RotateScreen"
-			android:title="@string/pref_rotate_screen"
-			android:defaultValue="false"
-		/>
-	</PreferenceCategory>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory android:title="@string/pref_controls">
+
+        <!--suppress AndroidDomInspection -->
+        <zame.libs.ListPreference
+            android:defaultValue="PadL"
+            android:dialogTitle="@string/dlg_select_controls"
+            android:entries="@array/entries_controls"
+            android:entryValues="@array/values_controls"
+            android:key="ControlsType"
+            android:title="@string/pref_controls_type" />
+
+        <PreferenceScreen android:title="@string/pref_controls_settings">
+            <PreferenceCategory android:title="@string/pref_params">
+
+                <zame.libs.SeekBarPreference
+                    android:defaultValue="3"
+                    android:key="ControlsAlpha"
+                    android:max="9"
+                    android:title="@string/pref_controls_alpha"
+                    app:min="1" />
+
+                <zame.libs.SeekBarPreference
+                    android:defaultValue="100"
+                    android:key="MaxRotateAngle"
+                    android:max="180"
+                    android:title="@string/pref_max_rotate"
+                    app:min="30" />
+
+                <CheckBoxPreference
+                    android:defaultValue="false"
+                    android:key="InvertRotation"
+                    android:title="@string/pref_invert_rotation" />
+
+                <CheckBoxPreference
+                    android:defaultValue="false"
+                    android:key="AccelerometerEnabled"
+                    android:title="@string/pref_accelerometer_enabled" />
+
+                <zame.libs.SeekBarPreference
+                    android:defaultValue="5"
+                    android:key="AccelerometerAcceleration"
+                    android:max="9"
+                    android:title="@string/pref_accelerometer_acceleration"
+                    app:min="1" />
+
+                <zame.libs.SeekBarPreference
+                    android:defaultValue="40"
+                    android:key="TrackballAcceleration"
+                    android:max="80"
+                    android:title="@string/pref_trackball_acceleration"
+                    app:min="1" />
+
+            </PreferenceCategory>
+            <PreferenceCategory android:title="@string/pref_speed">
+
+                <zame.libs.SeekBarPreference
+                    android:defaultValue="6"
+                    android:key="PadXAccel"
+                    android:max="15"
+                    android:title="@string/pref_pad_x_accel"
+                    app:min="1" />
+
+                <zame.libs.SeekBarPreference
+                    android:defaultValue="10"
+                    android:key="PadYAccel"
+                    android:max="15"
+                    android:title="@string/pref_pad_y_accel"
+                    app:min="1" />
+
+                <zame.libs.SeekBarPreference
+                    android:defaultValue="14"
+                    android:key="MoveSpeed"
+                    android:max="15"
+                    android:title="@string/pref_move_speed"
+                    app:min="1" />
+
+                <zame.libs.SeekBarPreference
+                    android:defaultValue="7"
+                    android:key="StrafeSpeed"
+                    android:max="15"
+                    android:title="@string/pref_strafe_speed"
+                    app:min="1" />
+
+                <zame.libs.SeekBarPreference
+                    android:defaultValue="6"
+                    android:key="RotateSpeed"
+                    android:max="10"
+                    android:title="@string/pref_rotate_speed"
+                    app:min="1" />
+
+            </PreferenceCategory>
+        </PreferenceScreen>
+        <PreferenceScreen android:title="@string/pref_key_mappings">
+
+            <!-- KEYCODE_DPAD_UP -->
+            <zame.libs.KeyMapPreference
+                android:defaultValue="19"
+                android:key="KeyForward"
+                android:title="@string/pref_key_forward" />
+
+            <!-- KEYCODE_DPAD_DOWN -->
+            <zame.libs.KeyMapPreference
+                android:defaultValue="20"
+                android:key="KeyBackward"
+                android:title="@string/pref_key_backward" />
+
+            <!-- KEYCODE_DPAD_LEFT -->
+            <zame.libs.KeyMapPreference
+                android:defaultValue="21"
+                android:key="KeyRotateLeft"
+                android:title="@string/pref_key_rotate_left" />
+
+            <!-- KEYCODE_DPAD_RIGHT -->
+            <zame.libs.KeyMapPreference
+                android:defaultValue="22"
+                android:key="KeyRotateRight"
+                android:title="@string/pref_key_rotate_right" />
+
+            <!-- none -->
+            <zame.libs.KeyMapPreference
+                android:key="KeyStrafeLeft"
+                android:title="@string/pref_key_strafe_left" />
+
+            <!-- none -->
+            <zame.libs.KeyMapPreference
+                android:key="KeyStrafeRight"
+                android:title="@string/pref_key_strafe_right" />
+
+            <!-- KEYCODE_DPAD_CENTER -->
+            <zame.libs.KeyMapPreference
+                android:defaultValue="23"
+                android:key="KeyAction"
+                android:title="@string/pref_key_action" />
+
+            <!-- KEYCODE_CAMERA -->
+            <zame.libs.KeyMapPreference
+                android:defaultValue="27"
+                android:key="KeyNextWeapon"
+                android:title="@string/pref_key_next_weapon" />
+
+            <!-- KEYCODE_SEARCH -->
+            <zame.libs.KeyMapPreference
+                android:defaultValue="84"
+                android:key="KeyToggleMap"
+                android:title="@string/pref_key_toggle_map" />
+
+            <!-- none -->
+            <zame.libs.KeyMapPreference
+                android:key="KeyStrafeMode"
+                android:title="@string/pref_key_strafe_mode" />
+
+        </PreferenceScreen>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/pref_screen">
+
+        <zame.libs.SeekBarPreference
+            android:key="Gamma"
+            android:max="10"
+            android:title="@string/pref_gamma" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="LevelTextureSmoothing"
+            android:title="@string/pref_level_texture_smoothing" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="WeaponsTextureSmoothing"
+            android:title="@string/pref_weapons_texture_smoothing" />
+
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/pref_sound">
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="EnableSound"
+            android:title="@string/pref_enable_sound" />
+
+        <zame.libs.SeekBarPreference
+            android:defaultValue="10"
+            android:dependency="EnableSound"
+            android:key="MusicVolume"
+            android:layout="?android:attr/preferenceLayoutChild"
+            android:max="10"
+            android:title="@string/pref_music_volume" />
+
+        <zame.libs.SeekBarPreference
+            android:defaultValue="5"
+            android:dependency="EnableSound"
+            android:key="EffectsVolume"
+            android:layout="?android:attr/preferenceLayoutChild"
+            android:max="10"
+            android:title="@string/pref_effects_volume" />
+
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/pref_misc">
+
+        <zame.libs.SeekBarPreference
+            android:defaultValue="5"
+            android:key="MapPosition"
+            android:max="9"
+            android:title="@string/pref_map_position"
+            app:min="1" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="ShowCrosshair"
+            android:title="@string/pref_show_crosshair" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="RotateScreen"
+            android:title="@string/pref_rotate_screen" />
+
+    </PreferenceCategory>
 </PreferenceScreen>

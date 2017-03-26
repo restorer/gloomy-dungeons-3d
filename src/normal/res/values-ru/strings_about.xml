@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="dlg_about_text"><![CDATA[
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="dlg_about_text"
+        tools:ignore="TypographyQuotes"><![CDATA[
 <b>Gloomy Dungeons 3D</b><br />
 <i>ver. {VERSION_NAME}</i><br />
 <br />
@@ -15,6 +17,7 @@
 <a href="http://4pda.ru/forum/">4pda.ru/forum</a><br />
 oOLokiOo<br />
 <br />
-<b>Напишите мне:</b> <a href="mailto:restorer@zame-dev.org">restorer@zame-dev.org</a>
+<b>Напишите мне:</b> <a href="mailto:viachaslau.tratsiak@gmail.com">viachaslau.tratsiak@gmail.com</a>
     ]]></string>
+
 </resources>

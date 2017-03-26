@@ -2,9 +2,11 @@ package zame.game;
 
 import android.content.SharedPreferences;
 
-public class ConfigZeemote
-{
-    public static void initialize(SharedPreferences sp)
-    {
+@SuppressWarnings("WeakerAccess")
+public final class ConfigZeemote {
+    private ConfigZeemote() {
+    }
+
+    public static void initialize(@SuppressWarnings("UnusedParameters") SharedPreferences sp) {
     }
 }

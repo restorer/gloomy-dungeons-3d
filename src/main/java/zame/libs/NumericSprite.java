@@ -19,100 +19,90 @@ package zame.libs;
 import android.graphics.Paint;
 import javax.microedition.khronos.opengles.GL10;
 
-public class NumericSprite
-{
-	public NumericSprite()
-	{
-		mLabelMaker = null;
+public class NumericSprite {
+    private static final String sStrike = "0123456789";
+    private static final int sMaxDigits = 10;
 
-		mDigits[0] = 0;
-		mDigitsCount = 1;
-	}
+    private int[] mDigits = new int[sMaxDigits];
+    private int mDigitsCount;
 
-	public void initialize(GL10 gl, Paint paint)
-	{
-		int height = roundUpPower2((int)paint.getFontSpacing());
-		final float interDigitGaps = 9 * 1.0f;
-		int width = roundUpPower2((int)(interDigitGaps + paint.measureText(sStrike)));
+    private LabelMaker mLabelMaker;
+    private int[] mWidth = new int[10];
+    private int[] mLabelId = new int[10];
 
-		mLabelMaker = new LabelMaker(true, width, height);
-		mLabelMaker.initialize(gl);
-		mLabelMaker.beginAdding(gl);
+    public NumericSprite() {
+        mLabelMaker = null;
 
-		for (int i = 0; i < 10; i++)
-		{
-			String digit = sStrike.substring(i, i+1);
-			mLabelId[i] = mLabelMaker.add(gl, digit, paint);
-			mWidth[i] = (int)Math.ceil(mLabelMaker.getWidth(i));
-		}
+        mDigits[0] = 0;
+        mDigitsCount = 1;
+    }
 
-		mLabelMaker.endAdding(gl);
-	}
+    public void initialize(GL10 gl, Paint paint) {
+        int height = roundUpPower2((int)paint.getFontSpacing());
+        final float interDigitGaps = 9 * 1.0f;
+        int width = roundUpPower2((int)(interDigitGaps + paint.measureText(sStrike)));
 
-	public void shutdown(GL10 gl)
-	{
-		mLabelMaker.shutdown(gl);
-		mLabelMaker = null;
-	}
+        mLabelMaker = new LabelMaker(true, width, height);
+        mLabelMaker.initialize(gl);
+        mLabelMaker.beginAdding(gl);
 
-	/**
-	 * Find the smallest power of two >= the input value.
-	 * (Doesn't work for negative numbers.)
-	 */
-	private int roundUpPower2(int x)
-	{
-		x = x - 1;
-		x = x | (x >> 1);
-		x = x | (x >> 2);
-		x = x | (x >> 4);
-		x = x | (x >> 8);
-		x = x | (x >>16);
+        for (int i = 0; i < 10; i++) {
+            String digit = sStrike.substring(i, i + 1);
+            mLabelId[i] = mLabelMaker.add(gl, digit, paint);
+            mWidth[i] = (int)Math.ceil(mLabelMaker.getWidth(i));
+        }
 
-		return x + 1;
-	}
+        mLabelMaker.endAdding(gl);
+    }
 
-	public void setValue(int value)
-	{
-		mDigitsCount = 0;
+    public void shutdown(GL10 gl) {
+        mLabelMaker.shutdown(gl);
+        mLabelMaker = null;
+    }
 
-		do
-		{
-			mDigits[mDigitsCount++] = value % 10;
-			value /= 10;
-		} while ((value > 0) && (mDigitsCount < sMaxDigits));
-	}
+    /**
+     * Find the smallest power of two >= the input value.
+     * (Doesn't work for negative numbers.)
+     */
+    @SuppressWarnings("MagicNumber")
+    private int roundUpPower2(int x) {
+        x = x - 1;
+        x = x | (x >> 1);
+        x = x | (x >> 2);
+        x = x | (x >> 4);
+        x = x | (x >> 8);
+        x = x | (x >> 16);
 
-	public void draw(GL10 gl, float x, float y, float viewWidth, float viewHeight)
-	{
-		mLabelMaker.beginDrawing(gl, viewWidth, viewHeight);
+        return x + 1;
+    }
 
-		for (int pos = mDigitsCount-1; pos >= 0; pos--)
-		{
-			mLabelMaker.draw(gl, x, y, mLabelId[mDigits[pos]]);
-			x += mWidth[mDigits[pos]];
-		}
+    public void setValue(int value) {
+        mDigitsCount = 0;
 
-		mLabelMaker.endDrawing(gl);
-	}
+        do {
+            mDigits[mDigitsCount++] = value % 10;
+            value /= 10;
+        } while ((value > 0) && (mDigitsCount < sMaxDigits));
+    }
 
-	public float width()
-	{
-		float width = 0.0f;
+    public void draw(GL10 gl, float x, float y, float viewWidth, float viewHeight) {
+        mLabelMaker.beginDrawing(gl, viewWidth, viewHeight);
 
-		for (int i = 0; i < mDigitsCount; i++) {
-			width += mWidth[mDigits[i]];
-		}
+        for (int pos = mDigitsCount - 1; pos >= 0; pos--) {
+            mLabelMaker.draw(gl, x, y, mLabelId[mDigits[pos]]);
+            x += mWidth[mDigits[pos]];
+        }
 
-		return width;
-	}
+        mLabelMaker.endDrawing(gl);
+    }
 
-	private int[] mDigits = new int[sMaxDigits];
-	private int mDigitsCount = 0;
+    public float width() {
+        float width = 0.0f;
 
-	private LabelMaker mLabelMaker;
-	private int[] mWidth = new int[10];
-	private int[] mLabelId = new int[10];
+        for (int i = 0; i < mDigitsCount; i++) {
+            width += mWidth[mDigits[i]];
+        }
 
-	private final static String sStrike = "0123456789";
-	private final static int sMaxDigits = 10;
+        return width;
+    }
 }

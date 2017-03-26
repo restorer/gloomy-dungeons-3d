@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="values_controls" translatable="false">
+        <item>Classic</item>
+        <item>Improved</item>
+        <item>PadL</item>
+        <item>PadR</item>
+        <item>ExperimentalA</item>
+        <item>ExperimentalB</item>
+    </string-array>
+</resources>

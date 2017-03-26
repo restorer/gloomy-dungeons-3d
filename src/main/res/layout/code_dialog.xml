@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	android:orientation="vertical"
->
-	<EditText
-		android:id="@+id/CodeText"
-		android:layout_height="wrap_content"
-		android:layout_width="fill_parent"
-		android:layout_marginLeft="15dp"
-		android:layout_marginRight="15dp"
-		android:scrollHorizontally="true"
-	/>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/CodeText"
+        android:inputType="text"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_width="match_parent"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        tools:ignore="Deprecated" />
+
 </LinearLayout>

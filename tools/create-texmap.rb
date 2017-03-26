@@ -180,6 +180,7 @@ class TexMapCreator
 		load_texture(result, "#{base_common}/icons/icon_map.png", BASE_ICONS + 14)
 
 		load_texture(result, "#{base_common}/icons/icon_joy.png", BASE_ADDITIONAL + 0)
+		load_texture(result, "#{base_common}/icons/icon_menu.png", BASE_ADDITIONAL + 1)
 
 		result.write(File.dirname(__FILE__) + "/../src/#{preset}/res/drawable-nodpi/texmap.png")
 	end

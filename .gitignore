@@ -1,7 +1,10 @@
+/*.iml
+/.externalNativeBuild
 /.gradle
+/.idea
 /build
+/local.properties
 /temp
 /tools/signing.keystore
 /tools/signing.properties
-/local.properties
 .DS_Store

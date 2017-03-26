@@ -1,55 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-	<style name="BaseShadow">
-		<item name="android:shadowColor">#000</item>
-		<item name="android:shadowDx">0</item>
-		<item name="android:shadowDy">1</item>
-		<item name="android:shadowRadius">2</item>
-	</style>
-	<style name="BaseText" parent="@style/BaseShadow">
-		<item name="android:shadowColor">#000</item>
-		<item name="android:shadowDx">0</item>
-		<item name="android:shadowDy">1</item>
-		<item name="android:shadowRadius">2</item>
-		<item name="android:textColor">#eee</item>
-	</style>
-	<style name="BaseButton" parent="@style/BaseShadow">
-		<item name="android:layout_gravity">center_horizontal</item>
-		<item name="android:layout_height">wrap_content</item>
-		<item name="android:background">@drawable/button</item>
-		<item name="android:textColor">@color/button</item>
-		<item name="android:textSize">24dp</item>
-	</style>
-	<!-- -->
-	<style name="MenuButton" parent="@style/BaseButton">
-		<item name="android:layout_width">165dp</item>
-		<item name="android:layout_marginTop">2dp</item>
-	</style>
-	<style name="MenuHelpText" parent="@style/BaseText">
-		<item name="android:textSize">18dp</item>
-	</style>
-	<!-- -->
-	<style name="EndLevelText" parent="@style/BaseText">
-		<item name="android:textSize">32dp</item>
-		<item name="android:layout_width">wrap_content</item>
-		<item name="android:layout_height">wrap_content</item>
-		<item name="android:layout_gravity">center_horizontal</item>
-	</style>
-	<style name="EndLevelButton" parent="@style/BaseButton">
-		<item name="android:layout_width">180dp</item>
-	</style>
-	<!-- -->
-	<style name="PreLevelText" parent="@style/BaseText">
-		<item name="android:textSize">24dp</item>
-	</style>
-	<!-- -->
-	<style name="GameOverText" parent="@style/BaseText">
-		<item name="android:textSize">32dp</item>
-		<item name="android:layout_width">wrap_content</item>
-		<item name="android:layout_height">wrap_content</item>
-		<item name="android:layout_gravity">center_horizontal</item>
-	</style>
-	<style name="GameOverButton" parent="@style/BaseButton">
-		<item name="android:layout_width">200dp</item>
-	</style>
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="SpUsage">
+
+    <style name="BaseShadow">
+        <item name="android:shadowColor">#000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">2</item>
+    </style>
+
+    <style name="BaseText"
+        parent="@style/BaseShadow">
+
+        <item name="android:shadowColor">#000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">2</item>
+        <item name="android:textColor">#eee</item>
+    </style>
+
+    <style name="BaseButton"
+        parent="@style/BaseShadow">
+
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/button</item>
+        <item name="android:textColor">@color/button</item>
+        <item name="android:textSize">24dp</item>
+    </style>
+
+    <!-- -->
+
+    <style name="MenuButton"
+        parent="@style/BaseButton">
+
+        <item name="android:layout_width">165dp</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <!-- <item name="android:textSize">18dp</item> -->
+    </style>
+
+    <style name="MenuHelpText"
+        parent="@style/BaseText">
+
+        <item name="android:textSize">22dp</item>
+    </style>
+
+    <!-- -->
+
+    <style name="EndLevelText"
+        parent="@style/BaseText">
+
+        <item name="android:textSize">32dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
+    <style name="EndLevelButton"
+        parent="@style/BaseButton">
+
+        <item name="android:layout_width">180dp</item>
+    </style>
+
+    <!-- -->
+
+    <style name="PreLevelText"
+        parent="@style/BaseText">
+
+        <item name="android:textSize">24dp</item>
+    </style>
+
+    <!-- -->
+
+    <style name="GameOverText"
+        parent="@style/BaseText">
+
+        <item name="android:textSize">32dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
+    <style name="GameOverButton"
+        parent="@style/BaseButton">
+
+        <item name="android:layout_width">200dp</item>
+    </style>
+
 </resources>

@@ -9,27 +9,11 @@
 		<item>Экспериментальное 2</item>
 		<item>Zeemote</item>
 	</string-array>
-	<string-array name="values_controls_zeemote">
-		<item>Classic</item>
-		<item>Improved</item>
-		<item>PadL</item>
-		<item>PadR</item>
-		<item>ExperimentalA</item>
-		<item>ExperimentalB</item>
-		<item>Zeemote</item>
-	</string-array>
 	<string-array name="entries_zeemote_mapping">
 		<item>Нет действия</item>
 		<item>Основное действие</item>
 		<item>Следующее оружие</item>
 		<item>Режим шага</item>
 		<item>Карта</item>
-	</string-array>
-	<string-array name="values_zeemote_mapping">
-		<item>None</item>
-		<item>Action</item>
-		<item>NextWeapon</item>
-		<item>Strafe</item>
-		<item>ToggleMap</item>
 	</string-array>
 </resources>

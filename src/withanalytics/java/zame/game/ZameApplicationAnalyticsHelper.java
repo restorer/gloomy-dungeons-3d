@@ -5,19 +5,17 @@ import android.util.Log;
 import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 import java.util.ArrayList;
 
-public class ZameApplicationAnalyticsHelper
-{
+@SuppressWarnings("WeakerAccess")
+public class ZameApplicationAnalyticsHelper {
     private final Handler handler = new Handler();
 
-    public static class EventToTrack
-    {
+    public static class EventToTrack {
         public String category;
         public String action;
         public String label;
         public int value;
 
-        public EventToTrack(String category, String action, String label, int value)
-        {
+        public EventToTrack(String category, String action, String label, int value) {
             this.category = category;
             this.action = action;
             this.label = label;
@@ -25,12 +23,12 @@ public class ZameApplicationAnalyticsHelper
         }
     }
 
-    private GoogleAnalyticsTracker tracker = null;
+    private GoogleAnalyticsTracker tracker;
     private ArrayList<EventToTrack> eventsToTrack = new ArrayList<EventToTrack>();
 
-    public void trackPageView(final String pageUrl)
-    {
+    public void trackPageView(final String pageUrl) {
         handler.post(new Runnable() {
+            @Override
             public void run() {
                 try {
                     tracker.trackPageView(pageUrl);
@@ -41,18 +39,18 @@ public class ZameApplicationAnalyticsHelper
         });
     }
 
-    public void trackEvent(final String category, final String action, final String label, final int value)
-    {
+    public void trackEvent(final String category, final String action, final String label, final int value) {
         handler.post(new Runnable() {
+            @Override
             public void run() {
                 eventsToTrack.add(new EventToTrack(category, action, label, value));
             }
         });
     }
 
-    public void flushEvents()
-    {
+    public void flushEvents() {
         handler.post(new Runnable() {
+            @Override
             public void run() {
                 for (EventToTrack ev : eventsToTrack) {
                     try {
@@ -67,8 +65,7 @@ public class ZameApplicationAnalyticsHelper
         });
     }
 
-    public void onCreate(ZameApplication app, String initialControlsType)
-    {
+    public void onCreate(ZameApplication app, String initialControlsType) {
         try {
             tracker = GoogleAnalyticsTracker.getInstance();
             tracker.startNewSession(BuildConfig.GA_ACCT, 10, app);
@@ -76,7 +73,7 @@ public class ZameApplicationAnalyticsHelper
             tracker.setDryRun(false);
             tracker.setSampleRate(100);
             tracker.setAnonymizeIp(true);
-            tracker.setCustomVar(1, "Version", app.getVersionName(), 2);    // slot: 1, scope: session
+            tracker.setCustomVar(1, "Version", app.getVersionName(), 2); // slot: 1, scope: session
             tracker.setCustomVar(2, "InitialControlsType", initialControlsType, 2); // slot: 2, scope: session
         } catch (Exception ex) {
             Log.e(Common.LOG_KEY, "Exception", ex);

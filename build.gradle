@@ -1,27 +1,32 @@
-import org.apache.tools.ant.filters.*
-
 buildscript {
     repositories {
-        mavenCentral()
+        jcenter()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.11.1'
+        classpath 'com.android.tools.build:gradle:2.3.0'
     }
 }
 
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 
 allprojects {
-    tasks.withType(Compile) {
+    tasks.withType(JavaCompile) {
         options.compilerArgs << '-Xlint:all'
         options.compilerArgs << '-Xlint:-deprecation'
+        options.compilerArgs << '-Xlint:-unchecked'
     }
 }
 
 android {
     compileSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
     buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
+
+    externalNativeBuild {
+        cmake {
+            path 'src/main/jni/CMakeLists.txt'
+        }
+    }
 
     defaultConfig {
         minSdkVersion 7
@@ -30,11 +35,14 @@ android {
         versionName project.VERSION_NAME
         versionCode Integer.parseInt(project.VERSION_CODE)
 
+        externalNativeBuild {
+            cmake {
+                cFlags '-Werror'
+            }
+        }
+
         ndk {
-            moduleName 'libzameJniRenderer'
-            cFlags '-Werror'
-            ldLibs 'log', 'GLESv1_CM'
-            // abiFilters 'armeabi-v7a', 'armeabi', 'x86'
+            abiFilters 'armeabi', 'armeabi-v7a', 'mips', 'x86' // 'arm64-v8a', 'mips64', 'x86_64'
         }
     }
 
@@ -60,7 +68,7 @@ android {
 
     buildTypes {
         release {
-            runProguard true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-project.txt'
         }
     }
@@ -69,67 +77,67 @@ android {
 
     productFlavors {
         gplaynormal {
-            flavorDimension 'package'
+            dimension 'package'
             applicationId 'zame.GloomyDungeons.freedemo.game'
             buildConfigField 'String', 'GA_ACCT', '"UA-1782921-31"'
         }
 
         gplayhardcore {
-            flavorDimension 'package'
+            dimension 'package'
             applicationId 'org.zamedev.gloomydungeons1hardcore.gplay'
             buildConfigField 'String', 'GA_ACCT', '"UA-1782921-32"'
         }
 
         fdroidnormal {
-            flavorDimension 'package'
+            dimension 'package'
             applicationId 'zame.GloomyDungeons.opensource.game'
         }
 
         fdroidhardcore {
-            flavorDimension 'package'
+            dimension 'package'
             applicationId 'org.zamedev.gloomydungeons1hardcore.opensource'
         }
 
         normal {
-            flavorDimension 'difficulty'
+            dimension 'difficulty'
         }
 
         hardcore {
-            flavorDimension 'difficulty'
+            dimension 'difficulty'
         }
 
         withoutanalytics {
-            flavorDimension 'analytics'
+            dimension 'analytics'
             buildConfigField 'boolean', 'WITH_ANALYTICS', 'false'
             buildConfigField 'String', 'GA_ACCT', '""'
         }
 
         withanalytics {
-            flavorDimension 'analytics'
+            dimension 'analytics'
             buildConfigField 'boolean', 'WITH_ANALYTICS', 'true'
         }
 
         withoutzeemote {
-            flavorDimension 'zeemote'
+            dimension 'zeemote'
             buildConfigField 'boolean', 'WITH_ZEEMOTE', 'false'
         }
 
         withzeemote {
-            flavorDimension 'zeemote'
+            dimension 'zeemote'
             buildConfigField 'boolean', 'WITH_ZEEMOTE', 'true'
         }
 
         withoutrateoffer {
-            flavorDimension 'rateoffer'
+            dimension 'rateoffer'
         }
 
         withrateoffer {
-            flavorDimension 'rateoffer'
+            dimension 'rateoffer'
         }
     }
 }
 
 dependencies {
-    withanalyticsCompile fileTree(dir: 'src/withanalytics/libs', include: ['*.jar'])
-    withzeemoteCompile fileTree(dir: 'src/withzeemote/libs', include: ['*.jar'])
+    withanalyticsCompile fileTree(dir: 'src/withanalytics/libs', include: [ '*.jar' ])
+    withzeemoteCompile fileTree(dir: 'src/withzeemote/libs', include: [ '*.jar' ])
 }

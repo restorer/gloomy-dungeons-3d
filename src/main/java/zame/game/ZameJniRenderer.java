@@ -1,11 +1,19 @@
 package zame.game;
 
-public class ZameJniRenderer
-{
-     static {
-         System.loadLibrary("zameJniRenderer");
-     }
+@SuppressWarnings("WeakerAccess")
+public final class ZameJniRenderer {
+    static {
+        System.loadLibrary("zameJniRenderer");
+    }
 
-     public static native void renderTriangles(float[] vertexBuffer, float[] colorsBuffer, float[] textureBuffer, short[] indicesBuffer, int indicesBufferPos);
-     public static native void renderLines(float[] vertexBuffer, float[] colorsBuffer, int vertexCount);
+    private ZameJniRenderer() {
+    }
+
+    public static native void renderTriangles(float[] vertexBuffer,
+            float[] colorsBuffer,
+            float[] textureBuffer,
+            short[] indicesBuffer,
+            int indicesBufferPos);
+
+    public static native void renderLines(float[] vertexBuffer, float[] colorsBuffer, int vertexCount);
 }
