@@ -4,18 +4,12 @@
     package="zame.game">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <application tools:ignore="GoogleAppIndexingWarning">
+    <application tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
-        <receiver
-            android:exported="true"
-            android:name="com.google.android.apps.analytics.AnalyticsReceiver"
-            tools:ignore="ExportedReceiver">
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="ecb19f2d73915c06f86059a1048d0eb35664e048" />
 
-            <intent-filter>
-                <action android:name="com.android.vending.INSTALL_REFERRER" />
-            </intent-filter>
-        </receiver>
     </application>
 </manifest>

@@ -41,4 +41,8 @@ public final class ConfigZeemote {
         zeemoteButtonMappings[ButtonEvent.BUTTON_D] = Config.getControlMaskByName(sp.getString("ZeemoteMappingC",
                 "None"));
     }
+
+    public static boolean isZeemoteControlsType(String controlsTypeStr) {
+        return "Zeemote".equals(controlsTypeStr);
+    }
 }

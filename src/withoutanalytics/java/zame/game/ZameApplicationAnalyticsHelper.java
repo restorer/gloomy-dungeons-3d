@@ -13,6 +13,9 @@ public class ZameApplicationAnalyticsHelper {
     }
 
     @SuppressWarnings("UnusedParameters")
-    public void onCreate(ZameApplication app, String initialControlsType) {
+    public void onCreate(ZameApplication app) {
+    }
+
+    public void setInitialControlsType(String initialControlsType) {
     }
 }

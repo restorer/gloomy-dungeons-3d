@@ -1,83 +1,31 @@
 package zame.game;
 
-import android.os.Handler;
-import android.util.Log;
-import com.google.android.apps.analytics.GoogleAnalyticsTracker;
-import java.util.ArrayList;
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 
 @SuppressWarnings("WeakerAccess")
 public class ZameApplicationAnalyticsHelper {
-    private final Handler handler = new Handler();
-
-    public static class EventToTrack {
-        public String category;
-        public String action;
-        public String label;
-        public int value;
-
-        public EventToTrack(String category, String action, String label, int value) {
-            this.category = category;
-            this.action = action;
-            this.label = label;
-            this.value = value;
-        }
-    }
-
-    private GoogleAnalyticsTracker tracker;
-    private ArrayList<EventToTrack> eventsToTrack = new ArrayList<EventToTrack>();
-
     public void trackPageView(final String pageUrl) {
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    tracker.trackPageView(pageUrl);
-                } catch (Exception ex) {
-                    Log.e(Common.LOG_KEY, "Exception", ex);
-                }
-            }
-        });
+        // TODO
     }
 
     public void trackEvent(final String category, final String action, final String label, final int value) {
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                eventsToTrack.add(new EventToTrack(category, action, label, value));
-            }
-        });
+        // TODO
     }
 
     public void flushEvents() {
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                for (EventToTrack ev : eventsToTrack) {
-                    try {
-                        tracker.trackEvent(ev.category, ev.action, ev.label, ev.value);
-                    } catch (Exception ex) {
-                        Log.e(Common.LOG_KEY, "Exception", ex);
-                    }
-                }
-
-                eventsToTrack.clear();
-            }
-        });
+        // probably do nothing for Fabric
     }
 
-    public void onCreate(ZameApplication app, String initialControlsType) {
-        try {
-            tracker = GoogleAnalyticsTracker.getInstance();
-            tracker.startNewSession(BuildConfig.GA_ACCT, 10, app);
-            tracker.setDebug(true);
-            tracker.setDryRun(false);
-            tracker.setSampleRate(100);
-            tracker.setAnonymizeIp(true);
-            tracker.setCustomVar(1, "Version", app.getVersionName(), 2); // slot: 1, scope: session
-            tracker.setCustomVar(2, "InitialControlsType", initialControlsType, 2); // slot: 2, scope: session
-        } catch (Exception ex) {
-            Log.e(Common.LOG_KEY, "Exception", ex);
-            tracker = null;
-        }
+    public void onCreate(ZameApplication app) {
+        Fabric.with(new Fabric.Builder(app).kits(new Crashlytics()).debuggable(BuildConfig.DEBUG).build());
+
+        // TODO:
+        // tracker.setCustomVar(1, "Version", app.getVersionName(), 2); // slot: 1, scope: session
+    }
+
+    public void setInitialControlsType(String initialControlsType) {
+        // TODO:
+        // tracker.setCustomVar(2, "InitialControlsType", initialControlsType, 2); // slot: 2, scope: session
     }
 }

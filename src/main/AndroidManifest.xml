@@ -18,6 +18,10 @@
         android:name="zame.game.ZameApplication"
         tools:ignore="GoogleAppIndexingWarning">
 
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.1" />
+
         <activity
             android:alwaysRetainTaskState="true"
             android:configChanges="keyboard|keyboardHidden|orientation"

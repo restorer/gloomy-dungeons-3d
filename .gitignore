@@ -1,10 +1,11 @@
-/*.iml
+.DS_Store
 /.externalNativeBuild
 /.gradle
 /.idea
+/*.iml
 /build
+/infer-out
 /local.properties
 /temp
 /tools/signing.keystore
 /tools/signing.properties
-.DS_Store

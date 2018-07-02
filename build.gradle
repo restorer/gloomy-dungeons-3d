@@ -1,16 +1,30 @@
 buildscript {
+    ext.ver_crashlytics = '2.9.4' // https://docs.fabric.io/android/changelog.html#crashlytics
+    ext.ver_fabricPlugin = '1.25.4' // https://docs.fabric.io/android/changelog.html#fabric-gradle-plugin
+    // ext.ver_fabric = '1.4.3'
+    // ext.ver_gameanalytics = '3.5.5'
+
     repositories {
+        google()
         jcenter()
+        maven { url 'https://maven.fabric.io/public' }
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0'
+        classpath 'com.android.tools.build:gradle:3.1.3'
+        classpath "io.fabric.tools:gradle:${ver_fabricPlugin}"
     }
 }
 
-apply plugin: 'com.android.application'
-
 allprojects {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        // maven { url 'http://maven.gameanalytics.com/release' }
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
     tasks.withType(JavaCompile) {
         options.compilerArgs << '-Xlint:all'
         options.compilerArgs << '-Xlint:-deprecation'
@@ -18,9 +32,16 @@ allprojects {
     }
 }
 
+// task clean(type: Delete) {
+//     delete rootProject.buildDir
+// }
+
+apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+
 android {
-    compileSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
-    buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
 
     externalNativeBuild {
         cmake {
@@ -29,21 +50,11 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 7
-        targetSdkVersion Integer.parseInt(project.ANDROID_BUILD_TARGET_SDK_VERSION)
+        minSdkVersion 9 // min 9 for fabric, min 14 for gameanalytics
+        targetSdkVersion 27
 
-        versionName project.VERSION_NAME
-        versionCode Integer.parseInt(project.VERSION_CODE)
-
-        externalNativeBuild {
-            cmake {
-                cFlags '-Werror'
-            }
-        }
-
-        ndk {
-            abiFilters 'armeabi', 'armeabi-v7a', 'mips', 'x86' // 'arm64-v8a', 'mips64', 'x86_64'
-        }
+        versionName '2018.07.02'
+        versionCode 1807020000
     }
 
     if (new File('tools/signing.properties').exists()) {
@@ -79,13 +90,11 @@ android {
         gplaynormal {
             dimension 'package'
             applicationId 'zame.GloomyDungeons.freedemo.game'
-            buildConfigField 'String', 'GA_ACCT', '"UA-1782921-31"'
         }
 
         gplayhardcore {
             dimension 'package'
             applicationId 'org.zamedev.gloomydungeons1hardcore.gplay'
-            buildConfigField 'String', 'GA_ACCT', '"UA-1782921-32"'
         }
 
         fdroidnormal {
@@ -108,23 +117,18 @@ android {
 
         withoutanalytics {
             dimension 'analytics'
-            buildConfigField 'boolean', 'WITH_ANALYTICS', 'false'
-            buildConfigField 'String', 'GA_ACCT', '""'
         }
 
         withanalytics {
             dimension 'analytics'
-            buildConfigField 'boolean', 'WITH_ANALYTICS', 'true'
         }
 
         withoutzeemote {
             dimension 'zeemote'
-            buildConfigField 'boolean', 'WITH_ZEEMOTE', 'false'
         }
 
         withzeemote {
             dimension 'zeemote'
-            buildConfigField 'boolean', 'WITH_ZEEMOTE', 'true'
         }
 
         withoutrateoffer {
@@ -135,9 +139,26 @@ android {
             dimension 'rateoffer'
         }
     }
+
+    externalNativeBuild {
+        cmake {
+            path 'src/main/cpp/CMakeLists.txt'
+        }
+    }
 }
 
 dependencies {
-    withanalyticsCompile fileTree(dir: 'src/withanalytics/libs', include: [ '*.jar' ])
-    withzeemoteCompile fileTree(dir: 'src/withzeemote/libs', include: [ '*.jar' ])
+    withanalyticsImplementation("com.crashlytics.sdk.android:crashlytics:${ver_crashlytics}@aar") {
+        transitive = true
+    }
+
+    // withanalyticsImplementation("com.gameanalytics.sdk:gameanalytics-android:${ver_gameanalytics}@aar") {
+    //     transitive = true
+    // }
+
+    // withanalyticsImplementation("io.fabric.sdk.android:fabric:${ver_fabric}@aar") {
+    //     transitive = true
+    // }
+
+    withzeemoteImplementation fileTree(dir: 'src/withzeemote/libs', include: [ '*.jar' ])
 }

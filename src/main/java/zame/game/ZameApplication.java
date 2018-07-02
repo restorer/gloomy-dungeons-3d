@@ -11,9 +11,7 @@ public class ZameApplication extends Application {
     private String cachedVersionName;
 
     @SuppressWarnings("ConstantConditions")
-    private ZameApplicationAnalyticsHelper analyticsHelper = (BuildConfig.WITH_ANALYTICS
-            ? new ZameApplicationAnalyticsHelper()
-            : null);
+    private ZameApplicationAnalyticsHelper analyticsHelper = new ZameApplicationAnalyticsHelper();
 
     public static void trackPageView(String pageUrl) {
         if ((ZameApplication.self != null) && (ZameApplication.self.analyticsHelper != null)) {
@@ -36,7 +34,9 @@ public class ZameApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
         self = this;
+        analyticsHelper.onCreate(this);
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         PreferenceManager.setDefaultValues(getApplicationContext(), R.xml.preferences, false);
@@ -51,12 +51,10 @@ public class ZameApplication extends Application {
             spEditor.putString("InitialControlsType", initialControlsType);
             spEditor.putString("ControlsType", initialControlsType);
             spEditor.putString("PrevControlsType", initialControlsType);
-            spEditor.commit();
+            spEditor.apply();
         }
 
-        if (analyticsHelper != null) {
-            analyticsHelper.onCreate(this, initialControlsType);
-        }
+        analyticsHelper.setInitialControlsType(initialControlsType);
     }
 
     public String getVersionName() {

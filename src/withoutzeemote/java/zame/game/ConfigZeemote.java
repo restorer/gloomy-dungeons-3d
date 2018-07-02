@@ -9,4 +9,8 @@ public final class ConfigZeemote {
 
     public static void initialize(@SuppressWarnings("UnusedParameters") SharedPreferences sp) {
     }
+
+    public static boolean isZeemoteControlsType(String controlsTypeStr) {
+        return false;
+    }
 }

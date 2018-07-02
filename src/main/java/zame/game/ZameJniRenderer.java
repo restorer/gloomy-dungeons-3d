@@ -3,7 +3,7 @@ package zame.game;
 @SuppressWarnings("WeakerAccess")
 public final class ZameJniRenderer {
     static {
-        System.loadLibrary("zameJniRenderer");
+        System.loadLibrary("renderer");
     }
 
     private ZameJniRenderer() {

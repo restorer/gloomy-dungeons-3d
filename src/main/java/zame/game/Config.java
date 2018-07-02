@@ -79,7 +79,7 @@ public final class Config {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(ZameApplication.self);
         String controlsTypeStr = sp.getString("ControlsType", "PadL");
 
-        if (BuildConfig.WITH_ZEEMOTE && "Zeemote".equals(controlsTypeStr)) {
+        if (ConfigZeemote.isZeemoteControlsType(controlsTypeStr)) {
             controlsType = Controls.TYPE_ZEEMOTE;
         } else if ("Classic".equals(controlsTypeStr) || "TypeA".equals(controlsTypeStr)) {
             controlsType = Controls.TYPE_CLASSIC;
@@ -108,9 +108,7 @@ public final class Config {
         levelTextureFilter = (sp.getBoolean("LevelTextureSmoothing", false) ? GL10.GL_LINEAR : GL10.GL_NEAREST);
         weaponsTextureFilter = (sp.getBoolean("WeaponsTextureSmoothing", true) ? GL10.GL_LINEAR : GL10.GL_NEAREST);
 
-        if (BuildConfig.WITH_ZEEMOTE) {
-            ConfigZeemote.initialize(sp);
-        }
+        ConfigZeemote.initialize(sp);
 
         keyMappings = new int[KeyEvent.getMaxKeyCode()];
 

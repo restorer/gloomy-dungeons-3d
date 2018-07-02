@@ -106,11 +106,9 @@ public class GameActivity extends Activity implements SensorEventListener {
     @Override
     protected void onCreate(Bundle state) {
         super.onCreate(state);
-        self = this;
 
-        if (BuildConfig.WITH_ZEEMOTE) {
-            zeemoteHelper = new GameActivityZeemoteHelper();
-        }
+        self = this;
+        zeemoteHelper = new GameActivityZeemoteHelper();
 
         SoundManager.init(getApplicationContext(), getAssets(), true);
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
@@ -147,17 +145,14 @@ public class GameActivity extends Activity implements SensorEventListener {
         super.onCreateOptionsMenu(menu);
 
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate((zeemoteHelper == null) ? R.menu.game : zeemoteHelper.getMenuResId(), menu);
+        inflater.inflate((zeemoteHelper.getMenuResId() == 0) ? R.menu.game : zeemoteHelper.getMenuResId(), menu);
 
         return true;
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        if (zeemoteHelper != null) {
-            zeemoteHelper.onPrepareOptionsMenu(menu);
-        }
-
+        zeemoteHelper.onPrepareOptionsMenu(menu);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -179,12 +174,7 @@ public class GameActivity extends Activity implements SensorEventListener {
                 return true;
         }
 
-        //noinspection SimplifiableIfStatement
-        if (zeemoteHelper != null) {
-            return zeemoteHelper.onOptionsItemSelected(item);
-        } else {
-            return false;
-        }
+        return zeemoteHelper.onOptionsItemSelected(item);
     }
 
     @Override
@@ -197,11 +187,9 @@ public class GameActivity extends Activity implements SensorEventListener {
     @Override
     protected void onStart() {
         super.onStart();
-        Config.initialize();
 
-        if (zeemoteHelper != null) {
-            zeemoteHelper.onStart(this);
-        }
+        Config.initialize();
+        zeemoteHelper.onStart(this);
 
         if (Config.accelerometerEnabled) {
             sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
@@ -258,11 +246,9 @@ public class GameActivity extends Activity implements SensorEventListener {
     @Override
     protected void onPause() {
         super.onPause();
-        justAfterPause = true;
 
-        if (zeemoteHelper != null) {
-            zeemoteHelper.onPause();
-        }
+        justAfterPause = true;
+        zeemoteHelper.onPause();
 
         if (!soundAlreadyStopped) {
             SoundManager.onPause(instantMusicPause);
