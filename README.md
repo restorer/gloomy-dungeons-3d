@@ -40,12 +40,10 @@ You can compile either by using build script or directly using gradle.
 
 Normal version:
 
-  - `./z-build fdroidnormal debug install` or
   - `./gradlew installFdroidnormalNormalWithoutanalyticsWithoutzeemoteWithoutrateofferDebug`
 
 Hardcore version:
 
-  - `./z-build fdroidhardcore debug install` or
   - `./gradlew installFdroidhardcoreHardcoreWithoutanalyticsWithoutzeemoteWithoutrateofferDebug`
 
 ## Compile release builds
@@ -60,12 +58,10 @@ keyPassword=put_key_password_here
 
 Normal version:
 
-  - `./z-build fdroidnormal release` or
   - `./gradlew assembleFdroidnormalNormalWithoutanalyticsWithoutzeemoteWithoutrateofferRelease`
 
 Hardcore version:
 
-  - `./z-build fdroidhardcore release` or
   - `./gradlew assembleFdroidhardcoreHardcoreWithoutanalyticsWithoutzeemoteWithoutrateofferRelease`
 
 Search for result .apk files in build/outputs/apk/

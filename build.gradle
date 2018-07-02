@@ -37,7 +37,10 @@ allprojects {
 // }
 
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
+
+if (getGradle().getStartParameter().getTaskRequests().toString().contains("Withanalytics")){
+    apply plugin: 'io.fabric'
+}
 
 android {
     compileSdkVersion 27
