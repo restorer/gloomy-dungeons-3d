@@ -42,7 +42,7 @@ Build:2014.10.26.1200,1414314000
     novcheck=yes
 
 Build:2018.07.02,1807020000
-    commit=aeec13359548e9703f2b0d98277ef82e94ffcf06
+    commit=c23e029593fca7c477715262eeb87357fe535546
     init=rm src/withzeemote/libs/zc-strings-1.9.2.jar && \
         rm src/withzeemote/libs/ZControllerLib-android-1.9.2.jar && \
         rm src/withzeemote/libs/ZControllerLib-android-ui-1.9.2.jar && \
