@@ -1,8 +1,6 @@
 buildscript {
     ext.ver_crashlytics = '2.9.4' // https://docs.fabric.io/android/changelog.html#crashlytics
     ext.ver_fabricPlugin = '1.25.4' // https://docs.fabric.io/android/changelog.html#fabric-gradle-plugin
-    // ext.ver_fabric = '1.4.3'
-    // ext.ver_gameanalytics = '3.5.5'
 
     repositories {
         google()
@@ -21,7 +19,6 @@ allprojects {
         google()
         jcenter()
         mavenCentral()
-        // maven { url 'http://maven.gameanalytics.com/release' }
         maven { url 'https://maven.fabric.io/public' }
     }
 
@@ -54,7 +51,7 @@ android {
 
     defaultConfig {
         //noinspection MinSdkTooLow
-        minSdkVersion 9 // min 9 for fabric, min 14 for gameanalytics
+        minSdkVersion 9 // min 9 for fabric
 
         targetSdkVersion 27
 
@@ -156,14 +153,6 @@ dependencies {
     withanalyticsImplementation("com.crashlytics.sdk.android:crashlytics:${ver_crashlytics}@aar") {
         transitive = true
     }
-
-    // withanalyticsImplementation("com.gameanalytics.sdk:gameanalytics-android:${ver_gameanalytics}@aar") {
-    //     transitive = true
-    // }
-
-    // withanalyticsImplementation("io.fabric.sdk.android:fabric:${ver_fabric}@aar") {
-    //     transitive = true
-    // }
 
     withzeemoteImplementation fileTree(dir: 'src/withzeemote/libs', include: [ '*.jar' ])
 }
