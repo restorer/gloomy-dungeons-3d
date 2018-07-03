@@ -25,12 +25,12 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import zame.game.App;
 import zame.game.Common;
 import zame.game.GameActivity;
 import zame.game.MenuActivity;
 import zame.game.R;
 import zame.game.SoundManager;
-import zame.game.ZameApplication;
 import zame.game.engine.Game;
 
 public class MenuView extends RelativeLayout {
@@ -123,8 +123,8 @@ public class MenuView extends RelativeLayout {
             @SuppressWarnings("deprecation")
             public void onClick(View v) {
                 SoundManager.playSound(SoundManager.SOUND_BTN_PRESS);
-                ZameApplication.trackEvent("Menu", "Save", "", 0);
-                ZameApplication.flushEvents();
+                App.trackEvent("Menu", "Save", "", 0);
+                App.flushEvents();
 
                 fillSlots(data.slotStringsForSave, data.slotFileNamesForSave, false);
                 data.saveSlotsAdapter.notifyDataSetChanged();
@@ -142,8 +142,8 @@ public class MenuView extends RelativeLayout {
             @SuppressWarnings("deprecation")
             public void onClick(View v) {
                 SoundManager.playSound(SoundManager.SOUND_BTN_PRESS);
-                ZameApplication.trackEvent("Menu", "Menu", "", 0);
-                ZameApplication.flushEvents();
+                App.trackEvent("Menu", "Menu", "", 0);
+                App.flushEvents();
 
                 activity.openOptionsMenu();
             }
@@ -279,7 +279,7 @@ public class MenuView extends RelativeLayout {
             case DIALOG_ABOUT: {
                 data.aboutDialog = new AlertDialog.Builder(activity).setTitle(R.string.dlg_about_title)
                         .setMessage(Html.fromHtml(activity.getString(R.string.dlg_about_text)
-                                .replace("{VERSION_NAME}", ZameApplication.self.getVersionName())))
+                                .replace("{VERSION_NAME}", App.self.getVersionName())))
                         .setPositiveButton(R.string.dlg_ok, null)
                         .create();
 
@@ -359,7 +359,7 @@ public class MenuView extends RelativeLayout {
                                     //noinspection ResultOfMethodCallIgnored
                                     (new File(newSaveName + ".new")).renameTo(new File(newSaveName));
 
-                                    Toast.makeText(ZameApplication.self, R.string.msg_game_saved, Toast.LENGTH_LONG)
+                                    Toast.makeText(App.self, R.string.msg_game_saved, Toast.LENGTH_LONG)
                                             .show();
 
                                     MenuActivity.justLoaded = true; // just saved

@@ -1,17 +1,22 @@
 package zame.game.engine;
 
+import android.content.res.Resources;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import java.util.Locale;
 import javax.microedition.khronos.opengles.GL10;
+import zame.game.App;
 import zame.game.Config;
 import zame.game.R;
-import zame.game.ZameApplication;
 import zame.libs.LabelMaker;
 import zame.libs.NumericSprite;
 
 @SuppressWarnings("WeakerAccess")
 public final class Labels {
+    private static final int SCREEN_WIDTH_SM = 480;
+    private static final int SCREEN_WIDTH_MD = 800;
+    private static final int SCREEN_WIDTH_LG = 1100;
+
     public static final int LABEL_FPS = 1;
     public static final int LABEL_CANT_OPEN = 2;
     public static final int LABEL_NEED_BLUE_KEY = 3;
@@ -50,10 +55,10 @@ public final class Labels {
             R.string.lblm_go_to_door, // MSG_GO_TO_DOOR
     };
 
-    public static volatile LabelMaker maker;
-    public static volatile LabelMaker msgMaker;
-    public static volatile NumericSprite numeric;
-    public static volatile NumericSprite statsNumeric;
+    public static LabelMaker maker;
+    public static LabelMaker msgMaker;
+    public static NumericSprite numeric;
+    public static NumericSprite statsNumeric;
 
     private static Paint labelPaint;
     private static Paint msgPaint;
@@ -61,6 +66,7 @@ public final class Labels {
     private static int currentMessageId;
     private static int currentMessageLabelId;
     private static String currentMessageString;
+    private static int surfaceWidth;
 
     private Labels() {
     }
@@ -68,7 +74,7 @@ public final class Labels {
     @SuppressWarnings("MagicNumber")
     public static void init() {
         Typeface labelTypeface = Typeface.createFromAsset(Game.assetManager,
-                "fonts/" + ZameApplication.self.getString(R.string.font_name));
+                "fonts/" + App.self.getString(R.string.font_name));
 
         labelPaint = new Paint();
         labelPaint.setTypeface(labelTypeface);
@@ -86,23 +92,42 @@ public final class Labels {
         statsPaint.setARGB(0xFF, 0xFF, 0xFF, 0xFF);
     }
 
-    private static int getInt(int resId) {
-        return Integer.parseInt(ZameApplication.self.getString(resId));
+    private static int getVarSize(int resIdXs, int resIdSm, int resIdMd, int resIdLg) {
+        Resources res = App.self.getResources();
+
+        if (surfaceWidth < SCREEN_WIDTH_SM) {
+            return res.getInteger(resIdXs);
+        }
+
+        if (surfaceWidth < SCREEN_WIDTH_MD) {
+            return res.getInteger(resIdSm);
+        }
+
+        if (surfaceWidth < SCREEN_WIDTH_LG) {
+            return res.getInteger(resIdMd);
+        }
+
+        return res.getInteger(resIdLg);
     }
 
     @SuppressWarnings("MagicNumber")
     public static void surfaceSizeChanged(int width) {
-        labelPaint.setTextSize(getInt((width < 480)
-                ? R.string.font_lbl_size_sm
-                : ((width < 800) ? R.string.font_lbl_size_md : R.string.font_lbl_size_lg)));
+        surfaceWidth = width;
 
-        msgPaint.setTextSize(getInt((width < 480)
-                ? R.string.font_msg_size_sm
-                : ((width < 800) ? R.string.font_msg_size_md : R.string.font_msg_size_lg)));
+        labelPaint.setTextSize(getVarSize(R.integer.font_lbl_size_xs,
+                R.integer.font_lbl_size_sm,
+                R.integer.font_lbl_size_md,
+                R.integer.font_lbl_size_lg));
 
-        statsPaint.setTextSize(getInt((width < 480)
-                ? R.string.font_stats_size_sm
-                : ((width < 800) ? R.string.font_stats_size_md : R.string.font_stats_size_lg)));
+        msgPaint.setTextSize(getVarSize(R.integer.font_msg_size_xs,
+                R.integer.font_msg_size_sm,
+                R.integer.font_msg_size_md,
+                R.integer.font_msg_size_lg));
+
+        statsPaint.setTextSize(getVarSize(R.integer.font_stats_size_xs,
+                R.integer.font_stats_size_sm,
+                R.integer.font_stats_size_md,
+                R.integer.font_stats_size_lg));
     }
 
     public static int getMessageLabelId(GL10 gl, int messageId) {
@@ -115,12 +140,14 @@ public final class Labels {
         if (((Config.controlsType == Controls.TYPE_EXPERIMENTAL_A) || (Config.controlsType
                 == Controls.TYPE_EXPERIMENTAL_B)) && (messageId == MSG_PRESS_ROTATE)) {
 
-            message = ZameApplication.self.getString(R.string.lblm_slide_rotate);
+            message = App.self.getString(R.string.lblm_slide_rotate);
         } else if ((messageId > 0) && (messageId < MSG_LAST)) {
-            message = ZameApplication.self.getString(MSG_MAP[messageId]);
+            message = App.self.getString(MSG_MAP[messageId]);
         } else {
             message = String.format(Locale.US, "[message #%d]", messageId);
         }
+
+        android.util.Log.e("TAG", String.valueOf(msgPaint.getTextSize()));
 
         msgMaker.beginAdding(gl);
         currentMessageLabelId = msgMaker.add(gl, message, msgPaint);
@@ -151,31 +178,31 @@ public final class Labels {
     @SuppressWarnings("MagicNumber")
     public static void createLabels(GL10 gl) {
         if (maker == null) {
-            maker = new LabelMaker(true, 512, 256);
+            maker = new LabelMaker(true,
+                    (surfaceWidth < SCREEN_WIDTH_MD) ? 512 : 1024,
+                    (surfaceWidth < SCREEN_WIDTH_MD) ? 256 : 512);
         } else {
             maker.shutdown(gl);
         }
 
         maker.initialize(gl);
         maker.beginAdding(gl);
-        map[LABEL_FPS] = maker.add(gl, ZameApplication.self.getString(R.string.lbl_fps), labelPaint);
-        map[LABEL_CANT_OPEN] = maker.add(gl, ZameApplication.self.getString(R.string.lbl_cant_open_door), labelPaint);
+        map[LABEL_FPS] = maker.add(gl, App.self.getString(R.string.lbl_fps), labelPaint);
+        map[LABEL_CANT_OPEN] = maker.add(gl, App.self.getString(R.string.lbl_cant_open_door), labelPaint);
 
-        map[LABEL_NEED_BLUE_KEY] = maker.add(gl,
-                ZameApplication.self.getString(R.string.lbl_need_blue_key),
-                labelPaint);
+        map[LABEL_NEED_BLUE_KEY] = maker.add(gl, App.self.getString(R.string.lbl_need_blue_key), labelPaint);
 
-        map[LABEL_NEED_RED_KEY] = maker.add(gl, ZameApplication.self.getString(R.string.lbl_need_red_key), labelPaint);
+        map[LABEL_NEED_RED_KEY] = maker.add(gl, App.self.getString(R.string.lbl_need_red_key), labelPaint);
 
-        map[LABEL_NEED_GREEN_KEY] = maker.add(gl,
-                ZameApplication.self.getString(R.string.lbl_need_green_key),
-                labelPaint);
+        map[LABEL_NEED_GREEN_KEY] = maker.add(gl, App.self.getString(R.string.lbl_need_green_key), labelPaint);
 
-        map[LABEL_SECRET_FOUND] = maker.add(gl, ZameApplication.self.getString(R.string.lbl_secret_found), labelPaint);
+        map[LABEL_SECRET_FOUND] = maker.add(gl, App.self.getString(R.string.lbl_secret_found), labelPaint);
         maker.endAdding(gl);
 
         if (msgMaker == null) {
-            msgMaker = new LabelMaker(true, 1024, 64);
+            msgMaker = new LabelMaker(true,
+                    (surfaceWidth < SCREEN_WIDTH_MD) ? 1024 : 2048,
+                    (surfaceWidth < SCREEN_WIDTH_MD) ? 64 : 256);
         } else {
             msgMaker.shutdown(gl);
         }

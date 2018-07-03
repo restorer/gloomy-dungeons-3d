@@ -33,7 +33,7 @@ public class MenuActivity extends Activity {
         setContentView(R.layout.menu);
 
         MenuView.onActivityCreate(this);
-        ZameApplication.trackPageView("/menu");
+        App.trackPageView("/menu");
     }
 
     @Override

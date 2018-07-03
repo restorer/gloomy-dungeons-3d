@@ -15,7 +15,4 @@ public class ZameApplicationAnalyticsHelper {
     @SuppressWarnings("UnusedParameters")
     public void onCreate(ZameApplication app) {
     }
-
-    public void setInitialControlsType(String initialControlsType) {
-    }
 }

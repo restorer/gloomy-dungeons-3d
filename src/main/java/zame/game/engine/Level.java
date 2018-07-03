@@ -3,8 +3,8 @@ package zame.game.engine;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
+import zame.game.App;
 import zame.game.SoundManager;
-import zame.game.ZameApplication;
 import zame.game.ZameGame;
 
 @SuppressWarnings("WeakerAccess")
@@ -150,7 +150,7 @@ public final class Level {
                         ((idx - FIRST_REAL_LEVEL) % 5) + 1);
             }
 
-            ZameApplication.trackPageView(levelUri);
+            App.trackPageView(levelUri);
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
@@ -401,7 +401,7 @@ public final class Level {
         }
 
         if (State.levelNum == 1) {
-            ZameApplication.trackEvent("Tutorial", "ExecAction", String.valueOf(id), 0);
+            App.trackEvent("Tutorial", "ExecAction", String.valueOf(id), 0);
         }
 
         for (Action act : actions) {

@@ -17,15 +17,10 @@ public class ZameApplicationAnalyticsHelper {
         // probably do nothing for Fabric
     }
 
-    public void onCreate(ZameApplication app) {
+    public void onCreate(App app) {
         Fabric.with(new Fabric.Builder(app).kits(new Crashlytics()).debuggable(BuildConfig.DEBUG).build());
 
         // TODO:
         // tracker.setCustomVar(1, "Version", app.getVersionName(), 2); // slot: 1, scope: session
-    }
-
-    public void setInitialControlsType(String initialControlsType) {
-        // TODO:
-        // tracker.setCustomVar(2, "InitialControlsType", initialControlsType, 2); // slot: 2, scope: session
     }
 }

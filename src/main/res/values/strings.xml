@@ -2,18 +2,6 @@
 <resources>
     <string name="font_name">YanoneKaffeesatz.ttf</string>
 
-    <string name="font_lbl_size_sm">28</string>
-    <string name="font_lbl_size_md">32</string>
-    <string name="font_lbl_size_lg">36</string>
-
-    <string name="font_msg_size_sm">20</string>
-    <string name="font_msg_size_md">32</string>
-    <string name="font_msg_size_lg">36</string>
-
-    <string name="font_stats_size_sm">22</string>
-    <string name="font_stats_size_md">26</string>
-    <string name="font_stats_size_lg">30</string>
-
     <string name="menu_menu">Menu</string>
     <string name="menu_options">Options</string>
     <string name="menu_about">About</string>

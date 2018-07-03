@@ -72,14 +72,14 @@
                     app:min="1" />
 
                 <zame.libs.SeekBarPreference
-                    android:defaultValue="14"
+                    android:defaultValue="12"
                     android:key="MoveSpeed"
                     android:max="15"
                     android:title="@string/pref_move_speed"
                     app:min="1" />
 
                 <zame.libs.SeekBarPreference
-                    android:defaultValue="7"
+                    android:defaultValue="6"
                     android:key="StrafeSpeed"
                     android:max="15"
                     android:title="@string/pref_strafe_speed"

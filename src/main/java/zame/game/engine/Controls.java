@@ -11,7 +11,7 @@ import javax.microedition.khronos.opengles.GL10;
 import zame.game.Common;
 import zame.game.Config;
 import zame.game.Renderer;
-import zame.game.ZameApplication;
+import zame.game.App;
 
 public final class Controls {
     @SuppressWarnings("WeakerAccess")
@@ -685,7 +685,7 @@ public final class Controls {
                 pointerClickCounter += 1;
 
                 if (pointerClickCounter == 5) {
-                    ZameApplication.trackEvent("Tutorial", "Click", "", 0);
+                    App.trackEvent("Tutorial", "Click", "", 0);
                 }
             }
 

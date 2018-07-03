@@ -8,7 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import zame.game.Common;
 import zame.game.R;
-import zame.game.ZameApplication;
+import zame.game.App;
 
 @SuppressWarnings("WeakerAccess")
 public final class GameHelper {
@@ -99,8 +99,8 @@ public final class GameHelper {
                 //noinspection ResultOfMethodCallIgnored
                 oldExternalStorageFile.delete();
 
-                if (ZameApplication.self != null) {
-                    Toast.makeText(ZameApplication.self, R.string.msg_old_saves_restored, Toast.LENGTH_LONG).show();
+                if (App.self != null) {
+                    Toast.makeText(App.self, R.string.msg_old_saves_restored, Toast.LENGTH_LONG).show();
                 }
             }
         }

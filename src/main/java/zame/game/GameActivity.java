@@ -265,7 +265,7 @@ public class GameActivity extends Activity implements SensorEventListener {
             sensorManager.unregisterListener(this);
         }
 
-        ZameApplication.flushEvents();
+        App.flushEvents();
     }
 
     @SuppressWarnings("deprecation")

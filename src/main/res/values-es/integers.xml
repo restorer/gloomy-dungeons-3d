@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="font_lbl_size_xs">28</integer>
+    <integer name="font_lbl_size_sm">32</integer>
+    <integer name="font_lbl_size_md">48</integer>
+    <integer name="font_lbl_size_lg">64</integer>
+
+    <integer name="font_msg_size_xs">20</integer>
+    <integer name="font_msg_size_sm">32</integer>
+    <integer name="font_msg_size_md">48</integer>
+    <integer name="font_msg_size_lg">64</integer>
+
+    <integer name="font_stats_size_xs">22</integer>
+    <integer name="font_stats_size_sm">26</integer>
+    <integer name="font_stats_size_md">48</integer>
+    <integer name="font_stats_size_lg">64</integer>
+</resources>

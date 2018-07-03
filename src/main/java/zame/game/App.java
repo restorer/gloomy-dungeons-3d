@@ -5,8 +5,8 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-public class ZameApplication extends Application {
-    public static ZameApplication self;
+public class App extends Application {
+    public static App self;
 
     private String cachedVersionName;
 
@@ -14,20 +14,20 @@ public class ZameApplication extends Application {
     private ZameApplicationAnalyticsHelper analyticsHelper = new ZameApplicationAnalyticsHelper();
 
     public static void trackPageView(String pageUrl) {
-        if ((ZameApplication.self != null) && (ZameApplication.self.analyticsHelper != null)) {
-            ZameApplication.self.analyticsHelper.trackPageView(pageUrl);
+        if ((App.self != null) && (App.self.analyticsHelper != null)) {
+            App.self.analyticsHelper.trackPageView(pageUrl);
         }
     }
 
     public static void trackEvent(String category, String action, String label, int value) {
-        if ((ZameApplication.self != null) && (ZameApplication.self.analyticsHelper != null)) {
-            ZameApplication.self.analyticsHelper.trackEvent(category, action, label, value);
+        if ((App.self != null) && (App.self.analyticsHelper != null)) {
+            App.self.analyticsHelper.trackEvent(category, action, label, value);
         }
     }
 
     public static void flushEvents() {
-        if ((ZameApplication.self != null) && (ZameApplication.self.analyticsHelper != null)) {
-            ZameApplication.self.analyticsHelper.flushEvents();
+        if ((App.self != null) && (App.self.analyticsHelper != null)) {
+            App.self.analyticsHelper.flushEvents();
         }
     }
 
@@ -44,7 +44,6 @@ public class ZameApplication extends Application {
 
         //noinspection SizeReplaceableByIsEmpty
         if (initialControlsType.length() == 0) {
-            Common.init();
             initialControlsType = "Improved";
 
             SharedPreferences.Editor spEditor = sp.edit();
@@ -53,8 +52,6 @@ public class ZameApplication extends Application {
             spEditor.putString("PrevControlsType", initialControlsType);
             spEditor.apply();
         }
-
-        analyticsHelper.setInitialControlsType(initialControlsType);
     }
 
     public String getVersionName() {

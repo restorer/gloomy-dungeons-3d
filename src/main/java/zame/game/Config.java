@@ -55,7 +55,7 @@ public final class Config {
 
     @SuppressWarnings({ "SizeReplaceableByIsEmpty", "unused" })
     public static void checkControlsType() {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(ZameApplication.self);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(App.self);
 
         String controlsTypeStr = sp.getString("ControlsType", "");
         String prevControlsTypeStr = sp.getString("PrevControlsType", "");
@@ -69,14 +69,14 @@ public final class Config {
             spEditor.putString("PrevControlsType", controlsTypeStr);
             spEditor.commit();
 
-            ZameApplication.trackEvent("Config", "ControlsTypeChanged", controlsTypeStr, 0);
-            ZameApplication.flushEvents();
+            App.trackEvent("Config", "ControlsTypeChanged", controlsTypeStr, 0);
+            App.flushEvents();
         }
     }
 
     @SuppressWarnings("MagicNumber")
     public static void initialize() {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(ZameApplication.self);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(App.self);
         String controlsTypeStr = sp.getString("ControlsType", "PadL");
 
         if (ConfigZeemote.isZeemoteControlsType(controlsTypeStr)) {

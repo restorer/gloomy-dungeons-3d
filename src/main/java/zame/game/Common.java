@@ -294,7 +294,7 @@ public final class Common {
             return true;
         } catch (Exception ex) {
             Log.e(LOG_KEY, "Exception", ex);
-            Toast.makeText(ZameApplication.self, "Could not launch the market application.", Toast.LENGTH_LONG).show();
+            Toast.makeText(App.self, "Could not launch the market application.", Toast.LENGTH_LONG).show();
         }
 
         return false;
@@ -308,7 +308,7 @@ public final class Common {
             return true;
         } catch (Exception ex) {
             Log.e(LOG_KEY, "Exception", ex);
-            Toast.makeText(ZameApplication.self, "Could not launch the browser application.", Toast.LENGTH_LONG).show();
+            Toast.makeText(App.self, "Could not launch the browser application.", Toast.LENGTH_LONG).show();
         }
 
         return false;
@@ -337,7 +337,7 @@ public final class Common {
         }
 
         if (!success) {
-            Toast.makeText(ZameApplication.self, R.string.msg_cant_copy_state, Toast.LENGTH_LONG).show();
+            Toast.makeText(App.self, R.string.msg_cant_copy_state, Toast.LENGTH_LONG).show();
         }
 
         return success;

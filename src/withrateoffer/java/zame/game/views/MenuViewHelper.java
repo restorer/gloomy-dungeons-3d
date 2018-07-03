@@ -5,10 +5,10 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import zame.game.App;
 import zame.game.Common;
 import zame.game.MenuActivity;
 import zame.game.R;
-import zame.game.ZameApplication;
 
 public class MenuViewHelper {
     private static final int DIALOG_RATE_OFFER = 107;
@@ -34,8 +34,8 @@ public class MenuViewHelper {
                 spEditor.putInt("RateOfferDlgShownCnt", rateOfferDlgShownCnt + 1);
                 spEditor.commit();
 
-                ZameApplication.trackEvent("Menu", "RateDialog", "", 0);
-                ZameApplication.flushEvents();
+                App.trackEvent("Menu", "RateDialog", "", 0);
+                App.flushEvents();
 
                 activity.showDialog(DIALOG_RATE_OFFER);
                 return true;
@@ -53,9 +53,9 @@ public class MenuViewHelper {
                     .setTitle(R.string.dlg_rate_offer)
                     .setPositiveButton(R.string.dlg_yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
-                            if (Common.openMarket(activity, ZameApplication.self.getPackageName())) {
-                                ZameApplication.trackEvent("Menu", "RateDialogOk", "", 0);
-                                ZameApplication.flushEvents();
+                            if (Common.openMarket(activity, App.self.getPackageName())) {
+                                App.trackEvent("Menu", "RateDialogOk", "", 0);
+                                App.flushEvents();
                             }
 
                             activity.finish();
@@ -74,8 +74,8 @@ public class MenuViewHelper {
                 if (rateOfferDlgShownCnt > 1) {
                     resDialog.setNegativeButton(R.string.dlg_no, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
-                            ZameApplication.trackEvent("Menu", "RateDialogCancel", "", 0);
-                            ZameApplication.flushEvents();
+                            App.trackEvent("Menu", "RateDialogCancel", "", 0);
+                            App.flushEvents();
                             activity.finish();
                         }
                     });
@@ -106,8 +106,8 @@ public class MenuViewHelper {
         spEditor.putInt("RateOfferCnt", 5);
         spEditor.commit();
 
-        ZameApplication.trackEvent("Menu", "RateDialogLater", "", 0);
-        ZameApplication.flushEvents();
+        App.trackEvent("Menu", "RateDialogLater", "", 0);
+        App.flushEvents();
         activity.finish();
     }
 }

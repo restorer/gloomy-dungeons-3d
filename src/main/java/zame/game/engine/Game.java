@@ -18,6 +18,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Locale;
 import javax.microedition.khronos.opengles.GL10;
+import zame.game.App;
 import zame.game.Common;
 import zame.game.Config;
 import zame.game.GameActivity;
@@ -25,7 +26,6 @@ import zame.game.MenuActivity;
 import zame.game.R;
 import zame.game.Renderer;
 import zame.game.SoundManager;
-import zame.game.ZameApplication;
 import zame.game.ZameGame;
 
 public class Game extends ZameGame {
@@ -129,7 +129,7 @@ public class Game extends ZameGame {
 
         //noinspection SizeReplaceableByIsEmpty
         if ((result.length() == 0) && (appContext != null)) {
-            Toast.makeText(ZameApplication.self, "Critical error!\nCan't open internal storage.", Toast.LENGTH_LONG)
+            Toast.makeText(App.self, "Critical error!\nCan't open internal storage.", Toast.LENGTH_LONG)
                     .show();
         }
 
@@ -276,7 +276,7 @@ public class Game extends ZameGame {
         renderBlackScreen = true;
         SoundManager.setPlaylist(SoundManager.LIST_GAMEOVER);
         GameActivity.changeView(R.layout.game_over);
-        ZameApplication.trackPageView("/game/game-over");
+        App.trackPageView("/game/game-over");
     }
 
     private void showEndLevelScreen() {
@@ -1315,7 +1315,7 @@ public class Game extends ZameGame {
     }
 
     private static boolean saveGameState(String name) {
-        initPaths(ZameApplication.self);
+        initPaths(App.self);
 
         String saveName = (name.equals(INSTANT_NAME)
                 ? INSTANT_PATH
@@ -1341,7 +1341,7 @@ public class Game extends ZameGame {
 
         if (!success) {
             try {
-                Toast.makeText(ZameApplication.self, R.string.msg_cant_save_state, Toast.LENGTH_LONG).show();
+                Toast.makeText(App.self, R.string.msg_cant_save_state, Toast.LENGTH_LONG).show();
             } catch (Exception ex) {
                 // something really bad happened
             }
@@ -1351,14 +1351,14 @@ public class Game extends ZameGame {
     }
 
     private static boolean loadGameState(String name) {
-        initPaths(ZameApplication.self);
+        initPaths(App.self);
 
         String saveName = (name.equals(INSTANT_NAME)
                 ? INSTANT_PATH
                 : (name.equals(AUTOSAVE_NAME) ? AUTOSAVE_PATH : (SAVES_ROOT + name + ".save")));
 
         boolean success = true;
-        String errorMessage = ZameApplication.self.getString(R.string.msg_cant_load_state);
+        String errorMessage = App.self.getString(R.string.msg_cant_load_state);
 
         try {
             FileInputStream fi = new FileInputStream(saveName);
@@ -1377,7 +1377,7 @@ public class Game extends ZameGame {
         }
 
         if (!success) {
-            Toast.makeText(ZameApplication.self, errorMessage, Toast.LENGTH_LONG).show();
+            Toast.makeText(App.self, errorMessage, Toast.LENGTH_LONG).show();
         }
 
         if (success && State.tmpReloadLevel) {

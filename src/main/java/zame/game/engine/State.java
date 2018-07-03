@@ -5,8 +5,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Locale;
+import zame.game.App;
 import zame.game.Common;
-import zame.game.ZameApplication;
 
 @SuppressWarnings("WeakerAccess")
 public final class State {
@@ -145,7 +145,7 @@ public final class State {
     public static void writeTo(ObjectOutputStream os) throws IOException {
         os.writeUTF("GloomyDungeons.7");
 
-        os.writeUTF(ZameApplication.self.getVersionName());
+        os.writeUTF(App.self.getVersionName());
         os.writeInt(levelNum);
         os.writeFloat(heroX);
         os.writeFloat(heroY);
