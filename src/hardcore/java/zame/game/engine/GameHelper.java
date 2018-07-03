@@ -8,7 +8,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import zame.game.Common;
 import zame.game.R;
-import zame.game.ZameApplication;
 
 public class GameHelper
 {
