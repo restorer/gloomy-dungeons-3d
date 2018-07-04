@@ -1,6 +1,5 @@
 package zame.game;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -11,7 +10,7 @@ import android.view.MenuItem;
 import zame.game.engine.Game;
 import zame.game.views.MenuView;
 
-public class MenuActivity extends Activity {
+public class MenuActivity extends BaseActivity {
     public static boolean justLoaded; // or just saved, or just new game started
     public static MenuActivity self;
 

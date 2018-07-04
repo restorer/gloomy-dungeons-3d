@@ -12,6 +12,6 @@
 
     <integer name="font_stats_size_xs">20</integer>
     <integer name="font_stats_size_sm">24</integer>
-    <integer name="font_stats_size_md">42</integer>
-    <integer name="font_stats_size_lg">62</integer>
+    <integer name="font_stats_size_md">40</integer>
+    <integer name="font_stats_size_lg">42</integer>
 </resources>

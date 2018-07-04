@@ -1,7 +1,6 @@
 package zame.game;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -26,7 +25,7 @@ import zame.game.engine.Game;
 import zame.game.views.GameView;
 import zame.game.views.IZameView;
 
-public class GameActivity extends Activity implements SensorEventListener {
+public class GameActivity extends BaseActivity implements SensorEventListener {
     private static final int DIALOG_ENTER_CODE = 1;
 
     public static final int ACTION_RELOAD_LEVEL = 1;
@@ -42,7 +41,7 @@ public class GameActivity extends Activity implements SensorEventListener {
     private Sensor accelerometer;
     private int deviceRotation;
     @SuppressWarnings("BooleanVariableAlwaysNegated") private boolean justAfterPause;
-    @SuppressWarnings("BooleanVariableAlwaysNegated") private boolean soundAlreadyStopped ; // fix multi-activity issues
+    @SuppressWarnings("BooleanVariableAlwaysNegated") private boolean soundAlreadyStopped; // fix multi-activity issues
     private GameActivityZeemoteHelper zeemoteHelper;
 
     public boolean instantMusicPause = true;
@@ -53,7 +52,7 @@ public class GameActivity extends Activity implements SensorEventListener {
             GameActivity.self.handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    GameActivity.self.openOptionsMenu();
+                    GameActivity.self.appOpenOptionsMenu(GameActivity.self.findViewById(R.id.MenuAnchorView));
                 }
             });
         }
@@ -193,6 +192,8 @@ public class GameActivity extends Activity implements SensorEventListener {
 
         if (Config.accelerometerEnabled) {
             sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+            assert sensorManager != null;
+
             accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
             // documentation says that getOrientation() is deprecated, and we must use getRotation instead()
@@ -282,7 +283,7 @@ public class GameActivity extends Activity implements SensorEventListener {
                         .setPositiveButton(R.string.dlg_ok, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                EditText inp = (EditText)codeDialogView.findViewById(R.id.CodeText);
+                                EditText inp = codeDialogView.findViewById(R.id.CodeText);
                                 gameViewData.game.setGameCode(inp.getText().toString());
                                 inp.setText("");
                             }

@@ -145,20 +145,20 @@ public class MenuView extends RelativeLayout {
                 App.trackEvent("Menu", "Menu", "", 0);
                 App.flushEvents();
 
-                activity.openOptionsMenu();
+                activity.appOpenOptionsMenu(v);
             }
         });
 
-        data.slotStringsForLoad = new ArrayList<String>();
-        data.slotFileNamesForLoad = new ArrayList<String>();
-        data.slotStringsForSave = new ArrayList<String>();
-        data.slotFileNamesForSave = new ArrayList<String>();
+        data.slotStringsForLoad = new ArrayList<>();
+        data.slotFileNamesForLoad = new ArrayList<>();
+        data.slotStringsForSave = new ArrayList<>();
+        data.slotFileNamesForSave = new ArrayList<>();
 
-        data.loadSlotsAdapter = new ArrayAdapter<String>(activity,
+        data.loadSlotsAdapter = new ArrayAdapter<>(activity,
                 android.R.layout.select_dialog_item,
                 data.slotStringsForLoad);
 
-        data.saveSlotsAdapter = new ArrayAdapter<String>(activity,
+        data.saveSlotsAdapter = new ArrayAdapter<>(activity,
                 android.R.layout.select_dialog_singlechoice,
                 data.slotStringsForSave);
 

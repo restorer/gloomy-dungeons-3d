@@ -5,6 +5,12 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent">
 
+    <View
+        android:id="@+id/MenuAnchorView"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_height="24dp"
+        android:layout_width="120dp" />
+
     <zame.game.views.ZameGameView
         android:id="@+id/ZameGameView"
         android:layout_height="match_parent"
