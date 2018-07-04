@@ -147,8 +147,6 @@ public final class Labels {
             message = String.format(Locale.US, "[message #%d]", messageId);
         }
 
-        android.util.Log.e("TAG", String.valueOf(msgPaint.getTextSize()));
-
         msgMaker.beginAdding(gl);
         currentMessageLabelId = msgMaker.add(gl, message, msgPaint);
         msgMaker.endAdding(gl);

@@ -47,15 +47,10 @@ Build:2018.07.02,1807020000
         rm src/withzeemote/libs/ZControllerLib-android-1.9.2.jar && \
         rm src/withzeemote/libs/ZControllerLib-android-ui-1.9.2.jar && \
         rm src/withzeemote/libs/ZControllerLib-common-1.9.2.jar && \
-        sed '/maven.fabric.io/d' build.gradle > m.build.gradle && \
-        rm build.gradle && \
-        mv m.build.gradle build.gradle && \
-        sed '/maven.gameanalytics.com/d' build.gradle > m.build.gradle && \
-        rm build.gradle && \
-        mv m.build.gradle build.gradle && \
-        sed '/io.fabric.tools/d' build.gradle > m.build.gradle && \
-        rm build.gradle && \
-        mv m.build.gradle build.gradle
+        sed -i.bak -e '/maven.fabric.io/d' build.gradle && \
+        sed -i.bak -e '/maven.gameanalytics.com/d' build.gradle && \
+        sed -i.bak -e '/io.fabric.tools/d' build.gradle && \
+        rm build.gradle.bak
     gradle=FdroidhardcoreHardcoreWithoutanalyticsWithoutzeemoteWithoutrateoffer
     novcheck=yes
 
